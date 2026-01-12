@@ -1,28 +1,47 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --aurora-purple: #3A29FF;
+  --aurora-purple-rgb: 58, 41, 255;
+  --aurora-pink: #FF94B4;
+  --aurora-pink-rgb: 255, 148, 180;
+  --aurora-red: #FF3232;
+  --aurora-red-rgb: 255, 50, 50;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-dm-sans);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --aurora-purple: #3A29FF;
+    --aurora-purple-rgb: 58, 41, 255;
+    --aurora-pink: #FF94B4;
+    --aurora-pink-rgb: 255, 148, 180;
+    --aurora-red: #FF3232;
+    --aurora-red-rgb: 255, 50, 50;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Arial', sans-serif;
+  /* The conflicting font-family rule has been removed from here */
+}
+
+.font-space-grotesk {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
 }
 
 /* Mapbox CSS overrides */
@@ -41,3 +60,211 @@ body {
 .mapboxgl-ctrl-attrib {
   display: none !important;
 }
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes flowRight {
+  0% {
+    transform: translateX(-12px);
+    opacity: 0;
+    scale: 0.8;
+  }
+  15% {
+    opacity: 1;
+    scale: 1;
+  }
+  85% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    transform: translateX(40px);
+    opacity: 0;
+    scale: 0.8;
+  }
+}
+
+@keyframes arrowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Vertical flowing dot animation for mobile */
+@keyframes flowDown {
+  0% {
+    top: -12px;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    top: calc(100% - 12px);
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* Advanced flowing particle animation similar to ClipStream */
+@keyframes flowPath {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Alternative keyframes for browsers that don't support offset-path */
+@keyframes flowPathFallback {
+  0% {
+    left: 5px;
+    top: 24px;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  25% {
+    left: 20px;
+    top: 14px;
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    left: 40px;
+    top: 24px;
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  75% {
+    left: 60px;
+    top: 14px;
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    left: 75px;
+    top: 24px;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Animation Classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.animate-flowRight {
+  animation: flowRight 2.5s ease-in-out infinite;
+}
+
+.animate-arrowPulse {
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+.animate-flowDown {
+  animation: flowDown 3s ease-in-out infinite;
+}
+
+.animate-flowPath {
+  animation: flowPath 3s ease-in-out infinite;
+  offset-path: path("M5 24 Q20 10, 40 24 T75 24");
+  position: absolute;
+}
+
+/* Fallback for older browsers */
+@supports not (offset-path: path("M0,0 L1,1")) {
+  .animate-flowPath {
+    animation: flowPathFallback 3s ease-in-out infinite;
+  }
+}
+
+/* Particle glow effect */
+.particle {
+  box-shadow: 0 0 10px rgba(var(--aurora-purple-rgb), 0.6), 0 0 20px rgba(var(--aurora-purple-rgb), 0.4);
+}
+
+/* Enhanced backdrop blur support */
+@supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0)) {
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+  
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  
+  .backdrop-blur-sm {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not ((backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0))) {
+  .backdrop-blur-xl {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .backdrop-blur-md {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .backdrop-blur-sm {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+}
+

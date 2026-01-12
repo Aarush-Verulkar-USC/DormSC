@@ -36,7 +36,7 @@ export default function HouseCard({
 
   return (
     <Link href={`/listing/${house.id}`}>
-      <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
+      <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group hover:border-gray-600">
         <div className="relative">
           {house.images && house.images.length > 0 && !imageError ? (
             <img
@@ -46,8 +46,8 @@ export default function HouseCard({
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-full h-48 bg-gray-700 flex items-center justify-center">
+              <svg className="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
@@ -58,17 +58,17 @@ export default function HouseCard({
             <button
               onClick={handleFavoriteClick}
               disabled={favoriteLoading}
-              className="absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white transition-colors disabled:opacity-50"
+              className="absolute top-3 right-3 p-2 rounded-full bg-gray-800/90 backdrop-blur-sm shadow-md hover:bg-gray-700 transition-colors disabled:opacity-50"
               title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
             >
               {favoriteLoading ? (
-                <div className="w-5 h-5 border-2 border-gray-300 border-t-red-500 rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-gray-600 border-t-[#FF3232] rounded-full animate-spin"></div>
               ) : (
                 <svg 
                   className={`w-5 h-5 transition-colors ${
-                    isFavorite 
-                      ? 'text-red-500 fill-current' 
-                      : 'text-gray-400 hover:text-red-500'
+                    isFavorite
+                      ? 'text-[#FF3232] fill-current'
+                      : 'text-gray-400 hover:text-[#FF3232]'
                   }`} 
                   fill={isFavorite ? 'currentColor' : 'none'} 
                   stroke="currentColor" 
@@ -94,12 +94,12 @@ export default function HouseCard({
         </div>
         
         <div className="p-4">
-          <h3 className="font-semibold text-lg text-gray-900 mb-2 line-clamp-2">
+          <h3 className="font-semibold text-lg text-white mb-2 line-clamp-2">
             {house.title}
           </h3>
           
-          <p className="text-gray-600 text-sm mb-3 flex items-center">
-            <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <p className="text-gray-300 text-sm mb-3 flex items-center">
+            <svg className="w-4 h-4 mr-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -107,7 +107,7 @@ export default function HouseCard({
           </p>
           
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center space-x-4 text-sm text-gray-500">
+            <div className="flex items-center space-x-4 text-sm text-gray-400">
               <span className="flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
@@ -125,21 +125,21 @@ export default function HouseCard({
           
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-2xl font-bold text-gray-900">
+              <span className="text-2xl font-bold text-white">
                 ${house.price.toLocaleString()}
               </span>
-              <span className="text-gray-500 text-sm">/month</span>
+              <span className="text-gray-400 text-sm">/month</span>
             </div>
             {house.distanceToUSC && (
-              <span className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded">
+              <span className="text-sm text-[#3A29FF] font-medium bg-[#3A29FF]/20 px-2 py-1 rounded">
                 {house.distanceToUSC} mi to USC
               </span>
             )}
           </div>
           
           {house.availableDate && (
-            <div className="mt-3 pt-3 border-t border-gray-100">
-              <span className="text-sm text-gray-500 flex items-center">
+            <div className="mt-3 pt-3 border-t border-gray-700">
+              <span className="text-sm text-gray-400 flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lsof:*)",
+      "WebFetch(domain:clipstream-ai.vercel.app)",
+      "Bash(npm run build:*)",
+      "Bash(find:*)",
+      "Bash(npx shadcn:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

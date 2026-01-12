@@ -45,7 +45,7 @@ export default function MapBox({ address, className = '', height = 'h-64' }: Map
           
           map.current = new mapboxgl.Map({
             container: mapContainer.current!,
-            style: 'mapbox://styles/mapbox/streets-v12',
+            style: 'mapbox://styles/mapbox/dark-v11',
             center: [lng, lat],
             zoom: 15,
             attributionControl: false
@@ -98,14 +98,14 @@ export default function MapBox({ address, className = '', height = 'h-64' }: Map
 
   if (error) {
     return (
-      <div className={`${height} ${className} bg-gray-100 rounded-lg flex items-center justify-center`}>
-        <div className="text-center text-gray-600">
-          <svg className="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className={`${height} ${className} bg-gray-800 rounded-lg flex items-center justify-center`}>
+        <div className="text-center text-gray-300">
+          <svg className="w-8 h-8 mx-auto mb-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
           <p className="text-sm">{error}</p>
-          <p className="text-xs text-gray-500 mt-1">{address}</p>
+          <p className="text-xs text-gray-400 mt-1">{address}</p>
         </div>
       </div>
     );
@@ -114,25 +114,25 @@ export default function MapBox({ address, className = '', height = 'h-64' }: Map
   return (
     <div className={`${height} ${className} relative`}>
       {loading && (
-        <div className="absolute inset-0 bg-gray-100 rounded-lg flex items-center justify-center z-10">
+        <div className="absolute inset-0 bg-gray-800 rounded-lg flex items-center justify-center z-10">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-            <p className="text-sm text-gray-600">Loading map...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3A29FF] mx-auto mb-2"></div>
+            <p className="text-sm text-gray-300">Loading map...</p>
           </div>
         </div>
       )}
       <div ref={mapContainer} className={`w-full ${height} rounded-lg`} />
       
       {/* Legend */}
-      <div className="absolute bottom-3 left-3 bg-white rounded-lg shadow-md p-2 text-xs">
+      <div className="absolute bottom-3 left-3 bg-gray-800 rounded-lg shadow-md p-2 text-xs text-gray-300 border border-gray-700">
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
-            <div className="w-3 h-3 bg-blue-600 rounded-full mr-1"></div>
-            <span>Property</span>
+            <div className="w-3 h-3 bg-[#3A29FF] rounded-full mr-1"></div>
+            <span className="text-gray-300">Property</span>
           </div>
           <div className="flex items-center">
             <div className="w-3 h-3 bg-red-600 rounded-full mr-1"></div>
-            <span>USC</span>
+            <span className="text-gray-300">USC</span>
           </div>
         </div>
       </div>

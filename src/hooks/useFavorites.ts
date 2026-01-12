@@ -4,21 +4,12 @@ import {
   collection, 
   addDoc, 
   deleteDoc, 
-  getDocs, 
-  doc,
+  getDocs,
   query,
-  where,
-  onSnapshot
+  where
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
-
-interface Favorite {
-  id: string;
-  userId: string;
-  houseId: string;
-  createdAt: string;
-}
 
 export function useFavorites() {
   const { currentUser } = useAuth();
