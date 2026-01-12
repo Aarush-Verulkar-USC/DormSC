@@ -70,7 +70,7 @@ export default function StarRating({
         })}
       </div>
       {showNumber && (
-        <span className={`text-gray-600 ${textSizeClasses[size]} ml-1`}>
+        <span className={`text-gray-600 dark:text-gray-300 ${textSizeClasses[size]} ml-1`}>
           {rating.toFixed(1)}
         </span>
       )}

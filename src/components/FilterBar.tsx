@@ -1,6 +1,15 @@
 'use client';
 import { useState } from 'react';
-import { FilterType } from '@/types/house';
+
+// Define FilterType locally instead of importing
+interface FilterType {
+  searchTerm: string;
+  minPrice: string;
+  maxPrice: string;
+  bedrooms: string;
+  bathrooms: string;
+}
+
 
 interface FilterBarProps {
   onFilterChange: (filters: FilterType) => void;
@@ -34,11 +43,11 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+    <div className="bg-gray-800 p-6 rounded-lg shadow-md mb-6 border border-gray-700">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Search */}
         <div className="lg:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">
             Search
           </label>
           <input
@@ -46,13 +55,13 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             placeholder="Search by title or address..."
             value={filters.searchTerm}
             onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white placeholder-gray-400 bg-gray-700"
           />
         </div>
 
         {/* Price Range */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">
             Min Price
           </label>
           <input
@@ -60,12 +69,12 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             placeholder="$0"
             value={filters.minPrice}
             onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white placeholder-gray-400 bg-gray-700"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">
             Max Price
           </label>
           <input
@@ -73,21 +82,21 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             placeholder="$5000"
             value={filters.maxPrice}
             onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white placeholder-gray-400 bg-gray-700"
           />
         </div>
 
         {/* Bedrooms */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">
             Bedrooms
           </label>
           <select
             value={filters.bedrooms}
             onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white bg-gray-700"
           >
-            <option value="" className="text-gray-500">Any</option>
+            <option value="" className="text-gray-400">Any</option>
             <option value="1">1+</option>
             <option value="2">2+</option>
             <option value="3">3+</option>
@@ -100,15 +109,15 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Bathrooms */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Bathrooms
             </label>
             <select
               value={filters.bathrooms}
               onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
+              className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white bg-gray-700"
             >
-              <option value="" className="text-gray-500">Any</option>
+              <option value="" className="text-gray-400">Any</option>
               <option value="1">1+</option>
               <option value="2">2+</option>
               <option value="3">3+</option>
@@ -118,7 +127,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
 
         <button
           onClick={clearFilters}
-          className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+          className="bg-[#FF3232] hover:bg-[#e02828] text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors"
         >
           Clear Filters
         </button>
