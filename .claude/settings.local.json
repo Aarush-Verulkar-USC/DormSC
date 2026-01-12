@@ -8,7 +8,13 @@
       "Bash(npx shadcn:*)",
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nImprove Why Choose DormSC section with CardSwap animation\n\n- Added CardSwap component using GSAP for animated card transitions\n- Replaced gradient colors with cohesive blue theme matching Aurora background\n- Switched from Heroicons to Lucide React icon pack\n- Implemented two-column layout with feature list and animated cards\n- Cards swap every 2.5 seconds with elastic animation\n- Added pause on hover functionality\n- Enhanced visual consistency across the homepage\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git filter-branch:*)"
     ],
     "deny": [],
     "ask": []
