@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 interface MapBoxWithRouteProps {
   address: string;
   onDistanceCalculated?: (distance: number) => void;
+  onAddressValidation?: (isValid: boolean) => void;
   className?: string;
   height?: string;
 }
@@ -15,6 +16,7 @@ const USC_COORDS: [number, number] = [-118.2851, 34.0224];
 export default function MapBoxWithRoute({
   address,
   onDistanceCalculated,
+  onAddressValidation,
   className = '',
   height = 'h-96'
 }: MapBoxWithRouteProps) {
@@ -95,15 +97,35 @@ export default function MapBoxWithRoute({
 
         if (!geocodeData.features || geocodeData.features.length === 0) {
           setError('Address not found');
+          onAddressValidation?.(false);
           setLoading(false);
           return;
         }
 
-        const [propertyLng, propertyLat] = geocodeData.features[0].center;
+        const feature = geocodeData.features[0];
+        const relevance = feature.relevance ?? 0;
+        const placeTypes: string[] = feature.place_type ?? [];
+        const isValidAddress = relevance >= 0.6 && placeTypes.some((t: string) => ['address', 'poi', 'place', 'locality', 'neighborhood'].includes(t));
+
+        if (!isValidAddress) {
+          setError('Invalid address. Please enter a more specific address.');
+          onAddressValidation?.(false);
+          setLoading(false);
+          return;
+        }
+
+        const [propertyLng, propertyLat] = feature.center;
         const propertyCoords: [number, number] = [propertyLng, propertyLat];
 
         // Fetch route data
         const route = await fetchRouteData(propertyCoords);
+        if (!route) {
+          setError('Could not calculate route to this address.');
+          onAddressValidation?.(false);
+          setLoading(false);
+          return;
+        }
+        onAddressValidation?.(true);
         setRouteData(route);
 
         // Initialize map
@@ -111,7 +133,7 @@ export default function MapBoxWithRoute({
 
         map.current = new mapboxgl.Map({
           container: mapContainer.current!,
-          style: 'mapbox://styles/mapbox/dark-v11',
+          style: 'mapbox://styles/mapbox/navigation-night-v1',
           center: propertyCoords,
           zoom: 12,
           attributionControl: false
@@ -250,7 +272,7 @@ export default function MapBoxWithRoute({
       {loading && (
         <div className="absolute inset-0 bg-gray-800 rounded-lg flex items-center justify-center z-10">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-2"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500 mx-auto mb-2"></div>
             <p className="text-sm text-gray-300">Calculating route...</p>
           </div>
         </div>
@@ -262,7 +284,7 @@ export default function MapBoxWithRoute({
         <div className="space-y-2">
           <div className="flex items-center space-x-4 text-xs">
             <div className="flex items-center">
-              <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+              <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
               <span className="text-gray-300">Property</span>
             </div>
             <div className="flex items-center">
@@ -273,7 +295,7 @@ export default function MapBoxWithRoute({
           {distance !== null && (
             <div className="pt-2 border-t border-gray-700">
               <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
                 <span className="text-sm font-semibold text-white">{distance} miles</span>

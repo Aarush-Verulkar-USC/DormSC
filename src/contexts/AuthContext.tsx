@@ -7,12 +7,15 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  sendEmailVerification,
   User
 } from 'firebase/auth';
 import { auth } from '../lib/firebase';
+import { isAdminEmail } from '../lib/admin';
 
 interface AuthContextType {
   currentUser: User | null;
+  isAdmin: boolean;
   signup: (email: string, password: string) => Promise<any>;
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
@@ -37,8 +40,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  function signup(email: string, password: string) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async function signup(email: string, password: string) {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    await sendEmailVerification(result.user);
+    return result;
   }
 
   function login(email: string, password: string) {
@@ -65,6 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const value: AuthContextType = {
     currentUser,
+    isAdmin: isAdminEmail(currentUser?.email),
     signup,
     login,
     logout,

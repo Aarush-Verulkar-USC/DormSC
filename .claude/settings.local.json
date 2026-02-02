@@ -14,7 +14,21 @@
       "Bash(git push:*)",
       "Bash(git rm:*)",
       "Bash(git commit:*)",
-      "Bash(git filter-branch:*)"
+      "Bash(git filter-branch:*)",
+      "Bash(npx vercel:*)",
+      "Bash(ls:*)",
+      "Bash(pkill:*)",
+      "Bash(tee:*)",
+      "Bash(for f in /Users/aarush/Documents/Projects/DormSC/src/app/add-listing/page.tsx /Users/aarush/Documents/Projects/DormSC/src/app/my-listings/page.tsx /Users/aarush/Documents/Projects/DormSC/src/app/listings/page.tsx /Users/aarush/Documents/Projects/DormSC/src/app/favorites/page.tsx /Users/aarush/Documents/Projects/DormSC/src/app/edit-listing/[id]/page.tsx /Users/aarush/Documents/Projects/DormSC/src/app/admin/seed/page.tsx)",
+      "Bash(do perl -0777 -i -pe 's|<div className=\"\"min-h-screen relative overflow-hidden\"\">|<div className=\"\"min-h-screen bg-gray-950\"\">|g' \"$f\")",
+      "Bash(perl:*)",
+      "Bash(perl -0777 -i -pe:*)",
+      "Bash(echo:*)",
+      "Bash(done)",
+      "Bash(xargs kill:*)",
+      "Bash(npx next lint)",
+      "Bash(node -e:*)",
+      "Bash(npx next build:*)"
     ],
     "deny": [],
     "ask": []

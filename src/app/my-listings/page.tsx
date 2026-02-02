@@ -119,10 +119,10 @@ export default function MyListings() {
                 <div className="absolute top-4 left-4">
                   <span className={`inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold rounded-full ${
                     house.isActive
-                      ? 'bg-emerald-500/20 border border-emerald-400/30 text-emerald-200'
+                      ? 'bg-purple-500/20 border border-purple-400/30 text-purple-200'
                       : 'bg-gray-500/20 border border-gray-400/30 text-gray-300'
                   }`}>
-                    <div className={`w-2 h-2 rounded-full ${house.isActive ? 'bg-emerald-400' : 'bg-gray-400'}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${house.isActive ? 'bg-purple-400' : 'bg-gray-400'}`}></div>
                     {house.isActive ? 'Active' : 'Inactive'}
                   </span>
                 </div>
@@ -144,7 +144,7 @@ export default function MyListings() {
 
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <div className="text-2xl font-bold text-white">${house.price.toLocaleString()}</div>
+                  <div className="text-2xl font-bold text-white font-mono">${house.price.toLocaleString()}</div>
                   <div className="text-sm text-gray-400">per month</div>
                 </div>
                 <div className="text-right">
@@ -165,7 +165,7 @@ export default function MyListings() {
                 </Link>
                 <Link
                   href={`/edit-listing/${house.id}`}
-                  className="flex-1 py-2 px-4 bg-blue-500/20 border border-blue-400/30 text-blue-200 rounded-xl text-sm font-medium hover:bg-blue-500/30 transition-all duration-300 text-center"
+                  className="flex-1 py-2 px-4 bg-purple-500/20 border border-purple-400/30 text-purple-200 rounded-xl text-sm font-medium hover:bg-purple-500/30 transition-all duration-300 text-center"
                 >
                   Edit
                 </Link>
@@ -196,14 +196,8 @@ export default function MyListings() {
   
   if (!currentUser) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-        </div>
-
-        <div className="relative z-10 pt-24 pb-12 flex items-center justify-center min-h-screen">
+      <div className="min-h-screen bg-gray-950">
+        <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-500/20 rounded-full mb-6">
@@ -230,14 +224,8 @@ export default function MyListings() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-      </div>
-
-      <div className="relative z-10 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-950">
+      <div className=" pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header Section */}
@@ -247,7 +235,7 @@ export default function MyListings() {
               <p className="text-gray-300 text-lg">
                 Manage your properties available for rent.
               </p>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-200 text-sm mt-2">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 border border-purple-400/30 rounded-full text-purple-200 text-sm mt-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
