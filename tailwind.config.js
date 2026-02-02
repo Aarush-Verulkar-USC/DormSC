@@ -9,9 +9,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // Font families setup for DM Sans
+      // Font families setup for Inter and JetBrains Mono
       fontFamily: {
-        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'], // Sets DM Sans as the default font
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'], // Sets Inter as the default font
+        mono: ['var(--font-jetbrains-mono)', 'monospace'], // Sets JetBrains Mono as the mono font
       },
       colors: {
         border: "hsl(var(--border))",

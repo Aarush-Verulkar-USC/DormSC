@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useHouses } from '@/hooks/useHouses';
 import { useRouter } from 'next/navigation';
+import { useBlockedUsers } from '@/hooks/useBlockedUsers';
 import MapBoxWithRoute from '@/components/MapBoxWithRoute';
 
 const amenitiesList = [
@@ -32,9 +33,12 @@ interface FormData {
 export default function AddListing() {
   const { currentUser } = useAuth();
   const { addHouse } = useHouses();
+  const { isBlocked } = useBlockedUsers();
   const router = useRouter();
-  
+
+  const userBlocked = isBlocked(currentUser?.email);
   const [loading, setLoading] = useState(false);
+  const [addressValid, setAddressValid] = useState<boolean | null>(null);
   const [formData, setFormData] = useState<FormData>({
     title: '',
     description: '',
@@ -75,7 +79,11 @@ export default function AddListing() {
   };
 
   const handleImageChange = (index: number, value: string) => {
-    setFormData(prev => ({ ...prev, images: prev.images.map((img, i) => i === index ? value : img) }));
+    setFormData(prev => {
+      const newImages = [...prev.images];
+      newImages[index] = value;
+      return { ...prev, images: newImages };
+    });
   };
 
   const addImageField = () => {
@@ -90,6 +98,14 @@ export default function AddListing() {
     e.preventDefault();
     if (!currentUser) {
       alert('Please sign in to add a listing');
+      return;
+    }
+    if (userBlocked) {
+      alert('Your account has been restricted. You cannot create listings.');
+      return;
+    }
+    if (addressValid === false) {
+      alert('Please enter a valid address before submitting.');
       return;
     }
     try {
@@ -116,14 +132,8 @@ export default function AddListing() {
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-        </div>
-
-        <div className="relative z-10 pt-24 pb-12 flex items-center justify-center min-h-screen">
+      <div className="min-h-screen bg-gray-950">
+        <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-500/20 rounded-full mb-6">
@@ -155,14 +165,8 @@ export default function AddListing() {
   const textareaStyle = "w-full px-4 py-3 backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:bg-white/20 focus:border-white/40 transition-all duration-300 resize-y";
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-      </div>
-
-      <div className="relative z-10 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-950">
+      <div className=" pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
@@ -170,6 +174,15 @@ export default function AddListing() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Add New Listing</h1>
             <p className="text-gray-300 text-lg">Share your property with the USC student community</p>
           </div>
+
+          {userBlocked && (
+            <div className="mb-6 px-5 py-4 bg-red-500/20 border border-red-400/30 rounded-2xl text-red-200 text-sm flex items-center gap-3">
+              <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+              </svg>
+              <span>Your account has been restricted. You cannot create or edit listings.</span>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
 
@@ -251,7 +264,7 @@ export default function AddListing() {
                   <div>
                     <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                       Distance to USC (miles)
-                      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </label>
@@ -307,8 +320,17 @@ export default function AddListing() {
                   onDistanceCalculated={(distance) => {
                     setFormData(prev => ({ ...prev, distanceToUSC: distance.toString() }));
                   }}
+                  onAddressValidation={(isValid) => setAddressValid(isValid)}
                   height="h-96"
                 />
+                {addressValid === false && (
+                  <div className="mt-4 px-4 py-3 bg-red-500/20 border border-red-400/30 rounded-2xl text-red-200 text-sm flex items-center gap-2">
+                    <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Invalid address. Please enter a valid, specific street address.</span>
+                  </div>
+                )}
               </div>
             )}
 
@@ -376,7 +398,7 @@ export default function AddListing() {
                       type="checkbox"
                       checked={formData.amenities.includes(amenity)}
                       onChange={() => handleAmenityChange(amenity)}
-                      className="h-4 w-4 rounded border-white/30 text-blue-500 focus:ring-blue-500 focus:ring-2 bg-white/10"
+                      className="h-4 w-4 rounded border-white/30 text-purple-500 focus:ring-purple-500 focus:ring-2 bg-white/10"
                     />
                     <span className="text-sm font-medium text-white">{amenity}</span>
                   </label>
@@ -400,17 +422,17 @@ export default function AddListing() {
                       type="url"
                       value={image}
                       onChange={(e) => handleImageChange(index, e.target.value)}
-                      className={`${inputStyle} flex-grow`}
+                      className={inputStyle}
                       placeholder="https://example.com/image.jpg"
                     />
                     {formData.images.length > 1 && (
                       <button
                         type="button"
                         onClick={() => removeImageField(index)}
-                        className="p-3 bg-red-500/20 border border-red-400/30 text-red-200 rounded-2xl hover:bg-red-500/30 transition-all duration-300"
+                        className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors flex-shrink-0"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     )}
@@ -419,12 +441,12 @@ export default function AddListing() {
                 <button
                   type="button"
                   onClick={addImageField}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-2xl hover:bg-white/20 transition-all duration-300"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  Add Another Image
+                  Add another image URL
                 </button>
               </div>
             </div>
@@ -433,7 +455,7 @@ export default function AddListing() {
             <div className="text-center">
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || addressValid === false || userBlocked}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 rounded-2xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:-translate-y-1 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {loading ? (

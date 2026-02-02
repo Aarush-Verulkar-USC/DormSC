@@ -9,11 +9,11 @@ interface HouseCardProps {
   showFavoriteButton?: boolean;
 }
 
-export default function HouseCard({ 
-  house, 
-  onToggleFavorite, 
+export default function HouseCard({
+  house,
+  onToggleFavorite,
   isFavorite = false,
-  showFavoriteButton = true 
+  showFavoriteButton = true
 }: HouseCardProps) {
   const [imageError, setImageError] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function HouseCard({
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (onToggleFavorite && !favoriteLoading) {
       try {
         setFavoriteLoading(true);
@@ -52,7 +52,7 @@ export default function HouseCard({
               </svg>
             </div>
           )}
-          
+
           {/* Favorite Button */}
           {showFavoriteButton && onToggleFavorite && (
             <button
@@ -64,21 +64,20 @@ export default function HouseCard({
               {favoriteLoading ? (
                 <div className="w-5 h-5 border-2 border-gray-600 border-t-[#FF3232] rounded-full animate-spin"></div>
               ) : (
-                <svg 
-                  className={`w-5 h-5 transition-colors ${
-                    isFavorite
+                <svg
+                  className={`w-5 h-5 transition-colors ${isFavorite
                       ? 'text-[#FF3232] fill-current'
                       : 'text-gray-400 hover:text-[#FF3232]'
-                  }`} 
-                  fill={isFavorite ? 'currentColor' : 'none'} 
-                  stroke="currentColor" 
+                    }`}
+                  fill={isFavorite ? 'currentColor' : 'none'}
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   />
                 </svg>
               )}
@@ -92,12 +91,12 @@ export default function HouseCard({
             </div>
           )}
         </div>
-        
+
         <div className="p-4">
           <h3 className="font-semibold text-lg text-white mb-2 line-clamp-2">
             {house.title}
           </h3>
-          
+
           <p className="text-gray-300 text-sm mb-3 flex items-center">
             <svg className="w-4 h-4 mr-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -105,7 +104,7 @@ export default function HouseCard({
             </svg>
             {house.address}
           </p>
-          
+
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-4 text-sm text-gray-400">
               <span className="flex items-center">
@@ -122,21 +121,21 @@ export default function HouseCard({
               </span>
             </div>
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-2xl font-bold text-white">
+              <span className="text-2xl font-bold text-white font-mono">
                 ${house.price.toLocaleString()}
               </span>
-              <span className="text-gray-400 text-sm">/month</span>
+              <span className="text-gray-400 text-sm font-sans">/month</span>
             </div>
             {house.distanceToUSC && (
-              <span className="text-sm text-[#3A29FF] font-medium bg-[#3A29FF]/20 px-2 py-1 rounded">
+              <span className="text-sm text-purple-400 font-medium bg-purple-400/20 px-2 py-1 rounded">
                 {house.distanceToUSC} mi to USC
               </span>
             )}
           </div>
-          
+
           {house.availableDate && (
             <div className="mt-3 pt-3 border-t border-gray-700">
               <span className="text-sm text-gray-400 flex items-center">

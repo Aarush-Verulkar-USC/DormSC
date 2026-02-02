@@ -74,14 +74,8 @@ export default function AdminSeed() {
 
   if (loading) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-        </div>
-
-        <div className="relative z-10 pt-24 pb-12 flex items-center justify-center min-h-screen">
+      <div className="min-h-screen bg-gray-950">
+        <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
               <div className="inline-flex items-center justify-center mb-6">
@@ -98,14 +92,8 @@ export default function AdminSeed() {
 
   if (error) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-        </div>
-
-        <div className="relative z-10 pt-24 pb-12 flex items-center justify-center min-h-screen">
+      <div className="min-h-screen bg-gray-950">
+        <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-red-500/20 rounded-full mb-6">
@@ -129,14 +117,8 @@ export default function AdminSeed() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-      </div>
-
-      <div className="relative z-10 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-950">
+      <div className=" pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header Section */}
@@ -151,7 +133,7 @@ export default function AdminSeed() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
               Database Seeding
               <br />
-              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
                 Management Console
               </span>
             </h1>
@@ -163,12 +145,12 @@ export default function AdminSeed() {
             {/* Admin Stats */}
             <div className="flex flex-wrap items-center justify-center gap-6 text-gray-400 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
                 <span>Live Database</span>
               </div>
               <div className="w-px h-4 bg-gray-600"></div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
                 <span>Real-time Updates</span>
               </div>
               <div className="w-px h-4 bg-gray-600"></div>
@@ -245,7 +227,7 @@ export default function AdminSeed() {
                     </p>
                     <div className="flex items-center justify-center gap-6 text-gray-400 text-sm">
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                         <span>Database Connected</span>
                       </div>
                     </div>

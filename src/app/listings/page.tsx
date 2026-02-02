@@ -30,13 +30,13 @@ export default function Listings() {
 
   const handleFilterChange = (filters: FilterType) => {
     if (!houses) return;
-    
+
     // Start with active listings only
     let filtered = [...houses].filter(house => house.isActive !== false) as House[];
 
     // Search filter
     if (filters.searchTerm) {
-      filtered = filtered.filter(house => 
+      filtered = filtered.filter(house =>
         house.title?.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
         house.address?.toLowerCase().includes(filters.searchTerm.toLowerCase())
       );
@@ -74,14 +74,8 @@ export default function Listings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-        </div>
-
-        <div className="relative z-10 pt-24 pb-12">
+      <div className="min-h-screen bg-gray-950">
+        <div className=" pt-24 pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             {/* Header with Loading Animation */}
@@ -119,13 +113,8 @@ export default function Listings() {
 
   if (error) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-red-950 to-purple-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.15),transparent)] opacity-60"></div>
-        </div>
-
-        <div className="relative z-10 pt-24 pb-12 flex items-center justify-center min-h-screen">
+      <div className="min-h-screen bg-gray-950">
+        <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-red-500/20 rounded-full mb-6">
@@ -149,14 +138,8 @@ export default function Listings() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(58,41,255,0.15),transparent)] opacity-40"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,148,180,0.15),transparent)] opacity-40"></div>
-      </div>
-
-      <div className="relative z-10 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-950">
+      <div className=" pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header Section */}
@@ -167,10 +150,6 @@ export default function Listings() {
             <p className="text-gray-300 text-lg mb-2">
               {filteredHouses.length} {filteredHouses.length === 1 ? 'property' : 'properties'} available near USC
             </p>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 border border-emerald-400/30 rounded-full text-emerald-200 text-sm">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-              <span>Live listings</span>
-            </div>
           </div>
 
           {/* Filter Bar */}

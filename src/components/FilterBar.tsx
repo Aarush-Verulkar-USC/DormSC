@@ -55,7 +55,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             placeholder="Search by title or address..."
             value={filters.searchTerm}
             onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white placeholder-gray-400 bg-gray-700"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400 bg-gray-700"
           />
         </div>
 
@@ -69,7 +69,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             placeholder="$0"
             value={filters.minPrice}
             onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white placeholder-gray-400 bg-gray-700"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400 bg-gray-700"
           />
         </div>
 
@@ -82,7 +82,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             placeholder="$5000"
             value={filters.maxPrice}
             onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white placeholder-gray-400 bg-gray-700"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400 bg-gray-700"
           />
         </div>
 
@@ -94,7 +94,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
           <select
             value={filters.bedrooms}
             onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white bg-gray-700"
+            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white bg-gray-700"
           >
             <option value="" className="text-gray-400">Any</option>
             <option value="1">1+</option>
@@ -115,7 +115,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
             <select
               value={filters.bathrooms}
               onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A29FF] focus:border-[#3A29FF] text-white bg-gray-700"
+              className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white bg-gray-700"
             >
               <option value="" className="text-gray-400">Any</option>
               <option value="1">1+</option>
@@ -127,7 +127,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
 
         <button
           onClick={clearFilters}
-          className="bg-[#FF3232] hover:bg-[#e02828] text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors"
+          className="bg-purple-500 hover:bg-purple-600 text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors"
         >
           Clear Filters
         </button>
