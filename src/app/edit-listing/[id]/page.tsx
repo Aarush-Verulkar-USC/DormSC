@@ -6,7 +6,6 @@ import { useRouter, useParams } from 'next/navigation';
 import { House } from '@/types/house';
 import Link from 'next/link';
 import { useBlockedUsers } from '@/hooks/useBlockedUsers';
-import MapBoxWithRoute from '@/components/MapBoxWithRoute';
 
 const amenitiesList = [
   'WiFi', 'Parking', 'Laundry', 'Kitchen', 'Air Conditioning',
@@ -43,7 +42,6 @@ export default function EditListing() {
   const listingId = params?.id as string;
 
   const [loading, setLoading] = useState(false);
-  const [addressValid, setAddressValid] = useState<boolean | null>(null);
   const [house, setHouse] = useState<House | null>(null);
   const [formData, setFormData] = useState<FormData>({
     title: '', description: '', address: '', price: '', bedrooms: '', bathrooms: '',
@@ -119,10 +117,6 @@ export default function EditListing() {
       alert('Your account has been restricted. You cannot edit listings.');
       return;
     }
-    if (addressValid === false) {
-      alert('Please enter a valid address before saving.');
-      return;
-    }
     try {
       setLoading(true);
       const updatedData = {
@@ -142,7 +136,7 @@ export default function EditListing() {
 
   if (housesLoading || !house) {
     return (
-      <div className="min-h-screen bg-gray-950">
+      <div className="min-h-screen bg-black">
         <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
@@ -162,7 +156,7 @@ export default function EditListing() {
   const selectStyle = "mt-2 w-full border border-white/10 rounded-xl p-3 bg-white/5 text-white focus:outline-none focus:border-white/20 focus:ring-1 focus:ring-white/20 backdrop-blur-sm transition-all duration-200";
 
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen bg-black">
       <div className=" pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
@@ -243,6 +237,9 @@ export default function EditListing() {
                       type="number"
                       name="price"
                       required
+                      min="1"
+                      max="10000"
+                      step="1"
                       value={formData.price}
                       onChange={handleInputChange}
                       className={inputStyle}
@@ -304,6 +301,8 @@ export default function EditListing() {
                   <input
                     type="date"
                     name="availableDate"
+                    min={new Date().toISOString().split('T')[0]}
+                    max="2099-12-31"
                     value={formData.availableDate}
                     onChange={handleInputChange}
                     className={inputStyle}
@@ -324,35 +323,7 @@ export default function EditListing() {
               </div>
             </div>
 
-            {/* Map Preview */}
-            {formData.address && (
-              <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                    </svg>
-                  </div>
-                  <h2 className="text-xl font-semibold text-white">Location & Route Preview</h2>
-                </div>
-                <MapBoxWithRoute
-                  address={formData.address}
-                  onDistanceCalculated={(distance) => {
-                    setFormData(prev => ({ ...prev, distanceToUSC: distance.toString() }));
-                  }}
-                  onAddressValidation={(isValid) => setAddressValid(isValid)}
-                  height="h-80"
-                />
-                {addressValid === false && (
-                  <div className="mt-4 px-4 py-3 bg-red-500/20 border border-red-400/30 rounded-2xl text-red-200 text-sm flex items-center gap-2">
-                    <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Invalid address. Please enter a valid, specific street address.</span>
-                  </div>
-                )}
-              </div>
-            )}
+
 
             {/* Contact Information Card */}
             <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
@@ -480,8 +451,8 @@ export default function EditListing() {
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <button
                   type="submit"
-                  disabled={loading || addressValid === false || userBlocked}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                  disabled={loading || userBlocked}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-purple-500 hover:bg-white/90 text-white rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <>

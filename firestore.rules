@@ -1,0 +1,102 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    // Check if user has USC email or is the specific admin
+    function isUSCEmail() {
+      return isSignedIn() && 
+        (request.auth.token.email.matches('.*@usc[.]edu') || 
+         request.auth.token.email == 'aarush.verulkar@gmail.com' ||
+         request.auth.token.email == 'info.aarushv@gmail.com');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && 
+             (request.auth.token.email == 'aarush.verulkar@gmail.com' || 
+              request.auth.token.email == 'info.aarushv@gmail.com');
+    }
+
+    // Input Validation Helper for Houses
+    function isValidHouse() {
+      let data = request.resource.data;
+      
+      // Required fields
+      let hasRequiredFields = 
+        data.keys().hasAll(['title', 'description', 'price', 'address', 'landlordId', 'createdAt', 'isActive', 'images', 'bedrooms', 'bathrooms']);
+      
+      // Data types and constraints
+      let validTitle = data.title is string && data.title.size() >= 3 && data.title.size() <= 100;
+      let validDesc = data.description is string && data.description.size() <= 5000;
+      let validPrice = data.price is number && data.price > 0 && data.price < 100000;
+      let validAddress = data.address is string && data.address.size() > 0;
+      let validImages = data.images is list && data.images.size() <= 10;
+      let validBeds = data.bedrooms is number && data.bedrooms >= 0 && data.bedrooms <= 20;
+      let validBaths = data.bathrooms is number && data.bathrooms >= 0 && data.bathrooms <= 20;
+      
+      // Ensure landlordId matches the authenticated user
+      let validOwner = data.landlordId == request.auth.uid;
+
+      return hasRequiredFields && validTitle && validDesc && validPrice && 
+             validAddress && validImages && validBeds && validBaths && validOwner;
+    }
+
+    // --- Houses Collection ---
+    match /houses/{houseId} {
+      // Anyone can read listings
+      allow read: if true;
+      
+      // Strict create rules
+      allow create: if isSignedIn() 
+                    && isUSCEmail()
+                    && isValidHouse();
+
+      // Strict update rules (Owner only, strict schema)
+      allow update: if isSignedIn() 
+                    && resource.data.landlordId == request.auth.uid // Must be owner of existing doc
+                    && isValidHouse() // New data must be valid
+                    && request.resource.data.landlordId == resource.data.landlordId // Cannot change ownership
+                    && request.resource.data.createdAt == resource.data.createdAt; // Cannot change creation date
+
+      // Delete: Owner OR Admin
+      allow delete: if isSignedIn() && (
+        resource.data.landlordId == request.auth.uid || 
+        isAdmin()
+      );
+    }
+
+    // --- Favorites Collection ---
+    match /favorites/{favoriteId} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
+      
+      allow create: if isSignedIn() 
+                   && request.auth.uid == request.resource.data.userId;
+      
+      allow delete: if isSignedIn() 
+                   && request.auth.uid == resource.data.userId;
+      
+      allow update: if false; // Favorites are create/delete only
+    }
+
+    // --- Users Collection ---
+    match /users/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // --- Blocked Users Collection ---
+    match /blockedUsers/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+    
+    // --- Catch-all Deny ---
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

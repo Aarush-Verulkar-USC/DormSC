@@ -33,7 +33,7 @@ export default function Favorites() {
   // Not signed in
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gray-950">
+      <div className="min-h-screen bg-black">
         <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
             <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
@@ -63,7 +63,7 @@ export default function Favorites() {
   // Loading
   if (housesLoading || favoritesLoading) {
     return (
-      <div className="min-h-screen bg-gray-950">
+      <div className="min-h-screen bg-black">
         <div className=" pt-24 pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -103,7 +103,7 @@ export default function Favorites() {
   const count = favoriteHouses.length;
 
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen bg-black">
       <div className=" pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

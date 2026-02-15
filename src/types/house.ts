@@ -30,6 +30,8 @@ export interface House {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  reviewCount?: number;
+  averageRating?: number;
 }
 export interface CreateHouseData {
   title: string;

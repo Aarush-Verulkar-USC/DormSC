@@ -88,24 +88,24 @@ export default function AdminDashboard() {
       value: houses.length,
       change: '+12%',
       icon: Home,
-      color: 'text-purple-400',
-      bg: 'bg-purple-400/10'
+      color: 'text-white',
+      bg: 'bg-white/10'
     },
     {
       title: 'Active Users',
       value: users.length,
       change: '+5%',
       icon: Users,
-      color: 'text-purple-400',
-      bg: 'bg-purple-400/10'
+      color: 'text-white',
+      bg: 'bg-white/10'
     },
     {
       title: 'Global Reports',
       value: '2',
       change: '-5%',
       icon: Activity,
-      color: 'text-purple-400',
-      bg: 'bg-purple-400/10'
+      color: 'text-white',
+      bg: 'bg-white/10'
     },
     {
       title: 'Blocked Users',
@@ -157,10 +157,10 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gray-950 text-white font-sans">
+    <div className="min-h-screen relative overflow-hidden bg-black text-white font-sans">
       {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gray-950"></div>
+        <div className="absolute inset-0 bg-black"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-12">
@@ -172,8 +172,8 @@ export default function AdminDashboard() {
           </div>
           <div className="flex items-center gap-3">
             <div className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm shadow-sm">
-              <span className="text-sm font-medium text-purple-400 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+              <span className="text-sm font-medium text-white flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                 System Operational
               </span>
             </div>
@@ -285,7 +285,7 @@ export default function AdminDashboard() {
                                 </div>
                               )}
                               <div>
-                                <div className="font-medium text-white group-hover:text-purple-400 transition-colors">{house.title}</div>
+                                <div className="font-medium text-white group-hover:text-white transition-colors">{house.title}</div>
                                 <div className="text-xs text-gray-500">{house.address}</div>
                               </div>
                             </div>
@@ -300,7 +300,7 @@ export default function AdminDashboard() {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
                               ${house.price.toLocaleString()}/mo
                             </span>
                           </td>
@@ -371,7 +371,7 @@ export default function AdminDashboard() {
                           <tr key={user.email} className={`group transition-colors ${blocked ? 'bg-red-500/[0.02] hover:bg-red-500/[0.05]' : 'hover:bg-white/[0.02]'}`}>
                             <td className="px-6 py-4">
                               <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold shadow-lg">
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-white font-bold shadow-lg">
                                   {user.name.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
@@ -390,8 +390,8 @@ export default function AdminDashboard() {
                                   Blocked
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
                                   Active
                                 </span>
                               )}
@@ -404,7 +404,7 @@ export default function AdminDashboard() {
                                   onClick={() => handleBlock(user.email)}
                                   disabled={blockLoading === user.email}
                                   className={`px-4 py-2 rounded-lg text-xs font-medium border transition-all disabled:opacity-50 ${blocked
-                                    ? 'border-purple-500/20 text-purple-400 hover:bg-purple-500/10'
+                                    ? 'border-white/20 text-white hover:bg-white/10'
                                     : 'border-red-500/20 text-red-400 hover:bg-red-500/10'
                                     }`}
                                 >
