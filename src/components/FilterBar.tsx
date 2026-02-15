@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { Search, X } from 'lucide-react';
 
-// Define FilterType locally instead of importing
 interface FilterType {
   searchTerm: string;
   minPrice: string;
@@ -9,7 +9,6 @@ interface FilterType {
   bedrooms: string;
   bathrooms: string;
 }
-
 
 interface FilterBarProps {
   onFilterChange: (filters: FilterType) => void;
@@ -43,94 +42,82 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg shadow-md mb-6 border border-gray-700">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        {/* Search */}
-        <div className="lg:col-span-2">
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Search
-          </label>
+    <div className="w-full mb-8">
+      <div className="flex flex-col md:flex-row gap-4">
+        {/* Search - Expands to fill available space */}
+        <div className="relative flex-grow">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 text-gray-500" />
+          </div>
           <input
             type="text"
-            placeholder="Search by title or address..."
+            placeholder="Search by title, address, or keyword..."
             value={filters.searchTerm}
             onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400 bg-gray-700"
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white placeholder-gray-500 transition-all font-sans"
           />
         </div>
 
-        {/* Price Range */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Min Price
-          </label>
+        {/* Filters Row */}
+        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
           <input
             type="number"
-            placeholder="$0"
+            placeholder="Min $"
             value={filters.minPrice}
             onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400 bg-gray-700"
+            className="w-24 px-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white placeholder-gray-500 text-sm"
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Max Price
-          </label>
           <input
             type="number"
-            placeholder="$5000"
+            placeholder="Max $"
             value={filters.maxPrice}
             onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400 bg-gray-700"
+            className="w-24 px-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white placeholder-gray-500 text-sm"
           />
-        </div>
 
-        {/* Bedrooms */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Bedrooms
-          </label>
-          <select
-            value={filters.bedrooms}
-            onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white bg-gray-700"
-          >
-            <option value="" className="text-gray-400">Any</option>
-            <option value="1">1+</option>
-            <option value="2">2+</option>
-            <option value="3">3+</option>
-            <option value="4">4+</option>
-          </select>
-        </div>
-      </div>
+          <div className="relative">
+            <select
+              value={filters.bedrooms}
+              onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
+              className="appearance-none pl-4 pr-10 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white text-sm min-w-[100px]"
+            >
+              <option value="" className="bg-black text-gray-400">Beds</option>
+              <option value="1" className="bg-black">1+ Bed</option>
+              <option value="2" className="bg-black">2+ Beds</option>
+              <option value="3" className="bg-black">3+ Beds</option>
+              <option value="4" className="bg-black">4+ Beds</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
+            </div>
+          </div>
 
-      <div className="flex items-center justify-between mt-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Bathrooms */}
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
-              Bathrooms
-            </label>
+          <div className="relative">
             <select
               value={filters.bathrooms}
               onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white bg-gray-700"
+              className="appearance-none pl-4 pr-10 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white text-sm min-w-[100px]"
             >
-              <option value="" className="text-gray-400">Any</option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-              <option value="3">3+</option>
+              <option value="" className="bg-black text-gray-400">Baths</option>
+              <option value="1" className="bg-black">1+ Bath</option>
+              <option value="2" className="bg-black">2+ Baths</option>
+              <option value="3" className="bg-black">3+ Baths</option>
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
+            </div>
           </div>
-        </div>
 
-        <button
-          onClick={clearFilters}
-          className="bg-purple-500 hover:bg-purple-600 text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors"
-        >
-          Clear Filters
-        </button>
+          {(filters.searchTerm || filters.minPrice || filters.maxPrice || filters.bedrooms || filters.bathrooms) && (
+            <button
+              onClick={clearFilters}
+              className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors flex-shrink-0"
+              title="Clear Filters"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

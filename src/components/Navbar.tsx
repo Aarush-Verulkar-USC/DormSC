@@ -45,9 +45,9 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="flex items-center justify-between h-14 px-5 rounded-2xl bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
 
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-6">
@@ -78,7 +78,7 @@ export default function Navbar() {
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl bg-white/[0.06] border border-white/[0.08] hover:bg-white/10 transition-colors"
                 >
-                  <div className="w-7 h-7 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  <div className="w-8 h-8 bg-orange/10 border border-orange/20 rounded-full flex items-center justify-center text-orange text-xs font-bold">
                     {currentUser.email?.charAt(0).toUpperCase()}
                   </div>
                   <span className="hidden md:block text-sm text-gray-300 font-medium max-w-[120px] truncate">
@@ -92,13 +92,13 @@ export default function Navbar() {
                 {/* Dropdown */}
                 {isDropdownOpen && (
                   <div
-                    className="absolute right-0 mt-2.5 w-64 rounded-xl py-1.5 z-50 bg-gray-900/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)]"
+                    className="absolute right-0 mt-2.5 w-64 rounded-xl py-1.5 z-50 bg-black/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)]"
                     style={{ animation: 'slideDown 0.2s ease-out' }}
                   >
                     {/* User header */}
                     <div className="px-4 py-3 border-b border-white/[0.06]">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        <div className="w-10 h-10 bg-orange/10 border border-orange/20 rounded-full flex items-center justify-center text-orange font-bold">
                           {currentUser.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
@@ -182,7 +182,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/login"
-                  className="px-4 py-1.5 rounded-lg text-sm font-medium bg-white text-gray-900 hover:bg-gray-200 transition-colors"
+                  className="px-4 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-orange to-red-600 text-white hover:shadow-lg hover:shadow-orange/20 border-none transition-all"
                 >
                   Sign In
                 </Link>

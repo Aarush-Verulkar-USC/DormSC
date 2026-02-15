@@ -1,154 +1,94 @@
 'use client';
 
 import Link from 'next/link';
-import Aurora from './Aurora';
-import { ChevronDown, ShieldCheck, Zap, BadgeCheck, Users, Home } from 'lucide-react';
+import { ShieldCheck, Zap, Users } from 'lucide-react';
+import Threads from '@/components/Threads';
 
 export default function HomePage() {
   const features = [
     {
-      icon: <ShieldCheck className="w-5 h-5" />,
-      title: "Verified Properties",
-      description: "Every listing is vetted by our team for quality and legitimacy."
+      icon: <ShieldCheck className="w-5 h-5 text-orange" />,
+      title: "Verified listings",
+      description: "Every property is vetted."
     },
     {
-      icon: <Users className="w-5 h-5" />,
-      title: "Trusted Landlords",
-      description: "Connect with vetted landlords who understand student needs."
+      icon: <Users className="w-5 h-5 text-orange" />,
+      title: "Student focused",
+      description: "Landlords who get it."
     },
     {
-      icon: <Zap className="w-5 h-5" />,
-      title: "Quick Process",
-      description: "Find and secure your perfect student home in minutes."
-    },
-    {
-      icon: <BadgeCheck className="w-5 h-5" />,
-      title: "Seamless Booking",
-      description: "Transparent pricing and instant confirmation. No hidden fees."
+      icon: <Zap className="w-5 h-5 text-orange" />,
+      title: "Fast process",
+      description: "Secure housing in minutes."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-x-hidden">
-      {/* Aurora Background */}
-      <div className="fixed inset-0 z-0">
-        <Aurora
-          colorStops={["#a855f7", "#FF94B4", "#FF3232"]}
-          blend={0.5}
-          amplitude={1.0}
-          speed={0.5}
+    <div className="min-h-screen bg-black text-white selection:bg-orange selection:text-white relative overflow-hidden">
+
+      {/* Animated Background */}
+      <div className="absolute inset-0 opacity-35 pointer-events-none">
+        <Threads
+          color={[1, 0.35, 0.12]} // Orange color in RGB (FF5A1F converted to 0-1 range)
+          amplitude={0.8}
+          distance={0.15}
+          enableMouseInteraction={true}
         />
       </div>
 
-      {/* Hero Section - Centered */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-foreground mb-6 animate-fadeIn">
-            Find Your Perfect
+      {/* Navbar spacer */}
+      <div className="h-16 relative z-10"></div>
+
+      {/* Hero Section - More Compact */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 pt-32 pb-12 md:pt-40 md:pb-16">
+
+        {/* Badge */}
+        <div className="mb-6">
+          <a href="/listings" className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-xs font-medium text-gray-300">
+            <span className="flex h-2 w-2 rounded-full bg-orange"></span>
+            <span>New listings added today</span>
+          </a>
+        </div>
+
+        {/* Main Heading - Smaller, More Compact */}
+        <div className="max-w-3xl mx-auto mb-5">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium leading-[1.1] tracking-tight">
+            Find a home.
             <br />
-            <span className="text-muted-foreground">
-              Student Home
-            </span>
+            <span className="text-orange">Not just a house.</span>
           </h1>
-
-          <p className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed animate-fadeIn max-w-2xl mx-auto" style={{ animationDelay: '0.2s' }}>
-            Streamlined housing search for USC students. Verified properties, trusted landlords, seamless booking.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center animate-fadeIn" style={{ animationDelay: '0.4s' }}>
-            <Link href="/listings">
-              <button className="flex items-center justify-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-lg font-medium shadow-lg hover:shadow-xl hover:bg-foreground/90 transition-all duration-300 hover:-translate-y-0.5 min-w-[160px] text-sm">
-                <Home className="w-4 h-4" />
-                <span>Browse Listings</span>
-              </button>
-            </Link>
-
-            <a href="https://aarushverulkar.dev" target="_blank" rel="noopener noreferrer">
-              <button className="flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border-2 border-foreground text-foreground rounded-lg font-medium hover:bg-foreground hover:text-background transition-all duration-300 hover:-translate-y-0.5 min-w-[160px] text-sm">
-                <span>Contact Developer</span>
-              </button>
-            </a>
-          </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-6 h-6 text-white/60" />
+        {/* Subheading - Smaller */}
+        <p className="text-base md:text-lg text-gray-400 mb-7 leading-relaxed max-w-lg mx-auto">
+          Direct connections to verified landlords. No hidden fees, no complicated paperwork. Just sign and move in.
+        </p>
+
+        {/* CTA Button - Smaller */}
+        <div className="mb-12">
+          <Link href="/listings">
+            <button className="group relative inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black rounded-full font-medium text-base hover:bg-gray-100 transition-all duration-300">
+              <span>Browse Listings</span>
+            </button>
+          </Link>
         </div>
-      </div>
 
-      {/* Why Choose DormSC */}
-      <div className="relative z-10 py-24 bg-background">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-              Why Choose DormSC
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Simple, transparent, stress-free housing for USC students.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-4">
+        {/* Features Grid - More Compact, Horizontal on Desktop */}
+        <div className="max-w-3xl mx-auto w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-4 p-5 rounded-xl border border-white/[0.06] bg-white/[0.02]"
-              >
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center text-white">
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-10 h-10 rounded-lg bg-orange/10 border border-orange/20 flex items-center justify-center mb-3">
                   {feature.icon}
                 </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-1">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                </div>
+                <h3 className="text-base font-semibold text-white mb-1">{feature.title}</h3>
+                <p className="text-sm text-gray-500">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* How It Works */}
-      <div className="relative z-10 py-24 bg-background">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-              How It Works
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Three simple steps to your perfect student home.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { step: '1', title: 'Search & Filter', desc: 'Find properties that match your preferences, budget, and location.' },
-              { step: '2', title: 'Browse & Compare', desc: 'View detailed info, photos, and reviews to compare your top picks.' },
-              { step: '3', title: 'Connect & Book', desc: 'Reach out to landlords directly and secure your home.' }
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center text-white text-lg font-semibold font-mono mx-auto mb-5">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease-out forwards;
-          animation-fill-mode: both;
-        }
-      `}</style>
     </div>
   );
 }
