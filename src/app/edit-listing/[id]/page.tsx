@@ -136,15 +136,15 @@ export default function EditListing() {
 
   if (housesLoading || !house) {
     return (
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-gray-50">
         <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
-            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
               <div className="inline-flex items-center justify-center mb-6">
-                <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-gray-200 border-t-brand rounded-full animate-spin"></div>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-4">Loading Listing</h1>
-              <p className="text-gray-300">Getting your property details...</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-4">Loading Listing</h1>
+              <p className="text-gray-600">Getting your property details...</p>
             </div>
           </div>
         </div>
@@ -152,21 +152,21 @@ export default function EditListing() {
     );
   }
 
-  const inputStyle = "mt-2 w-full border border-white/10 rounded-xl p-3 bg-white/5 text-white placeholder:text-gray-400 focus:outline-none focus:border-white/20 focus:ring-1 focus:ring-white/20 backdrop-blur-sm transition-all duration-200";
-  const selectStyle = "mt-2 w-full border border-white/10 rounded-xl p-3 bg-white/5 text-white focus:outline-none focus:border-white/20 focus:ring-1 focus:ring-white/20 backdrop-blur-sm transition-all duration-200";
+  const inputStyle = "mt-2 w-full border border-gray-200 rounded-xl p-3 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all duration-200";
+  const selectStyle = "mt-2 w-full border border-gray-200 rounded-xl p-3 bg-white text-gray-900 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all duration-200";
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gray-50">
       <div className=" pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <div className="text-center md:text-left">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Edit Listing</h1>
-              <p className="text-gray-300 text-lg">Update the details for your property</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">Edit Listing</h1>
+              <p className="text-gray-600 text-lg">Update the details for your property</p>
             </div>
             <Link
               href="/my-listings"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-xl text-sm font-medium hover:bg-white/20 transition-all duration-300 self-center md:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-200 transition-all duration-300 self-center md:self-auto"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -176,7 +176,7 @@ export default function EditListing() {
           </div>
 
           {userBlocked && (
-            <div className="mb-6 px-5 py-4 bg-red-500/20 border border-red-400/30 rounded-2xl text-red-200 text-sm flex items-center gap-3">
+            <div className="mb-6 px-5 py-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-sm flex items-center gap-3">
               <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
               </svg>
@@ -186,14 +186,14 @@ export default function EditListing() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Listing Status Card */}
-            <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-white">Listing Status</h2>
+                <h2 className="text-xl font-semibold text-gray-900">Listing Status</h2>
               </div>
               <label className="flex items-center space-x-3 cursor-pointer">
                 <input
@@ -201,26 +201,26 @@ export default function EditListing() {
                   name="isActive"
                   checked={formData.isActive}
                   onChange={handleInputChange}
-                  className="h-5 w-5 rounded border-white/20 bg-white/10 text-purple-500 focus:ring-purple-500 focus:ring-offset-0"
+                  className="h-5 w-5 rounded border-gray-300 bg-white text-brand focus:ring-brand focus:ring-offset-0"
                 />
-                <span className="font-medium text-gray-200">Active Listing (visible to students)</span>
+                <span className="font-medium text-gray-700">Active Listing (visible to students)</span>
               </label>
             </div>
 
             {/* Property Details Card */}
-            <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-white">Property Details</h2>
+                <h2 className="text-xl font-semibold text-gray-900">Property Details</h2>
               </div>
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Property Title</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">Property Title</label>
                     <input
                       type="text"
                       name="title"
@@ -232,7 +232,7 @@ export default function EditListing() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Monthly Rent ($)</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">Monthly Rent ($)</label>
                     <input
                       type="number"
                       name="price"
@@ -248,7 +248,7 @@ export default function EditListing() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Address</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Address</label>
                   <input
                     type="text"
                     name="address"
@@ -261,7 +261,7 @@ export default function EditListing() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Bedrooms</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">Bedrooms</label>
                     <select name="bedrooms" required value={formData.bedrooms} onChange={handleInputChange} className={selectStyle}>
                       <option value="">Select</option>
                       <option value="1">1</option>
@@ -272,7 +272,7 @@ export default function EditListing() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Bathrooms</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">Bathrooms</label>
                     <select name="bathrooms" required value={formData.bathrooms} onChange={handleInputChange} className={selectStyle}>
                       <option value="">Select</option>
                       <option value="1">1</option>
@@ -285,7 +285,7 @@ export default function EditListing() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Distance to USC (miles)</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">Distance to USC (miles)</label>
                     <input
                       type="text"
                       name="distanceToUSC"
@@ -297,7 +297,7 @@ export default function EditListing() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Available Date</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Available Date</label>
                   <input
                     type="date"
                     name="availableDate"
@@ -309,7 +309,7 @@ export default function EditListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Description</label>
                   <textarea
                     name="description"
                     required
@@ -326,18 +326,18 @@ export default function EditListing() {
 
 
             {/* Contact Information Card */}
-            <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-white">Contact Information</h2>
+                <h2 className="text-xl font-semibold text-gray-900">Contact Information</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Name</label>
                   <input
                     type="text"
                     name="name"
@@ -349,7 +349,7 @@ export default function EditListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Email</label>
                   <input
                     type="email"
                     name="email"
@@ -361,7 +361,7 @@ export default function EditListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Phone (Optional)</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Phone (Optional)</label>
                   <input
                     type="tel"
                     name="phone"
@@ -375,39 +375,39 @@ export default function EditListing() {
             </div>
 
             {/* Amenities Card */}
-            <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-white">Amenities</h2>
+                <h2 className="text-xl font-semibold text-gray-900">Amenities</h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {amenitiesList.map(amenity => (
-                  <label key={amenity} className="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition-colors">
+                  <label key={amenity} className="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors">
                     <input
                       type="checkbox"
                       checked={formData.amenities.includes(amenity)}
                       onChange={() => handleAmenityChange(amenity)}
-                      className="h-4 w-4 rounded border-white/20 bg-white/10 text-purple-500 focus:ring-purple-500 focus:ring-offset-0"
+                      className="h-4 w-4 rounded border-gray-300 bg-white text-brand focus:ring-brand focus:ring-offset-0"
                     />
-                    <span className="text-sm font-medium text-gray-300">{amenity}</span>
+                    <span className="text-sm font-medium text-gray-600">{amenity}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             {/* Property Images Card */}
-            <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-white">Property Images</h2>
+                <h2 className="text-xl font-semibold text-gray-900">Property Images</h2>
               </div>
 
               <div className="space-y-4">
@@ -436,7 +436,7 @@ export default function EditListing() {
                 <button
                   type="button"
                   onClick={addImageField}
-                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                  className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -447,12 +447,12 @@ export default function EditListing() {
             </div>
 
             {/* Action Buttons */}
-            <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <button
                   type="submit"
                   disabled={loading || userBlocked}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-purple-500 hover:bg-white/90 text-white rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-brand hover:bg-brand/90 text-white rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <>
@@ -474,7 +474,7 @@ export default function EditListing() {
                 <button
                   type="button"
                   onClick={() => router.back()}
-                  className="w-full sm:w-auto px-8 py-3 border border-white/20 text-gray-300 rounded-xl hover:bg-white/5 hover:text-white transition-all duration-300"
+                  className="w-full sm:w-auto px-8 py-3 border border-gray-300 text-gray-600 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-all duration-300"
                 >
                   Cancel
                 </button>

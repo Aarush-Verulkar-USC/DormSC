@@ -60,7 +60,7 @@ export default function EmailVerificationBanner() {
                         </button>
                         <button
                             onClick={() => setDismissed(true)}
-                            className="p-2 text-yellow-200 hover:text-white transition-colors"
+                            className="p-2 text-yellow-200 hover:text-gray-900 transition-colors"
                             aria-label="Dismiss"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -56,13 +56,13 @@ export default function Listings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black text-white pt-24 pb-16">
+      <div className="min-h-screen bg-gray-50 text-gray-900 pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-6">
           <div className="animate-pulse space-y-8">
-            <div className="h-12 w-64 bg-white/10 rounded-lg mx-auto"></div>
+            <div className="h-12 w-64 bg-gray-100 rounded-lg mx-auto"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-64 bg-white/5 rounded-2xl"></div>
+                <div key={i} className="h-64 bg-gray-100 rounded-2xl"></div>
               ))}
             </div>
           </div>
@@ -73,25 +73,25 @@ export default function Listings() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-black text-white pt-32 text-center px-4">
-        <h1 className="text-3xl font-serif text-white mb-4">Something went wrong</h1>
-        <p className="text-gray-400">{error}</p>
+      <div className="min-h-screen bg-gray-50 text-gray-900 pt-32 text-center px-4">
+        <h1 className="text-3xl font-serif text-gray-900 mb-4">Something went wrong</h1>
+        <p className="text-gray-500">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-orange selection:text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900 selection:bg-brand/20">
       <div className="pt-24 pb-20 px-6">
 
         {/* Centered Header */}
         <div className="max-w-4xl mx-auto mb-16 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange/10 border border-orange/20 text-orange text-sm font-medium mb-6">
-            <span className="flex h-2 w-2 rounded-full bg-orange"></span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-brand text-sm font-medium mb-6">
+            <span className="flex h-2 w-2 rounded-full bg-brand"></span>
             <span>{filteredHouses.length} {filteredHouses.length === 1 ? 'listing' : 'listings'} available</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-serif text-white mb-4">
+          <h1 className="text-5xl md:text-6xl font-serif text-gray-900 mb-4">
             Available Housing
           </h1>
         </div>
@@ -101,15 +101,15 @@ export default function Listings() {
           <FilterBar onFilterChange={handleFilterChange} />
         </div>
 
-        {/* 2-Column Grid like Updatly */}
+        {/* 2-Column Grid */}
         <div className="max-w-4xl mx-auto">
           {filteredHouses.length === 0 ? (
             <div className="text-center py-20">
-              <h2 className="text-2xl font-serif text-white mb-2">No homes found</h2>
+              <h2 className="text-2xl font-serif text-gray-900 mb-2">No homes found</h2>
               <p className="text-gray-500 mb-6">Try adjusting your filters</p>
               <button
                 onClick={() => window.location.reload()}
-                className="px-6 py-2.5 bg-white text-black font-medium rounded-full hover:bg-gray-200 transition-colors"
+                className="px-6 py-2.5 bg-white text-black font-medium rounded-full hover:bg-gray-200 transition-colors border border-gray-200"
               >
                 Reset Filters
               </button>

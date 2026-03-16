@@ -1,20 +1,21 @@
 import type { Metadata } from 'next';
-import { DM_Sans, DM_Serif_Display } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import EmailVerificationBanner from '@/components/EmailVerificationBanner';
 import EmailDomainWarning from '@/components/EmailDomainWarning';
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-dm-sans'
+  variable: '--font-inter'
 });
 
-const dmSerif = DM_Serif_Display({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-dm-serif'
+const goldenGoose = localFont({
+  src: '../../fonts/GoldenGooseUppercase-VariableVF.ttf',
+  variable: '--font-golden-goose',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -28,10 +29,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
+    <html lang="en" className={`${inter.variable} ${goldenGoose.variable}`}>
       <body className="antialiased font-sans">
         <AuthProvider>
-          <div className="min-h-screen bg-black">
+          <div className="min-h-screen bg-gray-50">
             <Navbar />
             <EmailVerificationBanner />
             <EmailDomainWarning />
