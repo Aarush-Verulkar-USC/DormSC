@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, ChevronDown } from 'lucide-react';
 
 interface FilterType {
   searchTerm: string;
@@ -24,6 +24,17 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
   });
 
   const handleFilterChange = (key: keyof FilterType, value: string) => {
+    if (key === 'minPrice') {
+      const num = parseInt(value);
+      if (value !== '' && (isNaN(num) || num < 0)) return;
+      if (num > 100000) return;
+    }
+    if (key === 'maxPrice') {
+      const num = parseInt(value);
+      if (value !== '' && (isNaN(num) || num < 0)) return;
+      if (num > 100000) return;
+    }
+
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
     onFilterChange(newFilters);
@@ -41,80 +52,91 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
     onFilterChange(clearedFilters);
   };
 
+  const hasActiveFilters = filters.searchTerm || filters.minPrice || filters.maxPrice || filters.bedrooms || filters.bathrooms;
+
+  const inputBase = 'h-10 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand';
+  const selectBase = 'h-10 appearance-none bg-white border border-gray-200 rounded-lg text-sm text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand cursor-pointer';
+
   return (
     <div className="w-full mb-8">
-      <div className="flex flex-col md:flex-row gap-4">
-        {/* Search - Expands to fill available space */}
-        <div className="relative flex-grow">
+      <div className="flex flex-col gap-3">
+        <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-500" />
+            <Search className="h-4 w-4 text-gray-400" />
           </div>
           <input
             type="text"
             placeholder="Search by title, address, or keyword..."
             value={filters.searchTerm}
             onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white placeholder-gray-500 transition-all font-sans"
+            className={`w-full pl-10 pr-4 ${inputBase}`}
           />
         </div>
 
-        {/* Filters Row */}
-        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+        <div className="flex flex-wrap items-center gap-2">
           <input
             type="number"
             placeholder="Min $"
+            min={0}
+            max={100000}
+            step={100}
             value={filters.minPrice}
             onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-            className="w-24 px-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white placeholder-gray-500 text-sm"
+            className={`w-28 px-3 ${inputBase} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
           />
+          <span className="text-gray-300 text-sm">–</span>
           <input
             type="number"
             placeholder="Max $"
+            min={0}
+            max={100000}
+            step={100}
             value={filters.maxPrice}
             onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-            className="w-24 px-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white placeholder-gray-500 text-sm"
+            className={`w-28 px-3 ${inputBase} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
           />
+
+          <div className="w-px h-5 bg-gray-200 mx-1 hidden sm:block" />
 
           <div className="relative">
             <select
               value={filters.bedrooms}
               onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-              className="appearance-none pl-4 pr-10 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white text-sm min-w-[100px]"
+              className={`pl-3 pr-8 ${selectBase}`}
             >
-              <option value="" className="bg-black text-gray-400">Beds</option>
-              <option value="1" className="bg-black">1+ Bed</option>
-              <option value="2" className="bg-black">2+ Beds</option>
-              <option value="3" className="bg-black">3+ Beds</option>
-              <option value="4" className="bg-black">4+ Beds</option>
+              <option value="">Beds</option>
+              <option value="1">1+ Bed</option>
+              <option value="2">2+ Beds</option>
+              <option value="3">3+ Beds</option>
+              <option value="4">4+ Beds</option>
+              <option value="5">5+ Beds</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
-            </div>
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
           </div>
 
           <div className="relative">
             <select
               value={filters.bathrooms}
               onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-              className="appearance-none pl-4 pr-10 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange text-white text-sm min-w-[100px]"
+              className={`pl-3 pr-8 ${selectBase}`}
             >
-              <option value="" className="bg-black text-gray-400">Baths</option>
-              <option value="1" className="bg-black">1+ Bath</option>
-              <option value="2" className="bg-black">2+ Baths</option>
-              <option value="3" className="bg-black">3+ Baths</option>
+              <option value="">Baths</option>
+              <option value="1">1+ Bath</option>
+              <option value="2">2+ Baths</option>
+              <option value="3">3+ Baths</option>
+              <option value="4">4+ Baths</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
-            </div>
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
           </div>
 
-          {(filters.searchTerm || filters.minPrice || filters.maxPrice || filters.bedrooms || filters.bathrooms) && (
+          {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors flex-shrink-0"
+              className="h-10 px-3 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
               title="Clear Filters"
             >
-              <X className="h-5 w-5" />
+              <X className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Clear</span>
             </button>
           )}
         </div>

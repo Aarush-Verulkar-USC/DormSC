@@ -27,64 +27,44 @@ const mapOptions = {
     fullscreenControl: true,
     styles: [
         {
-            featureType: 'all',
-            elementType: 'geometry',
-            stylers: [{ color: '#1a1a1a' }]
+            featureType: 'poi',
+            elementType: 'labels',
+            stylers: [{ visibility: 'off' }]
         },
         {
-            featureType: 'all',
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#9a9a9a' }]
-        },
-        {
-            featureType: 'all',
-            elementType: 'labels.text.stroke',
-            stylers: [{ color: '#1a1a1a' }]
-        },
-        {
-            featureType: 'road',
-            elementType: 'geometry',
-            stylers: [{ color: '#383838' }]
-        },
-        {
-            featureType: 'road',
-            elementType: 'geometry.stroke',
-            stylers: [{ color: '#4a4a4a' }]
-        },
-        {
-            featureType: 'road.highway',
-            elementType: 'geometry',
-            stylers: [{ color: '#4a4a4a' }]
-        },
-        {
-            featureType: 'road.highway',
-            elementType: 'geometry.stroke',
-            stylers: [{ color: '#5a5a5a' }]
-        },
-        {
-            featureType: 'road.arterial',
-            elementType: 'geometry',
-            stylers: [{ color: '#3a3a3a' }]
-        },
-        {
-            featureType: 'road.local',
-            elementType: 'geometry',
-            stylers: [{ color: '#2a2a2a' }]
+            featureType: 'transit',
+            elementType: 'labels',
+            stylers: [{ visibility: 'off' }]
         },
         {
             featureType: 'water',
             elementType: 'geometry',
-            stylers: [{ color: '#0d0d0d' }]
+            stylers: [{ color: '#c9d7ec' }]
         },
         {
-            featureType: 'poi',
+            featureType: 'landscape',
             elementType: 'geometry',
-            stylers: [{ color: '#252525' }]
+            stylers: [{ color: '#f0f0f0' }]
+        },
+        {
+            featureType: 'road',
+            elementType: 'geometry.fill',
+            stylers: [{ color: '#ffffff' }]
+        },
+        {
+            featureType: 'road',
+            elementType: 'geometry.stroke',
+            stylers: [{ color: '#e0e0e0' }]
+        },
+        {
+            featureType: 'road.highway',
+            elementType: 'geometry.fill',
+            stylers: [{ color: '#f5d6a8' }]
         },
         {
             featureType: 'poi.park',
             elementType: 'geometry',
-            stylers: [{ color: '#1a2a1a' }]
+            stylers: [{ color: '#d4eac7' }]
         }
     ]
 };
@@ -187,8 +167,8 @@ export default function GoogleMapWithRoute({
 
     if (loadError) {
         return (
-            <div className={`${height} ${className} bg-white/5 border border-white/10 rounded-lg flex items-center justify-center`}>
-                <div className="text-center text-gray-300">
+            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center`}>
+                <div className="text-center text-gray-600">
                     <p className="text-sm">Failed to load Google Maps</p>
                 </div>
             </div>
@@ -197,10 +177,10 @@ export default function GoogleMapWithRoute({
 
     if (!isLoaded) {
         return (
-            <div className={`${height} ${className} bg-white/5 border border-white/10 rounded-lg flex items-center justify-center`}>
+            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center`}>
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange mx-auto mb-2"></div>
-                    <p className="text-sm text-gray-300">Loading map...</p>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand mx-auto mb-2"></div>
+                    <p className="text-sm text-gray-600">Loading map...</p>
                 </div>
             </div>
         );
@@ -208,14 +188,14 @@ export default function GoogleMapWithRoute({
 
     if (error) {
         return (
-            <div className={`${height} ${className} bg-white/5 border border-white/10 rounded-lg flex items-center justify-center`}>
-                <div className="text-center text-gray-300">
-                    <svg className="w-8 h-8 mx-auto mb-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center`}>
+                <div className="text-center text-gray-600">
+                    <svg className="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <p className="text-sm">{error}</p>
-                    <p className="text-xs text-gray-400 mt-1">{address}</p>
+                    <p className="text-xs text-gray-500 mt-1">{address}</p>
                 </div>
             </div>
         );
@@ -223,8 +203,8 @@ export default function GoogleMapWithRoute({
 
     if (!address || !address.trim()) {
         return (
-            <div className={`${height} ${className} bg-white/5 border border-white/10 rounded-lg flex items-center justify-center border-2 border-dashed`}>
-                <div className="text-center text-gray-400">
+            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center border-2 border-dashed`}>
+                <div className="text-center text-gray-500">
                     <svg className="w-12 h-12 mx-auto mb-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                     </svg>
@@ -238,9 +218,9 @@ export default function GoogleMapWithRoute({
     return (
         <div className={`${height} ${className} relative rounded-lg overflow-hidden`}>
             {loading && (
-                <div className="absolute inset-0 bg-black/80 rounded-lg flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-gray-900/80 rounded-lg flex items-center justify-center z-10">
                     <div className="text-center">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange mx-auto mb-2"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand mx-auto mb-2"></div>
                         <p className="text-sm text-gray-300">Calculating route...</p>
                     </div>
                 </div>
@@ -275,7 +255,7 @@ export default function GoogleMapWithRoute({
                         icon={{
                             path: google.maps.SymbolPath.CIRCLE,
                             scale: 8,
-                            fillColor: '#FF5A1F',
+                            fillColor: '#2845D6',
                             fillOpacity: 1,
                             strokeColor: '#ffffff',
                             strokeWeight: 2
@@ -291,7 +271,7 @@ export default function GoogleMapWithRoute({
                         options={{
                             suppressMarkers: true,
                             polylineOptions: {
-                                strokeColor: '#FF5A1F',
+                                strokeColor: '#2845D6',
                                 strokeWeight: 4,
                                 strokeOpacity: 0.8
                             }
@@ -302,11 +282,11 @@ export default function GoogleMapWithRoute({
 
             {/* Distance Display */}
             {distance !== null && (
-                <div className="absolute bottom-3 left-3 bg-black/90 backdrop-blur-sm rounded-lg shadow-lg p-3 border border-white/10">
+                <div className="absolute bottom-3 left-3 bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-lg p-3 border border-gray-200">
                     <div className="space-y-2">
                         <div className="flex items-center space-x-4 text-xs">
                             <div className="flex items-center">
-                                <div className="w-3 h-3 bg-orange rounded-full mr-2"></div>
+                                <div className="w-3 h-3 bg-brand rounded-full mr-2"></div>
                                 <span className="text-gray-300">Property</span>
                             </div>
                             <div className="flex items-center">
@@ -314,9 +294,9 @@ export default function GoogleMapWithRoute({
                                 <span className="text-gray-300">USC</span>
                             </div>
                         </div>
-                        <div className="pt-2 border-t border-white/10">
+                        <div className="pt-2 border-t border-gray-200">
                             <div className="flex items-center gap-2">
-                                <svg className="w-4 h-4 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                 </svg>
                                 <span className="text-sm font-semibold text-white">{distance} miles</span>

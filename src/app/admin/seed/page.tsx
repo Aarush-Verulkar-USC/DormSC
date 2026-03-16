@@ -74,15 +74,15 @@ export default function AdminSeed() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950">
+      <div className="min-h-screen bg-gray-50">
         <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
-            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
               <div className="inline-flex items-center justify-center mb-6">
-                <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-gray-200 border-t-brand rounded-full animate-spin"></div>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-4">Loading Admin Panel</h1>
-              <p className="text-gray-300">Preparing seeding interface...</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-4">Loading Admin Panel</h1>
+              <p className="text-gray-600">Preparing seeding interface...</p>
             </div>
           </div>
         </div>
@@ -92,20 +92,20 @@ export default function AdminSeed() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-950">
+      <div className="min-h-screen bg-gray-50">
         <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
-            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
+            <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-red-500/20 rounded-full mb-6">
                 <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-4">Something went wrong</h1>
-              <p className="text-gray-300 mb-8 leading-relaxed">{error}</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h1>
+              <p className="text-gray-600 mb-8 leading-relaxed">{error}</p>
               <button
                 onClick={() => window.location.reload()}
-                className="w-full py-3 px-6 bg-white text-gray-900 rounded-2xl font-medium hover:bg-gray-100 transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
+                className="w-full py-3 px-6 bg-brand text-white rounded-2xl font-medium hover:bg-brand/90 transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
               >
                 Try Again
               </button>
@@ -117,45 +117,45 @@ export default function AdminSeed() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       <div className=" pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header Section */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 border border-orange-400/30 rounded-full text-orange-200 text-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand/10 border border-brand/20 rounded-full text-brand text-sm mb-6">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <span className="font-medium">Admin Panel - Seed Data</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Database Seeding
               <br />
-              <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
+              <span className="text-brand">
                 Management Console
               </span>
             </h1>
 
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
               {filteredHouses.length} {filteredHouses.length === 1 ? 'property' : 'properties'} currently in database
             </p>
 
             {/* Admin Stats */}
-            <div className="flex flex-wrap items-center justify-center gap-6 text-gray-400 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-6 text-gray-500 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-brand rounded-full animate-pulse"></div>
                 <span>Live Database</span>
               </div>
-              <div className="w-px h-4 bg-gray-600"></div>
+              <div className="w-px h-4 bg-gray-300"></div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-brand rounded-full animate-pulse"></div>
                 <span>Real-time Updates</span>
               </div>
-              <div className="w-px h-4 bg-gray-600"></div>
+              <div className="w-px h-4 bg-gray-300"></div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-brand rounded-full animate-pulse"></div>
                 <span>Admin Access</span>
               </div>
             </div>
@@ -170,14 +170,14 @@ export default function AdminSeed() {
           {filteredHouses.length === 0 ? (
             <div className="text-center py-20">
               <div className="max-w-md mx-auto">
-                <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-8">
+                <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-8">
                     <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-white mb-4">No properties found</h2>
-                  <p className="text-gray-300 mb-8 leading-relaxed">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">No properties found</h2>
+                  <p className="text-gray-600 mb-8 leading-relaxed">
                     {houses && houses.length > 0
                       ? "Try adjusting your search filters to discover more available homes."
                       : "Database is empty. Use the seeding tools to populate with sample data."
@@ -187,7 +187,7 @@ export default function AdminSeed() {
                   {houses && houses.length > 0 && (
                     <button
                       onClick={() => window.location.reload()}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-2xl font-medium hover:bg-gray-100 transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-2xl font-medium hover:bg-brand/90 transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -221,13 +221,13 @@ export default function AdminSeed() {
               {/* Admin Summary */}
               {filteredHouses.length > 0 && (
                 <div className="text-center">
-                  <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-6 max-w-md mx-auto">
-                    <p className="text-gray-300 mb-2">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6 max-w-md mx-auto">
+                    <p className="text-gray-600 mb-2">
                       Displaying {filteredHouses.length} of {houses?.length || 0} total properties
                     </p>
-                    <div className="flex items-center justify-center gap-6 text-gray-400 text-sm">
+                    <div className="flex items-center justify-center gap-6 text-gray-500 text-sm">
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                        <div className="w-2 h-2 bg-brand rounded-full"></div>
                         <span>Database Connected</span>
                       </div>
                     </div>

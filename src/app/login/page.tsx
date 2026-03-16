@@ -79,30 +79,30 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 relative overflow-hidden">
       {/* Background Ambience */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-orange/20 rounded-full blur-[120px] opacity-40 mix-blend-screen" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-orange/10 rounded-full blur-[120px] opacity-30 mix-blend-screen" />
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand/20 rounded-full blur-[120px] opacity-40 mix-blend-multiply" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-brand/10 rounded-full blur-[120px] opacity-30 mix-blend-multiply" />
       </div>
 
       <div className="w-full max-w-[400px] relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-serif text-white mb-2">
+          <h1 className="text-3xl font-serif text-gray-900 mb-2">
             {isSignUp ? 'Join DormSC' : 'Welcome Back'}
           </h1>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-500 text-sm">
             {isSignUp ? 'Find your perfect student home' : 'Sign in to manage your listings'}
           </p>
         </div>
 
-        <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6 shadow-2xl relative overflow-hidden group">
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg relative overflow-hidden group">
           {/* Google Sign In */}
           <button
             type="button"
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full bg-white text-black h-11 rounded-lg font-medium text-sm flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors disabled:opacity-70 disabled:cursor-not-allowed mb-6"
+            className="w-full bg-gray-50 text-black h-11 rounded-lg font-medium text-sm flex items-center justify-center gap-3 border border-gray-200 hover:bg-gray-100 transition-colors disabled:opacity-70 disabled:cursor-not-allowed mb-6"
           >
             {loading ? (
               <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -121,10 +121,10 @@ export default function Login() {
 
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/[0.08]"></div>
+              <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="px-3 bg-black/50 backdrop-blur-xl text-gray-500">Or use email</span>
+              <span className="px-3 bg-white text-gray-500">Or use email</span>
             </div>
           </div>
 
@@ -153,7 +153,7 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white/[0.05] border border-white/[0.08] rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-orange/50 focus:ring-1 focus:ring-orange/50 transition-all placeholder:text-gray-600"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-brand/50 focus:ring-1 focus:ring-brand/50 transition-all placeholder:text-gray-400"
                   placeholder="USC Email (tommy@usc.edu)"
                   required
                 />
@@ -164,7 +164,7 @@ export default function Login() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-white/[0.05] border border-white/[0.08] rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-orange/50 focus:ring-1 focus:ring-orange/50 transition-all placeholder:text-gray-600"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-brand/50 focus:ring-1 focus:ring-brand/50 transition-all placeholder:text-gray-400"
                   placeholder="Password"
                   required
                 />
@@ -174,7 +174,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-orange to-red-600 text-white border-none h-11 rounded-lg font-medium text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-orange/20 transition-all disabled:opacity-70 mt-6"
+              className="w-full bg-gradient-to-r from-brand to-blue-800 text-white border-none h-11 rounded-lg font-medium text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-brand/20 transition-all disabled:opacity-70 mt-6"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -192,7 +192,7 @@ export default function Login() {
                 setError('');
                 setSuccess('');
               }}
-              className="text-xs text-gray-500 hover:text-white transition-colors"
+              className="text-xs text-gray-500 hover:text-gray-900 transition-colors"
             >
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Create one"}
             </button>
@@ -201,13 +201,13 @@ export default function Login() {
 
         {/* Footer */}
         <div className="mt-8 text-center space-y-2">
-          <div className="flex items-center justify-center gap-2 text-xs text-gray-600">
+          <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-1.07 3.97-2.9 5.33z" />
             </svg>
             <span>Secured by Firebase</span>
           </div>
-          <p className="text-xs text-gray-700">© 2026 DormSC. All rights reserved.</p>
+          <p className="text-xs text-gray-400">© 2026 DormSC. All rights reserved.</p>
         </div>
       </div>
     </div>

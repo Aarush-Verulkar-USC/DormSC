@@ -30,13 +30,13 @@ export default function EmailDomainWarning() {
                     </div>
                     <div className="flex-1">
                         <h3 className="text-sm font-semibold text-red-400 mb-1">Unauthorized Email</h3>
-                        <p className="text-xs text-gray-300">
+                        <p className="text-xs text-gray-600">
                             Only @usc.edu email addresses are allowed. Please sign in with your USC email.
                         </p>
                     </div>
                     <button
                         onClick={() => setShowWarning(false)}
-                        className="flex-shrink-0 text-gray-400 hover:text-white transition-colors"
+                        className="flex-shrink-0 text-gray-500 hover:text-gray-900 transition-colors"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

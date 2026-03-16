@@ -126,7 +126,7 @@ export default function GoogleAddressAutocomplete({
                     className={`${className} opacity-50`}
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <div className="w-4 h-4 border-2 border-gray-400 border-t-orange rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-gray-400 border-t-brand rounded-full animate-spin"></div>
                 </div>
             </div>
         );
@@ -145,7 +145,7 @@ export default function GoogleAddressAutocomplete({
             />
             {loading && (
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <div className="w-4 h-4 border-2 border-gray-400 border-t-orange rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-gray-400 border-t-brand rounded-full animate-spin"></div>
                 </div>
             )}
         </div>
