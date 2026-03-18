@@ -157,7 +157,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gray-50 text-gray-900 font-sans">
+    <div className="min-h-screen relative overflow-hidden bg-[#f0f4ff] text-gray-900 font-sans">
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-12">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
@@ -166,7 +166,7 @@ export default function AdminDashboard() {
             <p className="text-gray-500">Manage your platform's listings and user base.</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="px-4 py-2 bg-white border border-gray-200 rounded-xl shadow-sm">
+            <div className="px-4 py-2 rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <span className="text-sm font-medium text-gray-900 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                 System Operational
@@ -178,12 +178,12 @@ export default function AdminDashboard() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {stats.map((stat, i) => (
-            <div key={i} className="bg-white border border-gray-200 p-5 rounded-2xl hover:bg-gray-50 transition-colors group">
+            <div key={i} className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-5 hover:bg-gray-50/80 transition-colors group">
               <div className="flex justify-between items-start mb-4">
                 <div className={`p-3 rounded-xl ${stat.bg} ${stat.color} group-hover:scale-110 transition-transform duration-300`}>
                   <stat.icon className="w-6 h-6" />
                 </div>
-                <div className="flex items-center gap-1 text-xs font-medium bg-gray-100 px-2 py-1 rounded-lg text-gray-600">
+                <div className="flex items-center gap-1 text-xs font-medium rounded-full bg-gray-100 px-2 py-1 text-gray-600">
                   {stat.change} <ArrowUpRight className="w-3 h-3" />
                 </div>
               </div>
@@ -196,17 +196,17 @@ export default function AdminDashboard() {
         </div>
 
         {/* Main Content Area */}
-        <div className="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg">
+        <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] overflow-hidden">
           {/* Controls Bar */}
-          <div className="p-6 border-b border-gray-200 flex flex-col sm:flex-row gap-4 justify-between items-center">
+          <div className="p-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
 
             {/* Tabs */}
-            <div className="flex p-1 bg-gray-100 rounded-xl w-full sm:w-auto">
+            <div className="flex p-1 bg-gray-100 rounded-full w-full sm:w-auto">
               <button
                 onClick={() => { setActiveTab('listings'); setSearchTerm(''); }}
-                className={`flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${activeTab === 'listings'
-                  ? 'bg-brand text-white shadow-sm'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-200'
+                className={`flex-1 sm:flex-none px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${activeTab === 'listings'
+                  ? 'rounded-full bg-brand text-white hover:opacity-90 active:scale-[0.98] transition-all'
+                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-200 active:scale-[0.98] transition-all'
                   }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
@@ -214,9 +214,9 @@ export default function AdminDashboard() {
               </button>
               <button
                 onClick={() => { setActiveTab('users'); setSearchTerm(''); }}
-                className={`flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${activeTab === 'users'
-                  ? 'bg-brand text-white shadow-sm'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-200'
+                className={`flex-1 sm:flex-none px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${activeTab === 'users'
+                  ? 'rounded-full bg-brand text-white hover:opacity-90 active:scale-[0.98] transition-all'
+                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-200 active:scale-[0.98] transition-all'
                   }`}
               >
                 <Users className="w-4 h-4" />
@@ -232,7 +232,7 @@ export default function AdminDashboard() {
                 placeholder={activeTab === 'listings' ? 'Search listings...' : 'Search users...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-100 border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:border-brand focus:bg-white transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all"
               />
             </div>
           </div>
@@ -244,14 +244,14 @@ export default function AdminDashboard() {
               <div className="w-full">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-gray-200 bg-gray-50">
+                    <tr className="bg-gray-50/50">
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Property</th>
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Landlord</th>
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Price</th>
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-100/80">
                     {loading ? (
                       [...Array(5)].map((_, i) => (
                         <tr key={i} className="animate-pulse">
@@ -269,13 +269,13 @@ export default function AdminDashboard() {
                       </tr>
                     ) : (
                       filteredListings.map((house) => (
-                        <tr key={house.id} className="group hover:bg-gray-50 transition-colors">
+                        <tr key={house.id} className="group hover:bg-gray-50/50 transition-colors">
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-4">
                               {house.images?.[0] ? (
                                 <img src={house.images[0]} alt="" className="w-12 h-12 rounded-lg object-cover bg-gray-200" />
                               ) : (
-                                <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center">
                                   <Home className="w-6 h-6 text-gray-500" />
                                 </div>
                               )}
@@ -295,7 +295,7 @@ export default function AdminDashboard() {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-900 border border-gray-200">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-900">
                               ${house.price.toLocaleString()}/mo
                             </span>
                           </td>
@@ -304,7 +304,7 @@ export default function AdminDashboard() {
                               {/* View Button */}
                               <Link
                                 href={`/listing/${house.id}`}
-                                className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all"
+                                className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all active:scale-[0.98]"
                                 title="View details"
                               >
                                 <ArrowUpRight className="w-4 h-4" />
@@ -314,7 +314,7 @@ export default function AdminDashboard() {
                               <button
                                 onClick={() => handleDelete(house.id)}
                                 disabled={deleteLoading === house.id}
-                                className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all disabled:opacity-50"
+                                className="p-2 rounded-full bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all disabled:opacity-50"
                                 title="Delete listing"
                               >
                                 {deleteLoading === house.id ? (
@@ -336,14 +336,14 @@ export default function AdminDashboard() {
               <div className="w-full">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-gray-200 bg-gray-50">
+                    <tr className="bg-gray-50/50">
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">User</th>
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Listings</th>
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Status</th>
                       <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-100/80">
                     {loading || blockedLoading ? (
                       [...Array(5)].map((_, i) => (
                         <tr key={i} className="animate-pulse">
@@ -363,7 +363,7 @@ export default function AdminDashboard() {
                       filteredUsers.map((user) => {
                         const blocked = isBlocked(user.email);
                         return (
-                          <tr key={user.email} className={`group transition-colors ${blocked ? 'bg-red-50/50 hover:bg-red-50' : 'hover:bg-gray-50'}`}>
+                          <tr key={user.email} className={`group transition-colors ${blocked ? 'bg-red-50/30 hover:bg-red-50/50' : 'hover:bg-gray-50/50'}`}>
                             <td className="px-6 py-4">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand font-bold shadow-sm">
@@ -380,12 +380,12 @@ export default function AdminDashboard() {
                             </td>
                             <td className="px-6 py-4 text-center">
                               {blocked ? (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400">
                                   <span className="w-1.5 h-1.5 rounded-full bg-red-400"></span>
                                   Blocked
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700">
                                   <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                                   Active
                                 </span>
@@ -398,9 +398,9 @@ export default function AdminDashboard() {
                                 <button
                                   onClick={() => handleBlock(user.email)}
                                   disabled={blockLoading === user.email}
-                                  className={`px-4 py-2 rounded-lg text-xs font-medium border transition-all disabled:opacity-50 ${blocked
-                                    ? 'border-gray-300 text-gray-900 hover:bg-gray-100'
-                                    : 'border-red-500/20 text-red-400 hover:bg-red-500/10'
+                                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all disabled:opacity-50 active:scale-[0.98] ${blocked
+                                    ? 'rounded-full bg-gray-100 text-gray-900 hover:bg-gray-200'
+                                    : 'rounded-full bg-red-50 text-red-500 hover:bg-red-100'
                                     }`}
                                 >
                                   {blockLoading === user.email ? (

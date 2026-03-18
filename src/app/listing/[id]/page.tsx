@@ -9,7 +9,8 @@ import { useFavorites } from '@/hooks/useFavorites';
 import Link from 'next/link';
 import { House } from '@/types/house';
 import GoogleMapWithRoute from '@/components/GoogleMapWithRoute';
-import { MapPin, Bed, Bath, Calendar, Check, Heart } from 'lucide-react';
+import { MapPin, Bed, Bath, Calendar, Check, Heart, ImageOff } from 'lucide-react';
+import ConfirmModal from '@/components/ConfirmModal';
 
 export default function ListingDetail() {
   const params = useParams();
@@ -23,6 +24,7 @@ export default function ListingDetail() {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [favLoading, setFavLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const fetchHouse = async () => {
@@ -65,17 +67,14 @@ export default function ListingDetail() {
 
   const handleDelete = async () => {
     if (!house || !currentUser) return;
-    const confirmed = window.confirm('Are you sure you want to delete this listing?');
-    if (!confirmed) return;
 
     try {
       setDeleteLoading(true);
       await deleteHouse(house.id);
+      setShowDeleteModal(false);
       router.push('/listings');
     } catch (error) {
       console.error('Error deleting house:', error);
-      alert('Failed to delete listing. Please try again.');
-    } finally {
       setDeleteLoading(false);
     }
   };
@@ -102,7 +101,7 @@ export default function ListingDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f4ff] flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-gray-300 border-t-brand rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-500 text-sm">Loading property...</p>
@@ -113,13 +112,13 @@ export default function ListingDetail() {
 
   if (!house) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f4ff] flex items-center justify-center">
         <div className="text-center max-w-sm mx-auto px-6">
-          <h1 className="text-xl font-serif text-gray-900 mb-2">Property not found</h1>
+          <h1 className="text-xl font-semibold text-gray-900 mb-2">Property not found</h1>
           <p className="text-gray-500 text-sm mb-6">This listing may have been removed.</p>
           <Link
             href="/listings"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white rounded-full text-sm font-medium hover:bg-brand/90 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all"
           >
             View Listings
           </Link>
@@ -129,18 +128,16 @@ export default function ListingDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Centered Container */}
+    <div className="min-h-screen bg-[#f0f4ff] text-gray-900">
       <div className="pt-24 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
 
-          {/* Management Buttons */}
           {canManage && (
             <div className="flex items-center justify-end gap-2 mb-6">
               {isOwner && (
                 <Link
                   href={`/edit-listing/${house.id}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full hover:border-gray-300 transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gray-100 text-sm font-medium text-gray-700 hover:bg-gray-200 active:scale-[0.98] transition-all"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -149,18 +146,17 @@ export default function ListingDetail() {
                 </Link>
               )}
               <button
-                onClick={handleDelete}
+                onClick={() => setShowDeleteModal(true)}
                 disabled={deleteLoading}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-400 hover:text-red-300 border border-red-500/20 rounded-full hover:border-red-500/30 transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium text-red-500 bg-red-50 hover:bg-red-100 active:scale-[0.98] transition-all disabled:opacity-50"
               >
-                {deleteLoading ? 'Deleting...' : 'Delete'}
+                Delete
               </button>
             </div>
           )}
 
-          {/* Hero Image */}
           {house.images && house.images.length > 0 ? (
-            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-8">
+            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-8 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <img
                 src={house.images[currentImageIndex]}
                 alt={house.title}
@@ -171,7 +167,7 @@ export default function ListingDetail() {
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gray-900/50 backdrop-blur-md hover:bg-gray-900/70 rounded-full flex items-center justify-center text-white transition-all"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 shadow-sm rounded-full flex items-center justify-center text-gray-900 transition-all"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -179,7 +175,7 @@ export default function ListingDetail() {
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gray-900/50 backdrop-blur-md hover:bg-gray-900/70 rounded-full flex items-center justify-center text-white transition-all"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 shadow-sm rounded-full flex items-center justify-center text-gray-900 transition-all"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -199,10 +195,11 @@ export default function ListingDetail() {
               )}
             </div>
           ) : (
-            <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl mb-8" />
+            <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl flex items-center justify-center mb-8">
+              <ImageOff className="w-12 h-12 text-gray-300" />
+            </div>
           )}
 
-          {/* Header */}
           <div className="mb-8">
             <div className="flex items-start justify-between gap-4">
               <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-3">{house.title}</h1>
@@ -210,10 +207,10 @@ export default function ListingDetail() {
                 <button
                   onClick={handleToggleFavorite}
                   disabled={favLoading}
-                  className={`flex-shrink-0 mt-1 p-2.5 rounded-full border transition-all ${
+                  className={`flex-shrink-0 mt-1 p-2.5 rounded-full shadow-sm transition-all ${
                     favorited
-                      ? 'bg-red-50 border-red-200 hover:bg-red-100'
-                      : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300'
+                      ? 'bg-red-50 hover:bg-red-100'
+                      : 'bg-white hover:bg-gray-50'
                   } disabled:opacity-50`}
                   title={favorited ? 'Remove from favorites' : 'Add to favorites'}
                 >
@@ -227,20 +224,19 @@ export default function ListingDetail() {
             </div>
           </div>
 
-          {/* Key Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white border border-gray-200 rounded-xl p-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white rounded-2xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <div className="text-2xl font-bold text-gray-900">${house.price?.toLocaleString()}</div>
               <div className="text-xs text-gray-500 mt-1">per month</div>
             </div>
-            <div className="bg-white border border-gray-200 rounded-xl p-4 flex items-center gap-3">
+            <div className="bg-white rounded-2xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] flex items-center gap-3">
               <Bed className="w-5 h-5 text-gray-500" />
               <div>
                 <div className="text-xl font-bold text-gray-900">{house.bedrooms}</div>
                 <div className="text-xs text-gray-500">bedrooms</div>
               </div>
             </div>
-            <div className="bg-white border border-gray-200 rounded-xl p-4 flex items-center gap-3">
+            <div className="bg-white rounded-2xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] flex items-center gap-3">
               <Bath className="w-5 h-5 text-gray-500" />
               <div>
                 <div className="text-xl font-bold text-gray-900">{house.bathrooms}</div>
@@ -248,30 +244,28 @@ export default function ListingDetail() {
               </div>
             </div>
             {house.distanceToUSC && (
-              <div className="bg-white border border-gray-200 rounded-xl p-4">
+              <div className="bg-white rounded-2xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
                 <div className="text-2xl font-bold text-gray-900">{house.distanceToUSC}</div>
                 <div className="text-xs text-gray-500 mt-1">miles to USC</div>
               </div>
             )}
           </div>
 
-          {/* Description */}
           {house.description && (
-            <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+            <div className="bg-white rounded-2xl p-6 mb-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">About</h2>
               <p className="text-gray-600 leading-relaxed text-sm">{house.description}</p>
             </div>
           )}
 
-          {/* Amenities */}
           {house.amenities && house.amenities.length > 0 && (
-            <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+            <div className="bg-white rounded-2xl p-6 mb-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Amenities</h2>
               <div className="flex flex-wrap gap-2">
                 {house.amenities.map((amenity, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-600"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 rounded-full text-sm text-gray-600"
                   >
                     <Check className="w-3.5 h-3.5 text-brand" />
                     {amenity}
@@ -281,8 +275,7 @@ export default function ListingDetail() {
             </div>
           )}
 
-          {/* Contact Card */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <div className="bg-white rounded-2xl p-6 mb-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <div className="text-2xl font-bold text-gray-900">
@@ -299,13 +292,13 @@ export default function ListingDetail() {
             </div>
 
             {isOwner ? (
-              <div className="text-center py-3 bg-gray-50 rounded-xl border border-gray-200">
+              <div className="text-center py-3 bg-gray-50 rounded-xl shadow-sm">
                 <p className="text-sm text-gray-500">This is your listing</p>
               </div>
             ) : (
               <button
                 onClick={handleContactClick}
-                className="w-full py-3 px-4 bg-brand text-white rounded-full font-medium text-sm hover:bg-brand/90 transition-colors"
+                className="w-full py-3 px-4 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all"
               >
                 Contact Landlord
               </button>
@@ -316,7 +309,7 @@ export default function ListingDetail() {
                 {house.landlordContact.email && (
                   <a
                     href={`mailto:${house.landlordContact.email}`}
-                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors text-sm text-gray-600"
+                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl shadow-sm hover:bg-gray-100 transition-colors text-sm text-gray-600"
                   >
                     {house.landlordContact.email}
                   </a>
@@ -324,7 +317,7 @@ export default function ListingDetail() {
                 {house.landlordContact.phone && (
                   <a
                     href={`tel:${house.landlordContact.phone}`}
-                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors text-sm text-gray-600"
+                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl shadow-sm hover:bg-gray-100 transition-colors text-sm text-gray-600"
                   >
                     {house.landlordContact.phone}
                   </a>
@@ -333,8 +326,7 @@ export default function ListingDetail() {
             )}
           </div>
 
-          {/* Map */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
             <div className="px-6 pt-6 pb-4">
               <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Route to USC</h2>
             </div>
@@ -346,6 +338,18 @@ export default function ListingDetail() {
           </div>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={showDeleteModal}
+        title="Delete listing"
+        message="Are you sure you want to delete this listing? This action cannot be undone."
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+        loading={deleteLoading}
+        onConfirm={handleDelete}
+        onCancel={() => setShowDeleteModal(false)}
+      />
     </div>
   );
 }

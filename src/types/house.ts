@@ -11,6 +11,7 @@ export interface FilterType {
   maxPrice: string;
   bedrooms: string;
   bathrooms: string;
+  availableBy: string;
 }
 
 export interface House {

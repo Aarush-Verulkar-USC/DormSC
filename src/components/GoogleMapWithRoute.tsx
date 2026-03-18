@@ -167,7 +167,7 @@ export default function GoogleMapWithRoute({
 
     if (loadError) {
         return (
-            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center`}>
+            <div className={`${height} ${className} bg-gray-100 rounded-2xl flex items-center justify-center`}>
                 <div className="text-center text-gray-600">
                     <p className="text-sm">Failed to load Google Maps</p>
                 </div>
@@ -177,7 +177,7 @@ export default function GoogleMapWithRoute({
 
     if (!isLoaded) {
         return (
-            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center`}>
+            <div className={`${height} ${className} bg-gray-100 rounded-2xl flex items-center justify-center`}>
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand mx-auto mb-2"></div>
                     <p className="text-sm text-gray-600">Loading map...</p>
@@ -188,7 +188,7 @@ export default function GoogleMapWithRoute({
 
     if (error) {
         return (
-            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center`}>
+            <div className={`${height} ${className} bg-gray-100 rounded-2xl flex items-center justify-center`}>
                 <div className="text-center text-gray-600">
                     <svg className="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -203,7 +203,7 @@ export default function GoogleMapWithRoute({
 
     if (!address || !address.trim()) {
         return (
-            <div className={`${height} ${className} bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center border-2 border-dashed`}>
+            <div className={`${height} ${className} bg-gray-100 rounded-2xl flex items-center justify-center`}>
                 <div className="text-center text-gray-500">
                     <svg className="w-12 h-12 mx-auto mb-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
@@ -216,12 +216,12 @@ export default function GoogleMapWithRoute({
     }
 
     return (
-        <div className={`${height} ${className} relative rounded-lg overflow-hidden`}>
+        <div className={`${height} ${className} relative rounded-2xl overflow-hidden`}>
             {loading && (
-                <div className="absolute inset-0 bg-gray-900/80 rounded-lg flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10">
                     <div className="text-center">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand mx-auto mb-2"></div>
-                        <p className="text-sm text-gray-300">Calculating route...</p>
+                        <p className="text-sm text-gray-500">Calculating route...</p>
                     </div>
                 </div>
             )}
@@ -282,24 +282,24 @@ export default function GoogleMapWithRoute({
 
             {/* Distance Display */}
             {distance !== null && (
-                <div className="absolute bottom-3 left-3 bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-lg p-3 border border-gray-200">
+                <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] p-3">
                     <div className="space-y-2">
                         <div className="flex items-center space-x-4 text-xs">
                             <div className="flex items-center">
                                 <div className="w-3 h-3 bg-brand rounded-full mr-2"></div>
-                                <span className="text-gray-300">Property</span>
+                                <span className="text-gray-500">Property</span>
                             </div>
                             <div className="flex items-center">
                                 <div className="w-3 h-3 bg-red-600 rounded-full mr-2"></div>
-                                <span className="text-gray-300">USC</span>
+                                <span className="text-gray-500">USC</span>
                             </div>
                         </div>
-                        <div className="pt-2 border-t border-gray-200">
+                        <div className="pt-2 border-t border-gray-100">
                             <div className="flex items-center gap-2">
                                 <svg className="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                 </svg>
-                                <span className="text-sm font-semibold text-white">{distance} miles</span>
+                                <span className="text-sm font-semibold text-gray-900">{distance} miles</span>
                                 <span className="text-xs text-gray-400">driving</span>
                             </div>
                         </div>

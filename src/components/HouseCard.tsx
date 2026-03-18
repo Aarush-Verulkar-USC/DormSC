@@ -37,7 +37,7 @@ export default function HouseCard({
 
   return (
     <Link href={`/listing/${house.id}`}>
-      <div className="group cursor-pointer rounded-2xl border border-gray-200 bg-white hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 overflow-hidden">
+      <div className="group cursor-pointer rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-shadow duration-300 overflow-hidden">
 
         {/* Image Section */}
         <div className="relative aspect-[16/10] overflow-hidden">
@@ -46,6 +46,7 @@ export default function HouseCard({
               src={house.images[0]}
               alt={house.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
               onError={() => setImageError(true)}
             />
           ) : (
@@ -61,14 +62,14 @@ export default function HouseCard({
             <button
               onClick={handleFavoriteClick}
               disabled={favoriteLoading}
-              className="absolute top-3 right-3 p-2 rounded-full bg-gray-900/50 backdrop-blur-md hover:bg-gray-900/70 transition-colors disabled:opacity-50"
+              className="absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-sm hover:bg-white transition-colors disabled:opacity-50"
               title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
             >
               {favoriteLoading ? (
-                <div className="w-4 h-4 border-2 border-gray-300 border-t-brand rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-gray-200 border-t-brand rounded-full animate-spin"></div>
               ) : (
                 <svg
-                  className={`w-4 h-4 transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white'}`}
+                  className={`w-4 h-4 transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`}
                   fill={isFavorite ? 'currentColor' : 'none'}
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -81,7 +82,7 @@ export default function HouseCard({
 
           {/* Status Badge */}
           {!house.isActive && (
-            <div className="absolute top-3 left-3 bg-gray-900/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-medium">
+            <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
               Unavailable
             </div>
           )}

@@ -78,7 +78,6 @@ export default function EditListing() {
     }
   }, [houses, listingId, currentUser, router]);
 
-  // --- All handler functions (handleInputChange, etc.) remain the same ---
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -134,12 +133,16 @@ export default function EditListing() {
     }
   };
 
+  const inputStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans";
+  const selectStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans appearance-none";
+  const textareaStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans resize-y min-h-[120px]";
+
   if (housesLoading || !house) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className=" pt-24 pb-12 flex items-center justify-center min-h-screen">
+      <div className="min-h-screen bg-[#f0f4ff]">
+        <div className="pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
-            <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-8">
               <div className="inline-flex items-center justify-center mb-6">
                 <div className="w-12 h-12 border-4 border-gray-200 border-t-brand rounded-full animate-spin"></div>
               </div>
@@ -152,12 +155,9 @@ export default function EditListing() {
     );
   }
 
-  const inputStyle = "mt-2 w-full border border-gray-200 rounded-xl p-3 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all duration-200";
-  const selectStyle = "mt-2 w-full border border-gray-200 rounded-xl p-3 bg-white text-gray-900 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all duration-200";
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className=" pt-24 pb-12">
+    <div className="min-h-screen bg-[#f0f4ff]">
+      <div className="pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <div className="text-center md:text-left">
@@ -166,7 +166,7 @@ export default function EditListing() {
             </div>
             <Link
               href="/my-listings"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-200 transition-all duration-300 self-center md:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-900 text-sm font-medium hover:bg-gray-200 active:scale-[0.98] transition-all self-center md:self-auto"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -176,7 +176,7 @@ export default function EditListing() {
           </div>
 
           {userBlocked && (
-            <div className="mb-6 px-5 py-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-sm flex items-center gap-3">
+            <div className="mb-6 px-5 py-4 bg-red-50 rounded-2xl text-red-700 text-sm flex items-center gap-3">
               <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
               </svg>
@@ -186,32 +186,34 @@ export default function EditListing() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Listing Status Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900">Listing Status</h2>
               </div>
-              <label className="flex items-center space-x-3 cursor-pointer">
+              <label className={`flex items-center space-x-3 cursor-pointer p-3 rounded-xl transition-all ${
+                formData.isActive ? 'bg-brand/10 ring-2 ring-brand/30' : 'bg-gray-100'
+              }`}>
                 <input
                   type="checkbox"
                   name="isActive"
                   checked={formData.isActive}
                   onChange={handleInputChange}
-                  className="h-5 w-5 rounded border-gray-300 bg-white text-brand focus:ring-brand focus:ring-offset-0"
+                  className="sr-only"
                 />
                 <span className="font-medium text-gray-700">Active Listing (visible to students)</span>
               </label>
             </div>
 
             {/* Property Details Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
@@ -316,20 +318,18 @@ export default function EditListing() {
                     rows={4}
                     value={formData.description}
                     onChange={handleInputChange}
-                    className={`${inputStyle} resize-y`}
+                    className={textareaStyle}
                     placeholder="Describe your property, its features, and what makes it special..."
                   />
                 </div>
               </div>
             </div>
 
-
-
             {/* Contact Information Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
@@ -375,10 +375,10 @@ export default function EditListing() {
             </div>
 
             {/* Amenities Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -386,12 +386,19 @@ export default function EditListing() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {amenitiesList.map(amenity => (
-                  <label key={amenity} className="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                  <label
+                    key={amenity}
+                    className={`flex items-center space-x-3 cursor-pointer p-3 rounded-xl transition-all ${
+                      formData.amenities.includes(amenity)
+                        ? 'bg-brand/10 ring-2 ring-brand/30'
+                        : 'bg-gray-100'
+                    }`}
+                  >
                     <input
                       type="checkbox"
                       checked={formData.amenities.includes(amenity)}
                       onChange={() => handleAmenityChange(amenity)}
-                      className="h-4 w-4 rounded border-gray-300 bg-white text-brand focus:ring-brand focus:ring-offset-0"
+                      className="sr-only"
                     />
                     <span className="text-sm font-medium text-gray-600">{amenity}</span>
                   </label>
@@ -400,10 +407,10 @@ export default function EditListing() {
             </div>
 
             {/* Property Images Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -412,24 +419,33 @@ export default function EditListing() {
 
               <div className="space-y-4">
                 {formData.images.map((image, index) => (
-                  <div key={index} className="flex gap-3 items-center">
-                    <input
-                      type="url"
-                      value={image}
-                      onChange={(e) => handleImageChange(index, e.target.value)}
-                      className={inputStyle}
-                      placeholder="https://example.com/image.jpg"
-                    />
-                    {formData.images.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeImageField(index)}
-                        className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors flex-shrink-0"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                  <div key={index} className="space-y-2">
+                    <div className="flex gap-3 items-center">
+                      <input
+                        type="url"
+                        value={image}
+                        onChange={(e) => handleImageChange(index, e.target.value)}
+                        className={inputStyle}
+                        placeholder="https://example.com/image.jpg"
+                      />
+                      {formData.images.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeImageField(index)}
+                          className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all flex-shrink-0"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                    {image.trim() !== '' && (
+                      <img
+                        src={image}
+                        className="h-20 w-32 object-cover rounded-xl shadow-sm"
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                      />
                     )}
                   </div>
                 ))}
@@ -447,12 +463,12 @@ export default function EditListing() {
             </div>
 
             {/* Action Buttons */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <button
                   type="submit"
                   disabled={loading || userBlocked}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-brand hover:bg-brand/90 text-white rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-brand text-white font-medium hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>
@@ -474,7 +490,7 @@ export default function EditListing() {
                 <button
                   type="button"
                   onClick={() => router.back()}
-                  className="w-full sm:w-auto px-8 py-3 border border-gray-300 text-gray-600 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-all duration-300"
+                  className="w-full sm:w-auto px-8 py-3 rounded-full bg-gray-100 text-gray-900 hover:bg-gray-200 active:scale-[0.98] transition-all"
                 >
                   Cancel
                 </button>

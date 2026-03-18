@@ -11,10 +11,12 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@next/font": "^14.2.15",
+    "@phosphor-icons/react": "^2.1.10",
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@react-google-maps/api": "^2.20.8",
+    "@tabler/icons-react": "^3.40.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.8.1",

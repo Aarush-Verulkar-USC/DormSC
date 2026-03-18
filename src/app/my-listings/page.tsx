@@ -4,12 +4,14 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useHouses } from '@/hooks/useHouses';
 import Link from 'next/link';
 import { House } from '@/types/house';
+import ConfirmModal from '@/components/ConfirmModal';
 
 export default function MyListings() {
   const { currentUser } = useAuth();
   const { houses, loading, error, deleteHouse } = useHouses();
   const [myListings, setMyListings] = useState<House[]>([]);
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
   useEffect(() => {
     if (houses && currentUser) {
@@ -18,17 +20,16 @@ export default function MyListings() {
     }
   }, [houses, currentUser]);
 
-  const handleDelete = async (houseId: string) => {
-    if (window.confirm('Are you sure you want to delete this listing? This action cannot be undone.')) {
-      try {
-        setDeleteLoading(houseId);
-        await deleteHouse(houseId);
-      } catch (error) {
-        console.error('Error deleting listing:', error);
-        alert('Failed to delete listing. Please try again.');
-      } finally {
-        setDeleteLoading(null);
-      }
+  const handleDeleteConfirm = async () => {
+    if (!deleteTarget) return;
+    try {
+      setDeleteLoading(deleteTarget);
+      await deleteHouse(deleteTarget);
+    } catch (error) {
+      console.error('Error deleting listing:', error);
+    } finally {
+      setDeleteLoading(null);
+      setDeleteTarget(null);
     }
   };
 
@@ -37,14 +38,14 @@ export default function MyListings() {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-              <div className="aspect-[4/3] bg-gray-100 animate-pulse" />
+            <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+              <div className="aspect-[4/3] bg-gray-200 rounded-2xl animate-pulse" />
               <div className="p-5 space-y-3">
-                <div className="h-5 bg-gray-100 rounded-md animate-pulse w-3/4" />
-                <div className="h-4 bg-gray-100 rounded-md animate-pulse w-1/2" />
+                <div className="h-5 bg-gray-200 rounded-2xl animate-pulse w-3/4" />
+                <div className="h-4 bg-gray-200 rounded-2xl animate-pulse w-1/2" />
                 <div className="flex justify-between items-center pt-2">
-                  <div className="h-4 bg-gray-100 rounded-md animate-pulse w-20" />
-                  <div className="h-8 w-20 bg-gray-100 rounded-lg animate-pulse" />
+                  <div className="h-4 bg-gray-200 rounded-2xl animate-pulse w-20" />
+                  <div className="h-8 w-20 bg-gray-200 rounded-2xl animate-pulse" />
                 </div>
               </div>
             </div>
@@ -57,17 +58,17 @@ export default function MyListings() {
       return (
         <div className="text-center py-20">
           <div className="max-w-md mx-auto">
-            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full mb-6">
+            <div className="bg-white rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)]">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 rounded-full mb-6">
                 <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h1 className="text-xl font-serif text-gray-900 mb-3">Something went wrong</h1>
+              <h1 className="text-xl font-semibold text-gray-900 mb-3">Something went wrong</h1>
               <p className="text-gray-500 mb-8 text-sm">{error}</p>
               <button
                 onClick={() => window.location.reload()}
-                className="w-full py-2.5 px-6 bg-brand text-white rounded-lg text-sm font-medium hover:bg-brand/90 transition-all"
+                className="w-full py-2.5 px-6 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all"
               >
                 Try Again
               </button>
@@ -81,19 +82,19 @@ export default function MyListings() {
       return (
         <div className="text-center py-20 min-h-[50vh] flex flex-col justify-center">
           <div className="max-w-md mx-auto w-full">
-            <div className="bg-white border border-gray-200 rounded-2xl p-10 shadow-lg">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-brand/10 rounded-full mb-6 border border-brand/20">
+            <div className="bg-white rounded-2xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.08)]">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-brand/10 rounded-full mb-6">
                 <svg className="w-10 h-10 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-serif text-gray-900 mb-3">No listings yet</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-3">No listings yet</h2>
               <p className="text-gray-500 mb-8 leading-relaxed text-sm">
                 Get started by creating your first property listing and start earning from student rentals.
               </p>
               <Link
                 href="/add-listing"
-                className="inline-flex items-center gap-2 w-full py-3 px-6 bg-brand text-white rounded-lg text-sm font-medium hover:bg-brand/90 transition-all justify-center"
+                className="inline-flex items-center gap-2 w-full py-3 px-6 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all justify-center"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -109,29 +110,34 @@ export default function MyListings() {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {myListings.map((house) => (
-          <div key={house.id} className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-gray-300 transition-all duration-300">
-            {/* Property Image */}
-            {house.images && house.images.length > 0 && (
-              <div className="aspect-[4/3] relative overflow-hidden">
+          <div key={house.id} className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+            {house.images && house.images.length > 0 ? (
+              <div className="aspect-[4/3] relative overflow-hidden rounded-t-2xl">
                 <img
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   src={house.images[0]}
                   alt={house.title}
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                 <div className="absolute top-4 left-4">
-                  <span className={`inline-flex items-center gap-2 px-2.5 py-1 text-xs font-semibold rounded-full backdrop-blur-md ${house.isActive
-                      ? 'bg-green-500/20 border border-green-500/30 text-green-700'
-                      : 'bg-gray-500/20 border border-gray-500/30 text-gray-600'
+                  <span className={`inline-flex items-center gap-2 px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 ${house.isActive
+                      ? 'text-green-700'
+                      : 'text-gray-600'
                     }`}>
                     <div className={`w-1.5 h-1.5 rounded-full ${house.isActive ? 'bg-green-400' : 'bg-gray-400'}`}></div>
                     {house.isActive ? 'Active' : 'Inactive'}
                   </span>
                 </div>
               </div>
+            ) : (
+              <div className="aspect-[4/3] bg-gray-100 flex items-center justify-center rounded-t-2xl">
+                <svg className="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
             )}
 
-            {/* Property Details */}
             <div className="p-5">
               <div className="mb-4">
                 <h3 className="text-lg font-semibold text-gray-900 mb-1.5 line-clamp-1 group-hover:text-brand transition-colors">{house.title}</h3>
@@ -144,7 +150,7 @@ export default function MyListings() {
                 </p>
               </div>
 
-              <div className="flex justify-between items-end mb-6 border-b border-gray-200 pb-4">
+              <div className="flex justify-between items-end mb-6 pb-4">
                 <div>
                   <div className="text-xl font-medium text-gray-900 font-mono">${house.price.toLocaleString()}</div>
                   <div className="text-xs text-gray-500">per month</div>
@@ -157,24 +163,23 @@ export default function MyListings() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex gap-3">
                 <Link
                   href={`/listing/${house.id}`}
-                  className="flex-1 py-2 px-3 bg-gray-100 border border-gray-200 text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors text-center"
+                  className="flex-1 py-2 px-3 rounded-full bg-gray-100 text-sm font-medium text-gray-900 hover:bg-gray-200 active:scale-[0.98] transition-all text-center"
                 >
                   View
                 </Link>
                 <Link
                   href={`/edit-listing/${house.id}`}
-                  className="flex-1 py-2 px-3 bg-gray-100 border border-gray-200 text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors text-center"
+                  className="flex-1 py-2 px-3 rounded-full bg-gray-100 text-sm font-medium text-gray-900 hover:bg-gray-200 active:scale-[0.98] transition-all text-center"
                 >
                   Edit
                 </Link>
                 <button
-                  onClick={() => handleDelete(house.id)}
+                  onClick={() => setDeleteTarget(house.id)}
                   disabled={deleteLoading === house.id}
-                  className="flex-1 py-2 px-3 bg-red-500/10 border border-red-500/20 text-red-600 rounded-lg text-sm font-medium hover:bg-red-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-2 px-3 rounded-full bg-red-50 text-sm font-medium text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {deleteLoading === house.id ? (
                     <div className="flex items-center justify-center gap-2">
@@ -194,19 +199,19 @@ export default function MyListings() {
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-[#f0f4ff] flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full relative z-10">
-          <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-brand/10 border border-brand/20 rounded-full mb-6">
+          <div className="bg-white rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)] text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-brand/10 rounded-full mb-6">
               <svg className="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-serif text-gray-900 mb-3">Sign in required</h1>
+            <h1 className="text-2xl font-semibold text-gray-900 mb-3">Sign in required</h1>
             <p className="text-gray-500 mb-8 text-sm">You need to be signed in to view and manage your property listings.</p>
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 w-full py-2.5 px-6 bg-brand text-white rounded-lg text-sm font-medium hover:bg-brand/90 transition-all justify-center"
+              className="inline-flex items-center gap-2 w-full py-2.5 px-6 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all justify-center"
             >
               <span>Sign In</span>
             </Link>
@@ -217,17 +222,16 @@ export default function MyListings() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-[#f0f4ff]">
       <div className="relative z-10 pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header Section */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
             <div className="text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl font-serif text-gray-900 mb-3 tracking-tight">My Listings</h1>
+              <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-3 tracking-tight">My Listings</h1>
               <p className="text-gray-500 text-lg max-w-lg">
                 Manage your student housing properties available for rent.
               </p>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 border border-gray-200 rounded-full text-gray-600 text-xs font-medium mt-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full text-gray-600 text-xs font-medium mt-4">
                 <span className="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                 <span>{myListings.length} Active {myListings.length === 1 ? 'Property' : 'Properties'}</span>
               </div>
@@ -236,7 +240,7 @@ export default function MyListings() {
             <div className="flex justify-center md:justify-end">
               <Link
                 href="/add-listing"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-xl font-medium hover:bg-brand/90 transition-all shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -246,10 +250,21 @@ export default function MyListings() {
             </div>
           </div>
 
-          {/* Content */}
           {renderContent()}
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={deleteTarget !== null}
+        title="Delete listing"
+        message="Are you sure you want to delete this listing? This action cannot be undone."
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+        loading={deleteLoading !== null}
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setDeleteTarget(null)}
+      />
     </div>
   );
 }
