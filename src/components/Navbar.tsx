@@ -46,7 +46,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-6">
@@ -59,9 +59,9 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors ${pathname.startsWith(link.href)
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors ${pathname.startsWith(link.href)
                     ? 'text-brand bg-brand/10'
-                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-gray-500 hover:text-gray-900'
                     }`}
                 >
                   {link.label}
@@ -74,9 +74,9 @@ export default function Navbar() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl bg-gray-100 border border-gray-200 hover:bg-gray-200 transition-colors"
+                  className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                 >
-                  <div className="w-8 h-8 bg-brand/10 border border-brand/20 rounded-full flex items-center justify-center text-brand text-xs font-bold">
+                  <div className="w-8 h-8 bg-brand/10 rounded-full flex items-center justify-center text-brand text-xs font-bold">
                     {currentUser.email?.charAt(0).toUpperCase()}
                   </div>
                   <span className="hidden md:block text-sm text-gray-700 font-medium max-w-[120px] truncate">
@@ -87,10 +87,10 @@ export default function Navbar() {
                   </svg>
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2.5 w-64 rounded-xl py-1.5 z-50 bg-white backdrop-blur-xl border border-gray-200 shadow-lg" style={{ animation: 'slideDown 0.2s ease-out' }}>
-                    <div className="px-4 py-3 border-b border-gray-100">
+                  <div className="absolute right-0 mt-2.5 w-64 rounded-2xl py-1.5 z-50 bg-white/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.12)]" style={{ animation: 'slideDown 0.2s ease-out' }}>
+                    <div className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-brand/10 border border-brand/20 rounded-full flex items-center justify-center text-brand font-bold">
+                        <div className="w-10 h-10 bg-brand/10 rounded-full flex items-center justify-center text-brand font-bold">
                           {currentUser.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
@@ -100,27 +100,27 @@ export default function Navbar() {
                       </div>
                     </div>
                     <div className="md:hidden px-1.5 pt-1.5">
-                      <Link href="/listings" className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg transition-colors ${pathname.startsWith('/listings') ? 'text-brand bg-brand/10' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}>
+                      <Link href="/listings" className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-xl transition-colors ${pathname.startsWith('/listings') ? 'text-brand bg-brand/10' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
                         Listings
                       </Link>
                     </div>
                     <div className="px-1.5 py-1.5">
                       {userLinks.map(link => (
-                        <Link key={link.href} href={link.href} className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg transition-colors ${pathname.startsWith(link.href) ? 'text-brand bg-brand/10' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}>
+                        <Link key={link.href} href={link.href} className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-xl transition-colors ${pathname.startsWith(link.href) ? 'text-brand bg-brand/10' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}>
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={link.icon} /></svg>
                           {link.label}
                         </Link>
                       ))}
                       {isAdmin && (
-                        <Link href="/admin" className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg transition-colors ${pathname === '/admin' ? 'text-red-600 bg-red-50' : 'text-red-500 hover:bg-red-50'}`}>
+                        <Link href="/admin" className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-xl transition-colors ${pathname === '/admin' ? 'text-red-600 bg-red-50' : 'text-red-500 hover:bg-red-50'}`}>
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                           Admin
                         </Link>
                       )}
                     </div>
-                    <div className="border-t border-gray-100 px-1.5 pt-1.5 pb-0.5">
-                      <button onClick={handleLogout} className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                    <div className="border-t border-gray-100/50 px-1.5 pt-1.5 pb-0.5">
+                      <button onClick={handleLogout} className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-xl transition-colors">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                         Sign Out
                       </button>
@@ -130,7 +130,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link href="/listings" className="md:hidden px-3.5 py-1.5 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors">Listings</Link>
+                <Link href="/listings" className="md:hidden px-3.5 py-1.5 rounded-full text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors">Listings</Link>
                 <Link href="/login" className="px-4 py-1.5 rounded-full text-sm font-medium bg-brand text-white hover:bg-brand/90 transition-all">Sign In</Link>
               </div>
             )}

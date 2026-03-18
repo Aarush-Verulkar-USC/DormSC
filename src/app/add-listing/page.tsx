@@ -7,6 +7,20 @@ import { useBlockedUsers } from '@/hooks/useBlockedUsers';
 import GoogleAddressAutocomplete from '@/components/GoogleAddressAutocomplete';
 import Link from 'next/link';
 
+const USC_LAT = 34.0224;
+const USC_LNG = -118.2851;
+
+function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 3959;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng/2) * Math.sin(dLng/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
 const amenitiesList = [
   'WiFi', 'Parking', 'Laundry', 'Kitchen', 'Air Conditioning',
   'Heating', 'Dishwasher', 'Balcony', 'Garden', 'Gym Access',
@@ -151,25 +165,25 @@ export default function AddListing() {
     }
   };
 
-  const inputStyle = "w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all font-sans text-sm";
-  const selectStyle = "w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all font-sans text-sm appearance-none";
-  const textareaStyle = "w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all font-sans text-sm resize-y min-h-[120px]";
+  const inputStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans";
+  const selectStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans appearance-none";
+  const textareaStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans resize-y min-h-[120px]";
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-[#f0f4ff] flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full relative z-10">
-          <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-brand/10 border border-brand/20 rounded-full mb-6">
-              <svg className="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-8 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-brand text-white rounded-full mb-6">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-serif text-gray-900 mb-3">Sign in required</h1>
+            <h1 className="text-2xl font-semibold text-gray-900 mb-3">Sign in required</h1>
             <p className="text-gray-500 mb-8 text-sm">You need to be signed in to add a new property listing.</p>
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 w-full py-2.5 px-6 bg-brand text-white rounded-lg text-sm font-medium hover:bg-brand/90 transition-all justify-center"
+              className="inline-flex items-center gap-2 w-full py-2.5 px-6 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all justify-center"
             >
               <span>Sign In</span>
             </Link>
@@ -180,18 +194,18 @@ export default function AddListing() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-[#f0f4ff] relative overflow-hidden">
       <div className="relative z-10 pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-5xl font-serif text-gray-900 mb-3">Add New Listing</h1>
+            <h1 className="text-3xl md:text-5xl font-semibold text-gray-900 mb-3">Add New Listing</h1>
             <p className="text-gray-500 text-lg">Share your property with the USC student community</p>
           </div>
 
           {userBlocked && (
-            <div className="mb-6 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-700 text-sm flex items-center gap-3">
+            <div className="mb-6 px-4 py-3 bg-red-50 rounded-xl text-red-700 text-sm flex items-center gap-3">
               <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
               </svg>
@@ -200,7 +214,7 @@ export default function AddListing() {
           )}
 
           {listingCount >= 2 && (
-            <div className="mb-6 px-4 py-3 bg-brand/10 border border-brand/20 rounded-xl text-brand text-sm flex items-center gap-3">
+            <div className="mb-6 px-4 py-3 bg-brand/10 rounded-xl text-brand text-sm flex items-center gap-3">
               <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
@@ -213,9 +227,9 @@ export default function AddListing() {
           <form onSubmit={handleSubmit} className="space-y-8">
 
             {/* Property Details Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8">
-              <h2 className="text-xl font-serif text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-sm font-sans font-bold text-brand border border-brand/20">1</span>
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">1</span>
                 Property Details
               </h2>
 
@@ -255,10 +269,17 @@ export default function AddListing() {
                   <GoogleAddressAutocomplete
                     value={formData.address}
                     onChange={(address: string, coordinates?: [number, number]) => {
+                      let distanceToUSC = '';
+                      if (coordinates) {
+                        const [lng, lat] = coordinates;
+                        const miles = haversineDistance(lat, lng, USC_LAT, USC_LNG);
+                        distanceToUSC = miles.toFixed(1);
+                      }
                       setFormData(prev => ({
                         ...prev,
                         address,
-                        addressCoordinates: coordinates
+                        addressCoordinates: coordinates,
+                        distanceToUSC
                       }));
                     }}
                     placeholder="Start typing address near USC..."
@@ -330,9 +351,9 @@ export default function AddListing() {
             </div>
 
             {/* Contact Information Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8">
-              <h2 className="text-xl font-serif text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-sm font-sans font-bold text-brand border border-brand/20">2</span>
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">2</span>
                 Contact Information
               </h2>
 
@@ -378,56 +399,70 @@ export default function AddListing() {
             </div>
 
             {/* Amenities Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8">
-              <h2 className="text-xl font-serif text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-sm font-sans font-bold text-brand border border-brand/20">3</span>
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">3</span>
                 Amenities
               </h2>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {amenitiesList.map(amenity => (
-                  <label key={amenity} className="group flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100 hover:border-gray-300 transition-all">
-                    <div className="relative flex items-center">
-                      <input
-                        type="checkbox"
-                        checked={formData.amenities.includes(amenity)}
-                        onChange={() => handleAmenityChange(amenity)}
-                        className="peer h-4 w-4 rounded border-gray-300 bg-white text-brand focus:ring-brand focus:ring-offset-0"
-                      />
-                    </div>
-                    <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">{amenity}</span>
+                  <label
+                    key={amenity}
+                    className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${
+                      formData.amenities.includes(amenity)
+                        ? 'bg-brand/10 ring-2 ring-brand/30'
+                        : 'bg-gray-100'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.amenities.includes(amenity)}
+                      onChange={() => handleAmenityChange(amenity)}
+                      className="sr-only"
+                    />
+                    <span className="text-sm font-medium text-gray-600">{amenity}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             {/* Property Images Card */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8">
-              <h2 className="text-xl font-serif text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-sm font-sans font-bold text-brand border border-brand/20">4</span>
+            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">4</span>
                 Images
               </h2>
 
               <div className="space-y-4">
                 {formData.images.map((image, index) => (
-                  <div key={index} className="flex gap-3 items-center">
-                    <input
-                      type="url"
-                      value={image}
-                      onChange={(e) => handleImageChange(index, e.target.value)}
-                      className={inputStyle}
-                      placeholder="https://example.com/image.jpg"
-                    />
-                    {formData.images.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeImageField(index)}
-                        className="p-3 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors flex-shrink-0"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                  <div key={index}>
+                    <div className="flex gap-3 items-center">
+                      <input
+                        type="url"
+                        value={image}
+                        onChange={(e) => handleImageChange(index, e.target.value)}
+                        className={inputStyle}
+                        placeholder="https://example.com/image.jpg"
+                      />
+                      {formData.images.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeImageField(index)}
+                          className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all flex-shrink-0"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                    {image.trim() !== '' && (
+                      <img
+                        src={image}
+                        className="mt-2 h-20 w-32 object-cover rounded-xl shadow-sm"
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                      />
                     )}
                   </div>
                 ))}
@@ -449,7 +484,7 @@ export default function AddListing() {
               <button
                 type="submit"
                 disabled={loading || userBlocked || listingCount >= 2 || checkingLimit}
-                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand text-white rounded-xl font-medium text-lg hover:bg-brand/90 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none min-w-[200px]"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
               >
                 {checkingLimit ? (
                   <>
