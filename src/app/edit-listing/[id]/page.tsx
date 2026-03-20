@@ -133,21 +133,21 @@ export default function EditListing() {
     }
   };
 
-  const inputStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans";
-  const selectStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans appearance-none";
-  const textareaStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans resize-y min-h-[120px]";
+  const inputStyle = "w-full px-4 py-3 bg-white border border-[#e3d8d0] rounded-lg text-sm text-[#2c2420] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans";
+  const selectStyle = "w-full px-4 py-3 bg-white border border-[#e3d8d0] rounded-lg text-sm text-[#2c2420] focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans appearance-none";
+  const textareaStyle = "w-full px-4 py-3 bg-white border border-[#e3d8d0] rounded-lg text-sm text-[#2c2420] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans resize-y min-h-[120px]";
 
   if (housesLoading || !house) {
     return (
-      <div className="min-h-screen bg-[#f0f4ff]">
+      <div className="min-h-screen bg-background">
         <div className="pt-24 pb-12 flex items-center justify-center min-h-screen">
           <div className="max-w-md mx-auto px-4 text-center">
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-8">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-8">
               <div className="inline-flex items-center justify-center mb-6">
                 <div className="w-12 h-12 border-4 border-gray-200 border-t-brand rounded-full animate-spin"></div>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">Loading Listing</h1>
-              <p className="text-gray-600">Getting your property details...</p>
+              <h1 className="text-2xl font-bold text-[#2c2420] mb-4">Loading Listing</h1>
+              <p className="text-[#8a7b74]">Getting your property details...</p>
             </div>
           </div>
         </div>
@@ -156,17 +156,17 @@ export default function EditListing() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f4ff]">
+    <div className="min-h-screen bg-background">
       <div className="pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <div className="text-center md:text-left">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">Edit Listing</h1>
-              <p className="text-gray-600 text-lg">Update the details for your property</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-[#2c2420] mb-2 tracking-tight">Edit Listing</h1>
+              <p className="text-[#8a7b74] text-lg">Update the details for your property</p>
             </div>
             <Link
               href="/my-listings"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-900 text-sm font-medium hover:bg-gray-200 active:scale-[0.98] transition-all self-center md:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-[#2c2420] text-sm font-medium hover:bg-gray-200 active:scale-[0.98] transition-all self-center md:self-auto"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -186,17 +186,17 @@ export default function EditListing() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Listing Status Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900">Listing Status</h2>
+                <h2 className="text-base font-semibold text-[#2c2420]">Listing Status</h2>
               </div>
               <label className={`flex items-center space-x-3 cursor-pointer p-3 rounded-xl transition-all ${
-                formData.isActive ? 'bg-brand/10 ring-2 ring-brand/30' : 'bg-gray-100'
+                formData.isActive ? 'bg-brand/10 ring-2 ring-brand/30' : 'bg-[#f2ede8]'
               }`}>
                 <input
                   type="checkbox"
@@ -205,24 +205,24 @@ export default function EditListing() {
                   onChange={handleInputChange}
                   className="sr-only"
                 />
-                <span className="font-medium text-gray-700">Active Listing (visible to students)</span>
+                <span className="font-medium text-[#2c2420]">Active Listing (visible to students)</span>
               </label>
             </div>
 
             {/* Property Details Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900">Property Details</h2>
+                <h2 className="text-base font-semibold text-[#2c2420]">Property Details</h2>
               </div>
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Property Title</label>
+                    <label className="block text-sm font-medium text-[#8a7b74] mb-1">Property Title</label>
                     <input
                       type="text"
                       name="title"
@@ -234,7 +234,7 @@ export default function EditListing() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Monthly Rent ($)</label>
+                    <label className="block text-sm font-medium text-[#8a7b74] mb-1">Monthly Rent ($)</label>
                     <input
                       type="number"
                       name="price"
@@ -250,7 +250,7 @@ export default function EditListing() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Address</label>
+                  <label className="block text-sm font-medium text-[#8a7b74] mb-1">Address</label>
                   <input
                     type="text"
                     name="address"
@@ -263,7 +263,7 @@ export default function EditListing() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Bedrooms</label>
+                    <label className="block text-sm font-medium text-[#8a7b74] mb-1">Bedrooms</label>
                     <select name="bedrooms" required value={formData.bedrooms} onChange={handleInputChange} className={selectStyle}>
                       <option value="">Select</option>
                       <option value="1">1</option>
@@ -274,7 +274,7 @@ export default function EditListing() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Bathrooms</label>
+                    <label className="block text-sm font-medium text-[#8a7b74] mb-1">Bathrooms</label>
                     <select name="bathrooms" required value={formData.bathrooms} onChange={handleInputChange} className={selectStyle}>
                       <option value="">Select</option>
                       <option value="1">1</option>
@@ -287,7 +287,7 @@ export default function EditListing() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Distance to USC (miles)</label>
+                    <label className="block text-sm font-medium text-[#8a7b74] mb-1">Distance to USC (miles)</label>
                     <input
                       type="text"
                       name="distanceToUSC"
@@ -299,7 +299,7 @@ export default function EditListing() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Available Date</label>
+                  <label className="block text-sm font-medium text-[#8a7b74] mb-1">Available Date</label>
                   <input
                     type="date"
                     name="availableDate"
@@ -311,7 +311,7 @@ export default function EditListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Description</label>
+                  <label className="block text-sm font-medium text-[#8a7b74] mb-1">Description</label>
                   <textarea
                     name="description"
                     required
@@ -326,18 +326,18 @@ export default function EditListing() {
             </div>
 
             {/* Contact Information Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900">Contact Information</h2>
+                <h2 className="text-base font-semibold text-[#2c2420]">Contact Information</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Name</label>
+                  <label className="block text-sm font-medium text-[#8a7b74] mb-1">Name</label>
                   <input
                     type="text"
                     name="name"
@@ -349,7 +349,7 @@ export default function EditListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-[#8a7b74] mb-1">Email</label>
                   <input
                     type="email"
                     name="email"
@@ -361,7 +361,7 @@ export default function EditListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Phone (Optional)</label>
+                  <label className="block text-sm font-medium text-[#8a7b74] mb-1">Phone (Optional)</label>
                   <input
                     type="tel"
                     name="phone"
@@ -375,14 +375,14 @@ export default function EditListing() {
             </div>
 
             {/* Amenities Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900">Amenities</h2>
+                <h2 className="text-base font-semibold text-[#2c2420]">Amenities</h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {amenitiesList.map(amenity => (
@@ -391,7 +391,7 @@ export default function EditListing() {
                     className={`flex items-center space-x-3 cursor-pointer p-3 rounded-xl transition-all ${
                       formData.amenities.includes(amenity)
                         ? 'bg-brand/10 ring-2 ring-brand/30'
-                        : 'bg-gray-100'
+                        : 'bg-[#f2ede8]'
                     }`}
                   >
                     <input
@@ -400,21 +400,21 @@ export default function EditListing() {
                       onChange={() => handleAmenityChange(amenity)}
                       className="sr-only"
                     />
-                    <span className="text-sm font-medium text-gray-600">{amenity}</span>
+                    <span className="text-sm font-medium text-[#8a7b74]">{amenity}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             {/* Property Images Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900">Property Images</h2>
+                <h2 className="text-base font-semibold text-[#2c2420]">Property Images</h2>
               </div>
 
               <div className="space-y-4">
@@ -432,7 +432,7 @@ export default function EditListing() {
                         <button
                           type="button"
                           onClick={() => removeImageField(index)}
-                          className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all flex-shrink-0"
+                          className="p-3 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all flex-shrink-0"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -452,7 +452,7 @@ export default function EditListing() {
                 <button
                   type="button"
                   onClick={addImageField}
-                  className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                  className="flex items-center gap-2 text-sm text-[#8a7b74] hover:text-[#2c2420] transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -463,12 +463,12 @@ export default function EditListing() {
             </div>
 
             {/* Action Buttons */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6">
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6">
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <button
                   type="submit"
                   disabled={loading || userBlocked}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-brand text-white font-medium hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-brand text-white font-medium hover:bg-brand/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>
@@ -490,7 +490,7 @@ export default function EditListing() {
                 <button
                   type="button"
                   onClick={() => router.back()}
-                  className="w-full sm:w-auto px-8 py-3 rounded-full bg-gray-100 text-gray-900 hover:bg-gray-200 active:scale-[0.98] transition-all"
+                  className="w-full sm:w-auto px-8 py-3 rounded-full bg-gray-100 text-[#2c2420] hover:bg-gray-200 active:scale-[0.98] transition-all"
                 >
                   Cancel
                 </button>
