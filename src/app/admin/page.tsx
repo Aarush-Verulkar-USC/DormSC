@@ -157,7 +157,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#f0f4ff] text-gray-900 font-sans">
+    <div className="min-h-screen relative overflow-hidden bg-background text-gray-900 font-sans">
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-12">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">

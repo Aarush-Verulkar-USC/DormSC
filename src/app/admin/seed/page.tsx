@@ -282,7 +282,7 @@ export default function AdminSeed() {
 
   if (!currentUser || !isAdmin) {
     return (
-      <div className="min-h-screen bg-[#f0f4ff] flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center px-6">
           <h1 className="text-xl font-semibold text-gray-900 mb-2">Admin access required</h1>
           <p className="text-sm text-gray-500">Sign in with an admin account to access seeding tools.</p>
@@ -293,7 +293,7 @@ export default function AdminSeed() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f0f4ff] flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-gray-300 border-t-brand rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-500 text-sm">Loading...</p>
@@ -303,7 +303,7 @@ export default function AdminSeed() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f4ff] text-gray-900">
+    <div className="min-h-screen bg-background text-gray-900">
       <div className="pt-24 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">

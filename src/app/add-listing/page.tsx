@@ -165,25 +165,25 @@ export default function AddListing() {
     }
   };
 
-  const inputStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans";
-  const selectStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans appearance-none";
-  const textareaStyle = "w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans resize-y min-h-[120px]";
+  const inputStyle = "w-full px-4 py-3 bg-white border border-[#e3d8d0] rounded-lg text-sm text-[#2c2420] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans";
+  const selectStyle = "w-full px-4 py-3 bg-white border border-[#e3d8d0] rounded-lg text-sm text-[#2c2420] focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans appearance-none";
+  const textareaStyle = "w-full px-4 py-3 bg-white border border-[#e3d8d0] rounded-lg text-sm text-[#2c2420] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all font-sans resize-y min-h-[120px]";
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-[#f0f4ff] flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full relative z-10">
-          <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-8 text-center">
+          <div className="rounded-xl bg-white border border-[#e3d8d0] p-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-brand text-white rounded-full mb-6">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-semibold text-gray-900 mb-3">Sign in required</h1>
-            <p className="text-gray-500 mb-8 text-sm">You need to be signed in to add a new property listing.</p>
+            <h1 className="text-2xl font-semibold text-[#2c2420] mb-3">Sign in required</h1>
+            <p className="text-[#8a7b74] mb-8 text-sm">You need to be signed in to add a new property listing.</p>
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 w-full py-2.5 px-6 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all justify-center"
+              className="inline-flex items-center gap-2 w-full py-2.5 px-6 rounded-lg bg-brand text-white text-sm font-medium hover:bg-brand/90 transition-colors justify-center"
             >
               <span>Sign In</span>
             </Link>
@@ -194,14 +194,14 @@ export default function AddListing() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f4ff] relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="relative z-10 pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-5xl font-semibold text-gray-900 mb-3">Add New Listing</h1>
-            <p className="text-gray-500 text-lg">Share your property with the USC student community</p>
+            <h1 className="font-serif text-3xl md:text-4xl font-light text-[#2c2420] mb-3">Add New Listing</h1>
+            <p className="text-[#8a7b74] text-lg">Share your property with the USC student community</p>
           </div>
 
           {userBlocked && (
@@ -219,7 +219,7 @@ export default function AddListing() {
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
               <span>
-                Maximum active listings reached (2). Please manage your listings in <a href="/my-listings" className="underline font-semibold hover:text-gray-900 transition-colors">My Listings</a>.
+                Maximum active listings reached (2). Please manage your listings in <a href="/my-listings" className="underline font-semibold hover:text-[#2c2420] transition-colors">My Listings</a>.
               </span>
             </div>
           )}
@@ -227,16 +227,16 @@ export default function AddListing() {
           <form onSubmit={handleSubmit} className="space-y-8">
 
             {/* Property Details Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">1</span>
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6 md:p-8">
+              <h2 className="text-base font-semibold text-[#2c2420] mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">1</span>
                 Property Details
               </h2>
 
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Property Title *</label>
+                    <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Property Title *</label>
                     <input
                       type="text"
                       name="title"
@@ -248,7 +248,7 @@ export default function AddListing() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Monthly Rent ($) *</label>
+                    <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Monthly Rent ($) *</label>
                     <input
                       type="number"
                       name="price"
@@ -265,7 +265,7 @@ export default function AddListing() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Address *</label>
+                  <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Address *</label>
                   <GoogleAddressAutocomplete
                     value={formData.address}
                     onChange={(address: string, coordinates?: [number, number]) => {
@@ -285,12 +285,12 @@ export default function AddListing() {
                     placeholder="Start typing address near USC..."
                     className={inputStyle}
                   />
-                  <p className="text-xs text-gray-500 mt-1.5">Select from suggestions to auto-calculate distance</p>
+                  <p className="text-xs text-[#8a7b74] mt-1.5">Select from suggestions to auto-calculate distance</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Bedrooms *</label>
+                    <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Bedrooms *</label>
                     <select name="bedrooms" required value={formData.bedrooms} onChange={handleInputChange} className={selectStyle}>
                       <option value="">Select</option>
                       {[1, 2, 3, 4, 5].map(num => (
@@ -299,7 +299,7 @@ export default function AddListing() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Bathrooms *</label>
+                    <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Bathrooms *</label>
                     <select name="bathrooms" required value={formData.bathrooms} onChange={handleInputChange} className={selectStyle}>
                       <option value="">Select</option>
                       {['1', '1.5', '2', '2.5', '3', '3.5', '4+'].map(val => (
@@ -308,7 +308,7 @@ export default function AddListing() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider flex items-center gap-2">
+                    <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider flex items-center gap-2">
                       Distance to USC
                     </label>
                     <input
@@ -323,7 +323,7 @@ export default function AddListing() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Available Date</label>
+                  <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Available Date</label>
                   <input
                     type="date"
                     name="availableDate"
@@ -336,7 +336,7 @@ export default function AddListing() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Description *</label>
+                  <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Description *</label>
                   <textarea
                     name="description"
                     required
@@ -351,15 +351,15 @@ export default function AddListing() {
             </div>
 
             {/* Contact Information Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">2</span>
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6 md:p-8">
+              <h2 className="text-base font-semibold text-[#2c2420] mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">2</span>
                 Contact Information
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Full Name *</label>
+                  <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Full Name *</label>
                   <input
                     type="text"
                     name="name"
@@ -371,8 +371,8 @@ export default function AddListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">
-                    Email * <span className="text-gray-400 normal-case ml-1">(Locked)</span>
+                  <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">
+                    Email * <span className="text-[#c4b8b0] normal-case ml-1">(Locked)</span>
                   </label>
                   <input
                     type="email"
@@ -385,7 +385,7 @@ export default function AddListing() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Phone (Optional)</label>
+                  <label className="block text-xs font-medium text-[#8a7b74] mb-1.5 uppercase tracking-wider">Phone (Optional)</label>
                   <input
                     type="tel"
                     name="phone"
@@ -399,9 +399,9 @@ export default function AddListing() {
             </div>
 
             {/* Amenities Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">3</span>
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6 md:p-8">
+              <h2 className="text-base font-semibold text-[#2c2420] mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">3</span>
                 Amenities
               </h2>
 
@@ -412,7 +412,7 @@ export default function AddListing() {
                     className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${
                       formData.amenities.includes(amenity)
                         ? 'bg-brand/10 ring-2 ring-brand/30'
-                        : 'bg-gray-100'
+                        : 'bg-[#f2ede8]'
                     }`}
                   >
                     <input
@@ -421,16 +421,16 @@ export default function AddListing() {
                       onChange={() => handleAmenityChange(amenity)}
                       className="sr-only"
                     />
-                    <span className="text-sm font-medium text-gray-600">{amenity}</span>
+                    <span className="text-sm font-medium text-[#8a7b74]">{amenity}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             {/* Property Images Card */}
-            <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-6 md:p-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">4</span>
+            <div className="rounded-xl bg-white border border-[#e3d8d0] p-6 md:p-8">
+              <h2 className="text-base font-semibold text-[#2c2420] mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center text-sm font-sans font-bold">4</span>
                 Images
               </h2>
 
@@ -449,7 +449,7 @@ export default function AddListing() {
                         <button
                           type="button"
                           onClick={() => removeImageField(index)}
-                          className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all flex-shrink-0"
+                          className="p-3 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 active:scale-[0.98] transition-all flex-shrink-0"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -469,7 +469,7 @@ export default function AddListing() {
                 <button
                   type="button"
                   onClick={addImageField}
-                  className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors px-1"
+                  className="flex items-center gap-2 text-sm font-medium text-[#8a7b74] hover:text-[#2c2420] transition-colors px-1"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -484,7 +484,7 @@ export default function AddListing() {
               <button
                 type="submit"
                 disabled={loading || userBlocked || listingCount >= 2 || checkingLimit}
-                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-brand text-white text-sm font-medium hover:bg-brand/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
               >
                 {checkingLimit ? (
                   <>

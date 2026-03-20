@@ -5,47 +5,51 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-sf-pro), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans: var(--font-commissioner), var(--font-sf-pro), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --color-black: #000;
   --color-white: #fff;
-  --color-brand: #2845D6;
+  --color-brand: #932210;
+  --color-gold: #e8c84a;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
+  --background: #faf9f7;
+  --foreground: #2c2420;
   --card: #ffffff;
-  --card-foreground: #111111;
+  --card-foreground: #2c2420;
   --popover: #ffffff;
-  --popover-foreground: #111111;
-  --primary: #2845D6;
+  --popover-foreground: #2c2420;
+  --primary: #932210;
   --primary-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #111111;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #f5f5f5;
-  --accent-foreground: #111111;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #2845D6;
+  --gold: #e8c84a;
+  --gold-light: #fdf7d6;
+  --secondary: #f2ede8;
+  --secondary-foreground: #2c2420;
+  --muted: #f2ede8;
+  --muted-foreground: #8a7b74;
+  --accent: #f2ede8;
+  --accent-foreground: #2c2420;
+  --destructive: #b94040;
+  --border: #e3d8d0;
+  --input: #e3d8d0;
+  --ring: #932210;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #111111;
-  --sidebar-primary: #2845D6;
+  --radius: 0.5rem;
+  --sidebar: #faf9f7;
+  --sidebar-foreground: #2c2420;
+  --sidebar-primary: #932210;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f5f5f5;
-  --sidebar-accent-foreground: #111111;
-  --sidebar-border: #e5e5e5;
-  --sidebar-ring: #2845D6;
+  --sidebar-accent: #f2ede8;
+  --sidebar-accent-foreground: #2c2420;
+  --sidebar-border: #e3d8d0;
+  --sidebar-ring: #932210;
 }
 
 @theme inline {

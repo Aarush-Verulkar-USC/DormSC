@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Fraunces, Commissioner } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
@@ -9,6 +10,19 @@ import EmailDomainWarning from '@/components/EmailDomainWarning';
 const sfPro = localFont({
   src: '../../fonts/SF-Pro.ttf',
   variable: '--font-sf-pro',
+  display: 'swap',
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  weight: ['300', '400'],
+  display: 'swap',
+});
+
+const commissioner = Commissioner({
+  subsets: ['latin'],
+  variable: '--font-commissioner',
   display: 'swap',
 });
 
@@ -23,10 +37,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={sfPro.variable}>
+    <html lang="en" className={`${sfPro.variable} ${fraunces.variable} ${commissioner.variable}`}>
       <body className="antialiased font-sans">
         <AuthProvider>
-            <div className="min-h-screen bg-[#f0f4ff]">
+          <div className="min-h-screen bg-background">
             <Navbar />
             <EmailVerificationBanner />
             <EmailDomainWarning />

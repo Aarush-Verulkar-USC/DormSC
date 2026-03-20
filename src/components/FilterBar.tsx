@@ -52,14 +52,14 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
     filters.searchTerm || filters.minPrice || filters.maxPrice ||
     filters.bedrooms || filters.bathrooms || filters.availableBy;
 
-  const cell = 'h-12 bg-transparent border-0 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-gray-50/80 transition-colors';
+  const cell = 'h-11 bg-transparent border-0 text-sm text-[#2c2420] placeholder-[#c4b8b0] focus:outline-none transition-colors';
 
   return (
-    <div className="w-full bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-2xl overflow-hidden">
+    <div className="w-full bg-white border border-[#e3d8d0] rounded-xl overflow-hidden">
       <div className="flex items-center overflow-x-auto scrollbar-hide">
         {/* Search */}
         <div className="flex items-center flex-1 min-w-[180px]">
-          <MagnifyingGlass className="h-4.5 w-4.5 text-gray-400 ml-4 shrink-0" weight="bold" />
+          <MagnifyingGlass className="h-4 w-4 text-[#c4b8b0] ml-4 shrink-0" weight="regular" />
           <input
             type="text"
             placeholder="Search address, title..."
@@ -69,11 +69,11 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
           />
         </div>
 
-        <div className="w-px h-7 bg-gray-200 shrink-0" />
+        <div className="w-px h-6 bg-[#e3d8d0] shrink-0" />
 
         {/* Min price */}
         <div className="flex items-center shrink-0">
-          <CurrencyDollar className="h-4 w-4 text-gray-400 ml-3 shrink-0" weight="bold" />
+          <CurrencyDollar className="h-4 w-4 text-[#c4b8b0] ml-3 shrink-0" weight="regular" />
           <input
             type="number"
             placeholder="Min"
@@ -86,7 +86,7 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
           />
         </div>
 
-        <span className="text-gray-300 text-xs shrink-0">–</span>
+        <span className="text-[#c4b8b0] text-xs shrink-0">–</span>
 
         {/* Max price */}
         <div className="flex items-center shrink-0">
@@ -102,11 +102,11 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
           />
         </div>
 
-        <div className="w-px h-7 bg-gray-200 shrink-0" />
+        <div className="w-px h-6 bg-[#e3d8d0] shrink-0" />
 
         {/* Beds */}
         <div className="flex items-center shrink-0">
-          <Bed className="h-4 w-4 text-gray-400 ml-3 shrink-0" weight="bold" />
+          <Bed className="h-4 w-4 text-[#c4b8b0] ml-3 shrink-0" weight="regular" />
           <select
             value={filters.bedrooms}
             onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
@@ -121,11 +121,11 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
           </select>
         </div>
 
-        <div className="w-px h-7 bg-gray-200 shrink-0" />
+        <div className="w-px h-6 bg-[#e3d8d0] shrink-0" />
 
         {/* Baths */}
         <div className="flex items-center shrink-0">
-          <Bathtub className="h-4 w-4 text-gray-400 ml-3 shrink-0" weight="bold" />
+          <Bathtub className="h-4 w-4 text-[#c4b8b0] ml-3 shrink-0" weight="regular" />
           <select
             value={filters.bathrooms}
             onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
@@ -139,11 +139,11 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
           </select>
         </div>
 
-        <div className="w-px h-7 bg-gray-200 shrink-0" />
+        <div className="w-px h-6 bg-[#e3d8d0] shrink-0" />
 
         {/* Date */}
         <div className="flex items-center shrink-0">
-          <CalendarBlank className="h-4 w-4 text-gray-400 ml-3 shrink-0" weight="bold" />
+          <CalendarBlank className="h-4 w-4 text-[#c4b8b0] ml-3 shrink-0" weight="regular" />
           <input
             type="date"
             value={filters.availableBy}
@@ -156,13 +156,13 @@ export default function FilterBar({ onFilterChange, initialFilters }: FilterBarP
         {/* Clear */}
         {hasActiveFilters && (
           <>
-            <div className="w-px h-7 bg-gray-200 shrink-0" />
+            <div className="w-px h-6 bg-[#e3d8d0] shrink-0" />
             <button
               onClick={clearFilters}
-              className="flex items-center gap-1 px-3 h-12 text-sm text-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-colors shrink-0"
+              className="flex items-center gap-1 px-3 h-11 text-sm text-[#8a7b74] hover:text-[#2c2420] hover:bg-[#f2ede8] transition-colors shrink-0"
               title="Clear Filters"
             >
-              <X className="h-4 w-4" weight="bold" />
+              <X className="h-3.5 w-3.5" weight="bold" />
             </button>
           </>
         )}

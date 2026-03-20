@@ -255,7 +255,7 @@ export default function GoogleMapWithRoute({
                         icon={{
                             path: google.maps.SymbolPath.CIRCLE,
                             scale: 8,
-                            fillColor: '#2845D6',
+                            fillColor: '#932210',
                             fillOpacity: 1,
                             strokeColor: '#ffffff',
                             strokeWeight: 2
@@ -271,7 +271,7 @@ export default function GoogleMapWithRoute({
                         options={{
                             suppressMarkers: true,
                             polylineOptions: {
-                                strokeColor: '#2845D6',
+                                strokeColor: '#932210',
                                 strokeWeight: 4,
                                 strokeOpacity: 0.8
                             }

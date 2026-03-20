@@ -79,24 +79,24 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f0f4ff] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-[400px] relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-semibold text-gray-900 mb-2">
+          <h1 className="text-3xl font-semibold text-[#2c2420] mb-2">
             {isSignUp ? 'Join DormSC' : 'Welcome Back'}
           </h1>
-          <p className="text-gray-500 text-sm">
+          <p className="text-[#8a7b74] text-sm">
             {isSignUp ? 'Find your perfect student home' : 'Sign in to manage your listings'}
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-[0_2px_20px_rgba(0,0,0,0.08)]">
+        <div className="bg-white rounded-xl p-6 border border-[#e3d8d0]">
           {/* Google Sign In */}
           <button
             type="button"
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full h-11 rounded-full bg-gray-100 text-sm font-medium text-gray-700 hover:bg-gray-200 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed mb-6"
+            className="w-full h-11 rounded-lg bg-[#f2ede8] border border-[#e3d8d0] text-sm font-medium text-[#2c2420] hover:bg-[#e3d8d0] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed mb-6"
           >
             {loading ? (
               <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -114,9 +114,9 @@ export default function Login() {
           </button>
 
           <div className="flex items-center gap-4 my-6">
-            <div className="flex-1 h-px bg-gray-200"></div>
-            <span className="text-xs text-gray-400">or</span>
-            <div className="flex-1 h-px bg-gray-200"></div>
+            <div className="flex-1 h-px bg-[#e3d8d0]"></div>
+            <span className="text-xs text-[#c4b8b0]">or</span>
+            <div className="flex-1 h-px bg-[#e3d8d0]"></div>
           </div>
 
           <form onSubmit={handleEmailAuth} className="space-y-4">
@@ -140,24 +140,24 @@ export default function Login() {
 
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Email</label>
+                <label className="text-sm font-medium text-[#2c2420] mb-1.5 block">Email</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-gray-100 border-0 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all placeholder:text-gray-400"
+                  className="w-full bg-white border border-[#e3d8d0] rounded-lg px-4 py-3 text-sm text-[#2c2420] focus:outline-none focus:ring-2 focus:ring-brand/20 transition-all placeholder:text-[#c4b8b0]"
                   placeholder="USC Email (tommy@usc.edu)"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Password</label>
+                <label className="text-sm font-medium text-[#2c2420] mb-1.5 block">Password</label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-100 border-0 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all placeholder:text-gray-400"
+                  className="w-full bg-white border border-[#e3d8d0] rounded-lg px-4 py-3 text-sm text-[#2c2420] focus:outline-none focus:ring-2 focus:ring-brand/20 transition-all placeholder:text-[#c4b8b0]"
                   placeholder="Password"
                   required
                 />
@@ -167,7 +167,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-11 rounded-full bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 mt-6"
+              className="w-full h-11 rounded-lg bg-brand text-white text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 mt-6"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -194,8 +194,8 @@ export default function Login() {
 
         {/* Footer */}
         <div className="mt-8 text-center space-y-2">
-          <p className="text-xs text-gray-500">Secured by Firebase</p>
-          <p className="text-xs text-gray-400">© 2026 DormSC. All rights reserved.</p>
+          <p className="text-xs text-[#8a7b74]">Secured by Firebase</p>
+          <p className="text-xs text-[#c4b8b0]">© 2026 DormSC. All rights reserved.</p>
         </div>
       </div>
     </div>
