@@ -200,7 +200,7 @@ export default function AddListing() {
 
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-serif text-3xl md:text-4xl font-light text-[#2c2420] mb-3">Add New Listing</h1>
+            <h1 className="font-serif text-3xl md:text-4xl font-normal text-[#2c2420] mb-3">Add New Listing</h1>
             <p className="text-[#8a7b74] text-lg">Share your property with the USC student community</p>
           </div>
 

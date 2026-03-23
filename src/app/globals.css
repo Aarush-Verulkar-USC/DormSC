@@ -1,3 +1,4 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap');
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -5,8 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-commissioner), var(--font-sf-pro), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  --font-sans: 'Satoshi', var(--font-sf-pro), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-serif: 'Satoshi', var(--font-sf-pro), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --color-black: #000;

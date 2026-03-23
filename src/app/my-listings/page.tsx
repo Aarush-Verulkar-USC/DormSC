@@ -224,7 +224,7 @@ export default function MyListings() {
         <div className="max-w-6xl mx-auto px-5">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
             <div className="text-center md:text-left">
-              <h1 className="font-serif text-4xl md:text-5xl font-light text-[#2c2420] mb-3">My Listings</h1>
+              <h1 className="font-serif text-4xl md:text-5xl font-normal text-[#2c2420] mb-3">My Listings</h1>
               <p className="text-[#8a7b74] text-base max-w-lg">
                 Manage your student housing properties available for rent.
               </p>

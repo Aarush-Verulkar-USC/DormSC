@@ -41,7 +41,7 @@ export default function Favorites() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
-              <h1 className="font-serif text-2xl font-light text-[#2c2420] mb-4">Sign in to view favorites</h1>
+              <h1 className="font-serif text-2xl font-normal text-[#2c2420] mb-4">Sign in to view favorites</h1>
               <p className="text-[#8a7b74] mb-8 leading-relaxed">Save listings you like and access them anytime from your personal collection.</p>
               <Link
                 href="/login"
@@ -68,7 +68,7 @@ export default function Favorites() {
               <div className="inline-flex items-center justify-center mb-6">
                 <div className="w-8 h-8 border-2 border-[#e3d8d0] border-t-brand rounded-full animate-spin"></div>
               </div>
-              <h1 className="font-serif text-4xl font-light text-[#2c2420] mb-4">Loading Your Favorites</h1>
+              <h1 className="font-serif text-4xl font-normal text-[#2c2420] mb-4">Loading Your Favorites</h1>
               <p className="text-[#8a7b74] text-lg">Getting your saved listings...</p>
             </div>
 
@@ -102,7 +102,7 @@ export default function Favorites() {
       <div className="pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl md:text-5xl font-light text-[#2c2420] mb-4 tracking-tight">
+            <h1 className="font-serif text-4xl md:text-5xl font-normal text-[#2c2420] mb-4 tracking-tight">
               Your Favorites
             </h1>
             <p className="text-[#8a7b74] text-lg mb-2">
@@ -127,7 +127,7 @@ export default function Favorites() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                   </div>
-                  <h2 className="font-serif text-2xl font-light text-[#2c2420] mb-4">No favorites yet</h2>
+                  <h2 className="font-serif text-2xl font-normal text-[#2c2420] mb-4">No favorites yet</h2>
                   <p className="text-[#8a7b74] mb-8 leading-relaxed">
                     Start browsing listings and save the ones you like to see them here.
                   </p>
