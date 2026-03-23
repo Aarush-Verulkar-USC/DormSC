@@ -93,7 +93,7 @@ export default function HomePage() {
                 <span>{activeHouses.length} listings available near USC</span>
               </div>
 
-              <h1 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] font-light leading-[1.15] tracking-tight text-[#2c2420] mb-5">
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] font-normal leading-[1.15] tracking-tight text-[#2c2420] mb-5">
                 Find a home.
                 <br />
                 <span className="text-brand italic">Not just a house.</span>
@@ -176,7 +176,7 @@ export default function HomePage() {
             <div className="flex items-end justify-between mb-10">
               <div>
                 <p className="text-xs text-[#8a7b74] uppercase tracking-widest mb-2">Browse</p>
-                <h2 className="font-serif text-2xl md:text-3xl font-light text-[#2c2420]">Featured Listings</h2>
+                <h2 className="font-serif text-2xl md:text-3xl font-normal text-[#2c2420]">Featured Listings</h2>
                 <p className="text-[#8a7b74] text-sm mt-1">Trending properties near USC</p>
               </div>
               <Link href="/listings" className="hidden sm:inline-flex items-center gap-1 text-sm text-brand hover:text-brand/80 transition-colors">
@@ -206,7 +206,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-5">
           <div className="text-center mb-12">
             <p className="text-xs text-[#8a7b74] uppercase tracking-widest mb-2">Why choose us</p>
-            <h2 className="font-serif text-2xl md:text-3xl font-light text-[#2c2420] mb-2">Why DormSC?</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-normal text-[#2c2420] mb-2">Why DormSC?</h2>
             <p className="text-[#8a7b74] text-sm">Trusted by USC students for off-campus housing</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -230,7 +230,7 @@ export default function HomePage() {
       {/* Landlord CTA */}
       <section className="py-16 border-t border-[#e3d8d0] bg-white">
         <div className="max-w-2xl mx-auto px-5 text-center">
-          <h2 className="font-serif text-2xl md:text-3xl font-light text-[#2c2420] mb-3">Are you a landlord?</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-normal text-[#2c2420] mb-3">Are you a landlord?</h2>
           <p className="text-[#8a7b74] mb-6 text-sm">List your property and connect directly with USC students looking for housing.</p>
           <Link href="/add-listing" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-brand text-white text-sm font-medium hover:bg-brand/90 transition-colors">
             List Your Property <ArrowRight className="w-4 h-4" />

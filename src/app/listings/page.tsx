@@ -137,7 +137,7 @@ function ListingsContent() {
   if (error) {
     return (
       <div className="min-h-screen bg-background pt-32 text-center px-4">
-        <h1 className="font-serif text-3xl font-light text-[#2c2420] mb-4">Something went wrong</h1>
+        <h1 className="font-serif text-3xl font-normal text-[#2c2420] mb-4">Something went wrong</h1>
         <p className="text-[#8a7b74]">{error}</p>
       </div>
     );
@@ -153,7 +153,7 @@ function ListingsContent() {
             <span className="flex h-1.5 w-1.5 rounded-full bg-[#e8c84a]"></span>
             <span>{filteredHouses.length} {filteredHouses.length === 1 ? 'listing' : 'listings'} available</span>
           </div>
-          <h1 className="font-serif text-4xl md:text-5xl font-light text-[#2c2420]">
+          <h1 className="font-serif text-4xl md:text-5xl font-normal text-[#2c2420]">
             Available Housing
           </h1>
         </div>
@@ -185,7 +185,7 @@ function ListingsContent() {
               <div className="inline-flex items-center justify-center w-14 h-14 bg-white border border-[#e3d8d0] rounded-xl mb-5">
                 <MagnifyingGlass className="w-6 h-6 text-[#8a7b74]" weight="regular" />
               </div>
-              <h2 className="font-serif text-2xl font-light text-[#2c2420] mb-2">No listings match your filters</h2>
+              <h2 className="font-serif text-2xl font-normal text-[#2c2420] mb-2">No listings match your filters</h2>
               <p className="text-[#8a7b74] text-sm mb-6">Try adjusting your search or removing some filters</p>
               <button
                 onClick={handleClearFilters}
