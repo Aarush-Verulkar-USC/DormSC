@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #2c2420;
+  -webkit-font-smoothing: antialiased;
+  /* Reserve scrollbar gutter so Radix dropdowns never shift the layout */
+  scrollbar-gutter: stable;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.4s ease-out; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slideDown 0.15s ease-out; }
+
+.container-main {
+  width: 100%;
+  max-width: 72rem; /* ~max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* ── Leaflet map pins ── */
+.price-pin {
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 1px solid #e3d8d0;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2c2420;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(44, 36, 32, 0.18);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  width: fit-content;
+}
+.price-pin:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #932210;
+  border-color: #932210;
+  color: #ffffff;
+  z-index: 1000;
+}
+
+.usc-pin {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #932210;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(44, 36, 32, 0.3);
+  width: fit-content;
+}
+.usc-pin-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #e8c84a;
+}
+
+.pin-tip {
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  color: #2c2420;
+}
+.leaflet-tooltip {
+  border: 1px solid #e3d8d0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(44, 36, 32, 0.12);
+  padding: 6px 10px;
+}
+.leaflet-container {
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+}
