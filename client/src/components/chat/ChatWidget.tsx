@@ -39,7 +39,7 @@ export default function ChatWidget() {
     setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
     try {
-      const res = await fetch('http://localhost:5001/api/chat', {
+      const res = await fetch(`${import.meta.env['VITE_API_URL'] ?? 'http://localhost:5001/api'}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
