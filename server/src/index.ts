@@ -22,6 +22,11 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
+// Cheap, DB-free endpoint for the keep-warm ping (see .github/workflows/keep-warm.yml).
+app.get('/api/health', (_req, res) => {
+  res.json({ ok: true, uptime: process.uptime() });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/reviews', reviewRoutes);

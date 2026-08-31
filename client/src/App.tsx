@@ -1,21 +1,25 @@
+import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import Listings from './pages/Listings';
-import ListingDetail from './pages/ListingDetail';
-import AddListing from './pages/AddListing';
-import EditListing from './pages/EditListing';
-import Favorites from './pages/Favorites';
-import MyListings from './pages/MyListings';
-import Admin from './pages/Admin';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Legal from './pages/Legal';
-import NotFound from './pages/NotFound';
 import LoadingSpinner from './components/ui/LoadingSpinner';
-import ChatWidget from './components/chat/ChatWidget';
+
+// Home ships in the main chunk (it's the common entry point); every other route
+// is split out so the first paint doesn't wait on code it won't render.
+const Listings = lazy(() => import('./pages/Listings'));
+const ListingDetail = lazy(() => import('./pages/ListingDetail'));
+const AddListing = lazy(() => import('./pages/AddListing'));
+const EditListing = lazy(() => import('./pages/EditListing'));
+const Favorites = lazy(() => import('./pages/Favorites'));
+const MyListings = lazy(() => import('./pages/MyListings'));
+const Admin = lazy(() => import('./pages/Admin'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const Legal = lazy(() => import('./pages/Legal'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const ChatWidget = lazy(() => import('./components/chat/ChatWidget'));
 
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
   const { currentUser, isAdmin, authLoading } = useAuth();
@@ -26,13 +30,11 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
 }
 
 export default function App() {
-  const { authLoading } = useAuth();
-  if (authLoading) return <LoadingSpinner />;
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <div className="flex-1">
+      <Suspense fallback={<LoadingSpinner />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listings" element={<Listings />} />
@@ -47,9 +49,12 @@ export default function App() {
         <Route path="/legal" element={<Legal />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
       </div>
       <Footer />
-      <ChatWidget />
+      <Suspense fallback={null}>
+        <ChatWidget />
+      </Suspense>
     </div>
   );
 }

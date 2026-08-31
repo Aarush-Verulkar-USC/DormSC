@@ -1,10 +1,11 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowRight, Search } from 'lucide-react';
 import { api } from '../lib/api';
 import { Listing } from '../types';
 import ListingCard from '../components/listings/ListingCard';
-import HomeMap from '../components/maps/HomeMap';
+// Leaflet + its CSS are ~150KB; keep them out of the initial bundle so the hero paints first.
+const HomeMap = lazy(() => import('../components/maps/HomeMap'));
 import { ListingCardSkeleton, Skeleton } from '../components/ui/Skeleton';
 
 /* ── Why DormSC tile ── */
@@ -291,10 +292,14 @@ export default function Home() {
 
             {/* Right: live map */}
             <div className="relative">
-              <HomeMap
-                listings={listings}
-                className="h-[400px] lg:h-[520px] rounded-xl overflow-hidden border border-line z-0"
-              />
+              <Suspense
+                fallback={<div className="h-[400px] lg:h-[520px] rounded-xl border border-line bg-surface animate-pulse" />}
+              >
+                <HomeMap
+                  listings={listings}
+                  className="h-[400px] lg:h-[520px] rounded-xl overflow-hidden border border-line z-0"
+                />
+              </Suspense>
               <div className="absolute bottom-3 left-3 z-[500] bg-white/95 backdrop-blur-sm border border-line rounded-lg px-3 py-1.5 flex items-center gap-4 text-xs text-muted shadow-sm pointer-events-none">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-gold ring-1 ring-brand" />

@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function Navbar() {
-  const { currentUser, isAdmin, logout } = useAuth();
+  const { currentUser, isAdmin, authLoading, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -65,7 +65,14 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
-            {currentUser ? (
+            {authLoading ? (
+              // The page renders without waiting on /auth/me, so hold a neutral
+              // placeholder here rather than flashing "Sign In" at a signed-in user.
+              <div className="flex items-center gap-2" aria-hidden="true">
+                <div className="hidden md:block h-4 w-16 rounded bg-surface animate-pulse" />
+                <div className="w-7 h-7 rounded-full bg-surface animate-pulse" />
+              </div>
+            ) : currentUser ? (
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
