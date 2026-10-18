@@ -30,11 +30,15 @@ export default function HomeMap({ listings, className = '' }: HomeMapProps) {
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
       {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri and contributors',
+        attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors, and the GIS community',
         maxZoom: 19,
       }
+    ).addTo(map);
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19 }
     ).addTo(map);
 
     // USC campus marker
