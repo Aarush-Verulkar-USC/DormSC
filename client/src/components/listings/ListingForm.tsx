@@ -150,7 +150,7 @@ export default function ListingForm({ mode, initialValues, onSubmit, isSubmittin
   };
 
   const inputCls = (err?: string) =>
-    `bg-surface border ${err ? 'border-red-400' : 'border-line'} rounded-sm text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors w-full`;
+    `bg-surface border ${err ? 'border-red-400' : 'border-line'} rounded-lg text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors w-full`;
 
   const sectionHeader = 'text-ink font-semibold text-sm mb-4 pb-2 border-b border-line';
   const labelCls = 'block text-xs text-muted mb-1.5';
@@ -259,11 +259,11 @@ export default function ListingForm({ mode, initialValues, onSubmit, isSubmittin
                 type="url"
                 value={img}
                 onChange={e => updateImage(idx, e.target.value)}
-                className="flex-1 bg-surface border border-line rounded-sm text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors"
+                className="flex-1 bg-surface border border-line rounded-lg text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors"
                 placeholder="https://example.com/image.jpg"
               />
               {form.images.length > 1 && (
-                <button type="button" onClick={() => removeImage(idx)} className="p-2.5 text-danger hover:bg-danger/10 rounded-sm transition-colors">
+                <button type="button" onClick={() => removeImage(idx)} className="p-2.5 text-danger hover:bg-red-50 rounded-lg transition-colors">
                   <Trash2 className="w-4 h-4" />
                 </button>
               )}
@@ -284,7 +284,7 @@ export default function ListingForm({ mode, initialValues, onSubmit, isSubmittin
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3 bg-brand hover:bg-brand/90 text-white font-semibold rounded-sm transition-colors disabled:opacity-60"
+        className="w-full py-3 bg-brand hover:bg-brand/90 text-white font-semibold rounded-lg transition-colors disabled:opacity-60"
       >
         {isSubmitting ? 'Saving...' : mode === 'create' ? 'Post Listing' : 'Save Changes'}
       </button>

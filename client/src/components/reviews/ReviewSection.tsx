@@ -116,7 +116,7 @@ export default function ReviewSection({ listingId, initialReviews, averageRating
     setAverageRating(initialAvg);
   }, [listingId]);
 
-  const inputCls = 'bg-surface border border-line rounded-sm text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors w-full';
+  const inputCls = 'bg-surface border border-line rounded-lg text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors w-full';
 
   return (
     <div>
@@ -134,7 +134,7 @@ export default function ReviewSection({ listingId, initialReviews, averageRating
 
       {/* Add review form */}
       {currentUser && !userReview && !editingId && (
-        <form onSubmit={handleCreate} className="bg-panel border border-line rounded-sm p-4 mb-6">
+        <form onSubmit={handleCreate} className="bg-white border border-line rounded-xl p-4 mb-6">
           <h3 className="text-sm font-semibold text-ink mb-3">Write a Review</h3>
           <div className="mb-3">
             <label className="block text-xs text-muted mb-1">Rating</label>
@@ -163,7 +163,7 @@ export default function ReviewSection({ listingId, initialReviews, averageRating
           <button
             type="submit"
             disabled={submitting}
-            className="bg-brand hover:bg-brand/90 text-white rounded-sm px-4 py-2 text-sm font-medium transition-colors disabled:opacity-60"
+            className="bg-brand hover:bg-brand/90 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-60"
           >
             {submitting ? 'Posting...' : 'Post Review'}
           </button>
@@ -173,7 +173,7 @@ export default function ReviewSection({ listingId, initialReviews, averageRating
       {/* Review list */}
       <div className="space-y-4">
         {reviews.map(review => (
-          <div key={review._id} className="bg-panel border border-line rounded-sm p-4">
+          <div key={review._id} className="bg-white border border-line rounded-xl p-4">
             {editingId === review._id ? (
               <form onSubmit={handleEdit} className="space-y-3">
                 <div>
@@ -193,8 +193,8 @@ export default function ReviewSection({ listingId, initialReviews, averageRating
                   className={inputCls + ' resize-none'}
                 />
                 <div className="flex gap-2">
-                  <button type="submit" disabled={submitting} className="px-3 py-1.5 bg-brand hover:bg-brand/90 text-white text-sm rounded-sm transition-colors disabled:opacity-60">Save</button>
-                  <button type="button" onClick={() => setEditingId(null)} className="px-3 py-1.5 bg-surface hover:bg-surface text-muted text-sm rounded-sm border border-line transition-colors">Cancel</button>
+                  <button type="submit" disabled={submitting} className="px-3 py-1.5 bg-brand hover:bg-brand/90 text-white text-sm rounded-lg transition-colors disabled:opacity-60">Save</button>
+                  <button type="button" onClick={() => setEditingId(null)} className="px-3 py-1.5 bg-surface hover:bg-surface text-muted text-sm rounded-lg border border-line transition-colors">Cancel</button>
                 </div>
               </form>
             ) : (
@@ -212,11 +212,11 @@ export default function ReviewSection({ listingId, initialReviews, averageRating
                   {currentUser && (review.user === currentUser._id || currentUser.role === 'admin') && (
                     <div className="flex items-center gap-1 flex-shrink-0">
                       {review.user === currentUser._id && (
-                        <button onClick={() => startEdit(review)} className="p-1.5 text-muted hover:text-ink hover:bg-surface rounded-sm transition-colors">
+                        <button onClick={() => startEdit(review)} className="p-1.5 text-muted hover:text-ink hover:bg-surface rounded-lg transition-colors">
                           <Edit2 className="w-4 h-4" />
                         </button>
                       )}
-                      <button onClick={() => setDeletingId(review._id)} className="p-1.5 text-muted hover:text-danger hover:bg-danger/10 rounded-sm transition-colors">
+                      <button onClick={() => setDeletingId(review._id)} className="p-1.5 text-muted hover:text-danger hover:bg-red-50 rounded-lg transition-colors">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>

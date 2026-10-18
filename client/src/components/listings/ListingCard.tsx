@@ -43,7 +43,7 @@ export default function ListingCard({
 
   return (
     <Link to={`/listings/${listing._id}`}>
-      <div className="group cursor-pointer rounded-sm bg-panel border border-line hover:border-brand/30 overflow-hidden transition-colors duration-200">
+      <div className="group cursor-pointer rounded-xl bg-white border border-line hover:border-brand/30 overflow-hidden transition-colors duration-200">
 
         {/* Image */}
         <div className="relative aspect-[16/10] overflow-hidden bg-surface">
@@ -68,7 +68,7 @@ export default function ListingCard({
               onClick={handleFavorite}
               disabled={favoriteLoading}
               aria-label={favorited ? 'Remove from saved listings' : 'Save listing'}
-              className="absolute top-2.5 right-2.5 p-1.5 rounded-sm bg-panel/90 backdrop-blur-sm border border-line hover:bg-panel transition-colors disabled:opacity-50"
+              className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-white/90 backdrop-blur-sm border border-line hover:bg-white transition-colors disabled:opacity-50"
             >
               {favoriteLoading ? (
                 <div className="w-3.5 h-3.5 border-2 border-line border-t-brand rounded-full animate-spin" />

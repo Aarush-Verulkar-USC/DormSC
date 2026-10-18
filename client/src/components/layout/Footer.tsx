@@ -17,7 +17,7 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#070708] border-t border-line">
+    <footer className="bg-white border-t border-line">
       <div className="container-main py-14">
         <div className="lg:flex lg:items-start lg:gap-12">
 

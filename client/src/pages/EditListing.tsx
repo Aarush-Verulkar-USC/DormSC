@@ -34,15 +34,15 @@ export default function EditListing() {
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-canvas"><LoadingSpinner /></div>;
+  if (loading) return <div className="min-h-screen bg-white"><LoadingSpinner /></div>;
   if (!listing) return (
-    <div className="min-h-screen bg-canvas flex items-center justify-center px-4 pt-24">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <p className="text-muted">Listing not found.</p>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-canvas">
+    <div className="min-h-screen bg-white">
       <div className="container-main pt-24 pb-12">
         <h1 className="text-2xl font-semibold text-ink mb-8">Edit Listing</h1>
         <ListingForm mode="edit" initialValues={listing} onSubmit={handleSubmit} isSubmitting={isSubmitting} />

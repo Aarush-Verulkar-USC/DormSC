@@ -23,7 +23,7 @@ export default function AddListing() {
   };
 
   return (
-    <div className="min-h-screen bg-canvas">
+    <div className="min-h-screen bg-white">
       <div className="container-main pt-24 pb-12">
         <h1 className="text-2xl font-semibold text-ink mb-8">Add New Listing</h1>
         <ListingForm mode="create" onSubmit={handleSubmit} isSubmitting={isSubmitting} />
