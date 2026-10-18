@@ -6,12 +6,14 @@ const router = Router();
 
 router.get('/', requireAuth, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const user = await User.findById(req.user!._id).populate('favoriteListings').lean();
+    const user = await User.findById(req.user!._id)
+      .populate({ path: 'favoriteListings', match: { isActive: true } })
+      .lean();
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
     }
-    res.json(user.favoriteListings);
+    res.json(user.favoriteListings.filter(Boolean));
   } catch (err) {
     next(err);
   }

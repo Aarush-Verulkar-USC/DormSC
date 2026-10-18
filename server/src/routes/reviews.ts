@@ -7,12 +7,20 @@ const router = Router();
 
 const updateSchema = z.object({
   rating: z.number().int().min(1).max(5).optional(),
-  title: z.string().min(1).optional(),
-  comment: z.string().min(1).optional(),
-});
+  title: z.string().trim().min(1).max(120).optional(),
+  comment: z.string().trim().min(1).max(2_000).optional(),
+}).refine(data => Object.keys(data).length > 0, 'At least one field is required');
+
+function hasValidId(id: string | undefined): id is string {
+  return Boolean(id && /^[a-f\d]{24}$/i.test(id));
+}
 
 router.put('/:id', requireAuth, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+    if (!hasValidId(req.params['id'])) {
+      res.status(400).json({ message: 'Invalid review ID' });
+      return;
+    }
     const review = await Review.findById(req.params['id']);
     if (!review) {
       res.status(404).json({ message: 'Review not found' });
@@ -37,6 +45,10 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res: Response, next: Ne
 
 router.delete('/:id', requireAuth, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+    if (!hasValidId(req.params['id'])) {
+      res.status(400).json({ message: 'Invalid review ID' });
+      return;
+    }
     const review = await Review.findById(req.params['id']);
     if (!review) {
       res.status(404).json({ message: 'Review not found' });

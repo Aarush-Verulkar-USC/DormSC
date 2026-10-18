@@ -1,13 +1,52 @@
 import { AdminStats, Listing, Review, User } from '../types';
 
-const BASE = import.meta.env['VITE_API_URL'] ?? '/api';
+// Production requests go through Vercel's same-origin proxy. This keeps the
+// HTTP-only session cookie first-party instead of relying on third-party cookies.
+export const API_BASE = import.meta.env.DEV
+  ? (import.meta.env['VITE_API_URL'] ?? '/api')
+  : '/api';
+
+const RETRYABLE_STATUSES = new Set([502, 503, 504]);
+
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => window.setTimeout(resolve, ms));
+}
+
+async function fetchWithTimeout(url: string, options?: RequestInit): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 30_000);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
+  const requestOptions: RequestInit = {
+    ...options,
     credentials: 'include',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    ...options,
-  });
+  };
+  const canRetry = !options?.method || options.method === 'GET';
+  const maxAttempts = canRetry ? 5 : 1;
+  let res: Response | undefined;
+  let networkError: unknown;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      res = await fetchWithTimeout(`${API_BASE}${path}`, requestOptions);
+      if (!RETRYABLE_STATUSES.has(res.status) || attempt === maxAttempts - 1) break;
+      const retryAfter = Number(res.headers.get('Retry-After'));
+      await wait(Number.isFinite(retryAfter) ? retryAfter * 1_000 : 1_000 * (attempt + 1));
+    } catch (err) {
+      networkError = err;
+      if (!canRetry || attempt === maxAttempts - 1) throw err;
+      await wait(1_000 * (attempt + 1));
+    }
+  }
+
+  if (!res) throw networkError instanceof Error ? networkError : new Error('Unable to reach the server');
   if (!res.ok) {
     let message = 'Something went wrong';
     let code: string | undefined;

@@ -16,22 +16,27 @@ const authLimiter = rateLimit({
 });
 
 const signupSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  name: z.string().trim().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().trim().email('Invalid email address').max(254).transform(email => email.toLowerCase()),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string().trim().email().transform(email => email.toLowerCase()),
   password: z.string().min(1),
 });
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: env.NODE_ENV === 'production',
+  sameSite: 'lax' as const,
+  path: '/',
+};
 
 function setTokenCookie(res: Response, userId: string): void {
   const token = jwt.sign({ userId }, env.JWT_SECRET, { expiresIn: '7d' });
   res.cookie('token', token, {
-    httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    ...cookieOptions,
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 }
@@ -51,7 +56,7 @@ router.post('/signup', authLimiter, async (req: Request, res: Response, next: Ne
       return;
     }
     const passwordHash = await bcrypt.hash(password, 12);
-    const role = env.ADMIN_EMAILS.includes(email) ? 'admin' : 'user';
+    const role = env.ADMIN_EMAILS.some(adminEmail => adminEmail.toLowerCase() === email) ? 'admin' : 'user';
     const user = await User.create({ name, email, passwordHash, role });
     setTokenCookie(res, user._id.toString());
     res.status(201).json({ _id: user._id, name: user.name, email: user.email, role: user.role });
@@ -92,7 +97,7 @@ router.post('/login', authLimiter, async (req: Request, res: Response, next: Nex
 
 // POST /api/auth/logout
 router.post('/logout', (_req: Request, res: Response): void => {
-  res.clearCookie('token', { httpOnly: true, sameSite: 'lax' });
+  res.clearCookie('token', cookieOptions);
   res.json({ message: 'Logged out' });
 });
 

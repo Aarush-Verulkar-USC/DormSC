@@ -39,6 +39,12 @@ npm run dev --workspace=server
 
 Client runs on `http://localhost:5173`, server on `http://localhost:5001`.
 
+Run the same validation used by CI:
+
+```bash
+npm run check
+```
+
 ## Environment Variables
 
 See `server/.env.example`. Required:
@@ -49,7 +55,20 @@ See `server/.env.example`. Required:
 | `JWT_SECRET` | Secret for signing JWTs |
 | `OPENAI_API_KEY` | OpenAI API key (for chatbot) |
 | `ADMIN_EMAILS` | Comma-separated emails granted admin role on signup |
-| `CLIENT_URL` | Frontend URL (for CORS) |
+| `CLIENT_URL` | Comma-separated frontend origins allowed by CORS |
+| `OPENAI_MODEL` | Optional chat model override (defaults to `gpt-4o-mini`) |
+
+## Production deployment
+
+- Configure Vercel with `client` as the root directory. `client/vercel.json`
+  proxies `/api/*` to Render so authentication cookies remain first-party.
+- Configure Render with `server` as the root directory, `npm run build` as the
+  build command, and `npm start` as the start command.
+- Set `NODE_ENV=production`, a strong `JWT_SECRET`, the production MongoDB URI,
+  and `CLIENT_URL=https://dorm-sc.vercel.app` on Render.
+- The scheduled keep-warm workflow is only a best-effort optimization. GitHub
+  scheduled runs can be delayed or dropped; use an always-on Render plan or a
+  dedicated uptime service when predictable latency is required.
 
 ## Project Structure
 

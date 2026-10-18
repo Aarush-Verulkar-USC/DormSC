@@ -8,8 +8,15 @@ export default defineConfig({
       output: {
         // Keep the rarely-changing framework code in its own long-lived chunk so
         // app deploys don't invalidate it in the browser cache.
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+        manualChunks(id) {
+          if (
+            id.includes('/node_modules/react/') ||
+            id.includes('/node_modules/react-dom/') ||
+            id.includes('/node_modules/react-router/') ||
+            id.includes('/node_modules/react-router-dom/')
+          ) {
+            return 'react-vendor';
+          }
         },
       },
     },

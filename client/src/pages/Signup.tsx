@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
@@ -21,7 +21,7 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
 
-  if (currentUser) { navigate(returnTo, { replace: true }); return null; }
+  if (currentUser) return <Navigate to={returnTo} replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

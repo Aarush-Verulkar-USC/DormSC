@@ -1,18 +1,21 @@
 name: Keep API warm
 
-# Render's free tier spins an instance down after ~15 minutes idle, and the cold
-# start costs ~22s on the next request. Ping it more often than that window.
+# Best-effort cold-start mitigation for the free Render service. GitHub does not
+# guarantee exact execution times for scheduled workflows, so production
+# availability must not depend on this job. Avoid minute 0, when Actions load is
+# highest, and ping the DB-free liveness endpoint.
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '3,13,23,33,43,53 * * * *'
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping /api/health
+      - name: Ping API health
         run: |
-          curl --fail --silent --show-error --max-time 60 \
+          curl --fail --silent --show-error --max-time 30 \
+            --retry 3 --retry-delay 5 --retry-all-errors \
             -o /dev/null -w 'status=%{http_code} total=%{time_total}s\n' \
             https://dormsc.onrender.com/api/health

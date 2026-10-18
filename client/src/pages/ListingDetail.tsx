@@ -35,7 +35,10 @@ export default function ListingDetail() {
   useEffect(() => {
     if (!id) return;
     api.getListing(id)
-      .then(setListing)
+      .then(data => {
+        setListing(data);
+        setFavorited(data.favorited ?? false);
+      })
       .catch(() => toast.error('Listing not found'))
       .finally(() => setLoading(false));
   }, [id]);
@@ -251,9 +254,11 @@ export default function ListingDetail() {
               {currentUser ? (
                 showContact ? (
                   <div className="space-y-2">
-                    <a href={`mailto:${listing.contactEmail}`} className="flex items-center gap-2 text-sm text-brand hover:text-brand transition-colors">
-                      <Mail className="w-4 h-4" /> {listing.contactEmail}
-                    </a>
+                    {listing.contactEmail && (
+                      <a href={`mailto:${listing.contactEmail}`} className="flex items-center gap-2 text-sm text-brand hover:text-brand transition-colors">
+                        <Mail className="w-4 h-4" /> {listing.contactEmail}
+                      </a>
+                    )}
                     {listing.contactPhone && (
                       <a href={`tel:${listing.contactPhone}`} className="flex items-center gap-2 text-sm text-brand hover:text-brand transition-colors">
                         <Phone className="w-4 h-4" /> {listing.contactPhone}

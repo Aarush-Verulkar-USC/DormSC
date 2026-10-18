@@ -2,11 +2,16 @@ import mongoose from 'mongoose';
 import { env } from './env';
 
 export async function connectDB(): Promise<void> {
-  try {
-    await mongoose.connect(env.MONGODB_URI);
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
-  }
+  await mongoose.connect(env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 10_000,
+  });
+  console.log('MongoDB connected');
+}
+
+export function isDatabaseReady(): boolean {
+  return mongoose.connection.readyState === 1;
+}
+
+export async function disconnectDB(): Promise<void> {
+  await mongoose.disconnect();
 }

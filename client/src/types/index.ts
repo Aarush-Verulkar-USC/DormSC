@@ -23,12 +23,13 @@ export interface Listing {
   images: string[];
   isActive: boolean;
   contactName: string;
-  contactEmail: string;
+  contactEmail?: string;
   contactPhone?: string;
   landlord: { _id: string; name: string; email: string } | string;
   reviews?: Review[];
   averageRating?: number | null;
   reviewCount?: number;
+  favorited?: boolean;
   createdAt: string;
   updatedAt: string;
 }

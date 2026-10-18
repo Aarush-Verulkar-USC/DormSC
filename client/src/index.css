@@ -1,11 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
 * { box-sizing: border-box; }
 
 body {
-  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   background-color: #ffffff;
   color: #2c2420;
   -webkit-font-smoothing: antialiased;
@@ -47,7 +46,7 @@ body {
   border: 1px solid #e3d8d0;
   border-radius: 9999px;
   padding: 3px 10px;
-  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   font-size: 12px;
   font-weight: 700;
   color: #2c2420;
@@ -74,7 +73,7 @@ body {
   border: 2px solid #ffffff;
   border-radius: 9999px;
   padding: 3px 10px;
-  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -89,7 +88,7 @@ body {
 }
 
 .pin-tip {
-  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   font-size: 12px;
   color: #2c2420;
 }
@@ -100,5 +99,5 @@ body {
   padding: 6px 10px;
 }
 .leaflet-container {
-  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
 }

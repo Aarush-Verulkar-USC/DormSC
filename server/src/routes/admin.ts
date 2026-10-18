@@ -28,9 +28,10 @@ router.get('/users', async (req: AuthRequest, res: Response, next: NextFunction)
     const { search } = req.query as { search?: string };
     const query: Record<string, unknown> = {};
     if (search) {
+      const safeSearch = search.trim().slice(0, 100).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       query['$or'] = [
-        { name: { $regex: search, $options: 'i' } },
-        { email: { $regex: search, $options: 'i' } },
+        { name: { $regex: safeSearch, $options: 'i' } },
+        { email: { $regex: safeSearch, $options: 'i' } },
       ];
     }
     const users = await User.find(query).select('-passwordHash').sort({ createdAt: -1 }).lean();
@@ -57,6 +58,10 @@ router.get('/listings', async (_req: AuthRequest, res: Response, next: NextFunct
 
 router.post('/users/:id/block', async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+    if (!/^[a-f\d]{24}$/i.test(req.params['id'] ?? '')) {
+      res.status(400).json({ message: 'Invalid user ID' });
+      return;
+    }
     const user = await User.findById(req.params['id']);
     if (!user) {
       res.status(404).json({ message: 'User not found' });

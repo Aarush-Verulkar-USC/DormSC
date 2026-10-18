@@ -1,10 +1,15 @@
 {
   "name": "dormsc",
   "private": true,
+  "engines": {
+    "node": ">=20.19.0 <23"
+  },
   "scripts": {
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
+    "check": "npm run typecheck --workspace=server && npm run typecheck --workspace=client && npm run build --workspace=client",
     "dev:server": "npm run dev --workspace=server",
     "dev:client": "npm run dev --workspace=client",
-    "install:all": "npm install --workspace=server && npm install --workspace=client"
+    "install:all": "npm install"
   },
   "workspaces": ["client", "server"]
 }

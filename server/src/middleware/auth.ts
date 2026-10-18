@@ -31,6 +31,23 @@ export async function requireAuth(req: AuthRequest, res: Response, next: NextFun
   }
 }
 
+export async function optionalAuth(req: AuthRequest, _res: Response, next: NextFunction): Promise<void> {
+  const token = req.cookies['token'] as string | undefined;
+  if (!token) {
+    next();
+    return;
+  }
+
+  try {
+    const payload = jwt.verify(token, env.JWT_SECRET) as { userId: string };
+    const user = await User.findById(payload.userId);
+    if (user && !user.isBlocked) req.user = user;
+  } catch {
+    // Public routes remain public when a stale or malformed cookie is present.
+  }
+  next();
+}
+
 export function requireAdmin(req: AuthRequest, res: Response, next: NextFunction): void {
   if (!req.user || req.user.role !== 'admin') {
     res.status(403).json({ message: 'Admin access required' });

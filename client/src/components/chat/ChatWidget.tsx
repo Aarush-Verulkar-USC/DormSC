@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
+import { API_BASE } from '../../lib/api';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -38,15 +39,21 @@ export default function ChatWidget() {
     // placeholder for streaming assistant reply
     setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 45_000);
     try {
-      const res = await fetch(`${import.meta.env['VITE_API_URL'] ?? 'http://localhost:5001/api'}/chat`, {
+      const res = await fetch(`${API_BASE}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
+        signal: controller.signal,
         body: JSON.stringify({ messages: next }),
       });
 
-      if (!res.ok || !res.body) throw new Error('Request failed');
+      if (!res.ok || !res.body) {
+        const data = await res.json().catch(() => null) as { message?: string } | null;
+        throw new Error(data?.message ?? 'Request failed');
+      }
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -63,17 +70,22 @@ export default function ChatWidget() {
           if (!line.startsWith('data: ')) continue;
           const payload = line.slice(6).trim();
           if (payload === '[DONE]') break;
+          let data: { text?: string; error?: string } | null = null;
           try {
-            const { text } = JSON.parse(payload) as { text: string };
-            setMessages(prev => {
-              const updated = [...prev];
-              const last = updated[updated.length - 1];
-              if (last?.role === 'assistant') {
-                updated[updated.length - 1] = { ...last, content: last.content + text };
-              }
-              return updated;
-            });
+            data = JSON.parse(payload) as { text?: string; error?: string };
           } catch { /* ignore malformed chunks */ }
+          if (!data) continue;
+          if (data.error) throw new Error(data.error);
+          if (!data.text) continue;
+          const chunkText = data.text;
+          setMessages(prev => {
+            const updated = [...prev];
+            const last = updated[updated.length - 1];
+            if (last?.role === 'assistant') {
+              updated[updated.length - 1] = { ...last, content: last.content + chunkText };
+            }
+            return updated;
+          });
         }
       }
     } catch (err) {
@@ -81,11 +93,15 @@ export default function ChatWidget() {
         const updated = [...prev];
         const last = updated[updated.length - 1];
         if (last?.role === 'assistant' && last.content === '') {
-          updated[updated.length - 1] = { ...last, content: 'Sorry, something went wrong. Please try again.' };
+          updated[updated.length - 1] = {
+            ...last,
+            content: err instanceof Error ? err.message : 'Sorry, something went wrong. Please try again.',
+          };
         }
         return updated;
       });
     } finally {
+      window.clearTimeout(timeout);
       setStreaming(false);
     }
   };
