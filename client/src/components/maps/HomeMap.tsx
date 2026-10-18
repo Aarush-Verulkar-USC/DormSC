@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Listing } from '../../types';
 
 const USC = { lat: 34.0224, lng: -118.2851 };
@@ -9,6 +10,22 @@ const USC = { lat: 34.0224, lng: -118.2851 };
 interface HomeMapProps {
   listings: Listing[];
   className?: string;
+}
+
+function addFallbackTiles(map: L.Map): L.LayerGroup {
+  return L.layerGroup([
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors, and the GIS community',
+        maxZoom: 19,
+      }
+    ),
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19 }
+    ),
+  ]).addTo(map);
 }
 
 export default function HomeMap({ listings, className = '' }: HomeMapProps) {
@@ -29,17 +46,41 @@ export default function HomeMap({ listings, className = '' }: HomeMapProps) {
     });
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-      {
-        attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors, and the GIS community',
-        maxZoom: 19,
-      }
-    ).addTo(map);
-    L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
-      { maxZoom: 19 }
-    ).addTo(map);
+    const accessToken = import.meta.env['VITE_MAPBOX_ACCESS_TOKEN']?.trim();
+    if (accessToken) {
+      const mapboxTiles = L.tileLayer(
+        `https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/512/{z}/{x}/{y}?access_token=${encodeURIComponent(accessToken)}`,
+        {
+          attribution:
+            '&copy; <a href="https://www.mapbox.com/about/maps">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://apps.mapbox.com/feedback/" target="_blank" rel="noopener">Improve this map</a></strong>',
+          maxZoom: 19,
+          tileSize: 512,
+          zoomOffset: -1,
+        }
+      ).addTo(map);
+
+      const logo = new L.Control({ position: 'bottomleft' });
+      logo.onAdd = () => {
+        const link = L.DomUtil.create('a', 'mapboxgl-ctrl-logo');
+        link.href = 'https://www.mapbox.com/';
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.setAttribute('aria-label', 'Mapbox');
+        return link;
+      };
+      logo.addTo(map);
+
+      let fellBack = false;
+      mapboxTiles.on('tileerror', () => {
+        if (fellBack) return;
+        fellBack = true;
+        map.removeLayer(mapboxTiles);
+        logo.remove();
+        addFallbackTiles(map);
+      });
+    } else {
+      addFallbackTiles(map);
+    }
 
     // USC campus marker
     L.marker([USC.lat, USC.lng], {

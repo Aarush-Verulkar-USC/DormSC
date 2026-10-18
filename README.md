@@ -58,6 +58,11 @@ See `server/.env.example`. Required:
 | `CLIENT_URL` | Comma-separated frontend origins allowed by CORS |
 | `OPENAI_MODEL` | Optional chat model override (defaults to `gpt-4o-mini`) |
 
+The client optionally accepts `VITE_MAPBOX_ACCESS_TOKEN`. Set it in Vercel to
+use the Mapbox Light basemap; without it, the map safely falls back to Esri's
+light-gray tiles. Mapbox public tokens should be URL-restricted to the production
+domain and localhost during development.
+
 ## Production deployment
 
 - Configure Vercel with `client` as the root directory. `client/vercel.json`
