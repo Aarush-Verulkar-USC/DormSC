@@ -31,7 +31,7 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-canvas flex flex-col">
       <Navbar />
       <div className="flex-1">
       <Suspense fallback={<LoadingSpinner />}>

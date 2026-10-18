@@ -44,11 +44,11 @@ export default function FilterBar({ values, onChange }: FilterBarProps) {
   const update = (key: keyof FilterValues, value: string) => onChange({ ...values, [key]: value });
   const hasActive = Object.entries(values).some(([k, v]) => k !== 'sort' && v !== '');
 
-  const inputCls = 'w-full px-3 py-2 bg-white border border-line rounded-lg text-ink text-sm outline-none focus:ring-2 focus:ring-brand/20 transition-colors placeholder:text-faint';
+  const inputCls = 'w-full px-3 py-2 bg-panel border border-line rounded-sm text-ink text-sm outline-none focus:ring-2 focus:ring-brand/20 transition-colors placeholder:text-faint';
   const labelCls = 'block text-xs text-muted mb-1.5';
 
   return (
-    <div className="bg-white border border-line rounded-xl p-4 flex flex-wrap gap-3 items-end">
+    <div className="bg-panel border border-line rounded-sm p-4 flex flex-wrap gap-3 items-end">
 
       <div className="flex-1 min-w-[160px]">
         <label className={labelCls}>Search</label>
@@ -138,7 +138,7 @@ export default function FilterBar({ values, onChange }: FilterBarProps) {
         <button
           onClick={() => onChange(defaultFilters)}
           title="Clear filters"
-          className="flex items-center justify-center w-[38px] h-[38px] rounded-lg border border-line bg-white text-muted hover:text-brand hover:border-brand/30 transition-colors self-end"
+          className="flex items-center justify-center w-[38px] h-[38px] rounded-sm border border-line bg-panel text-muted hover:text-brand hover:border-brand/30 transition-colors self-end"
         >
           <X className="w-4 h-4" />
         </button>

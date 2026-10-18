@@ -16,7 +16,7 @@ import toast from 'react-hot-toast';
 const IMG_FALLBACK =
   'data:image/svg+xml;utf8,' +
   encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100"><rect width="160" height="100" fill="#f2ede8"/><g stroke="#c4b8b0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="62" y="36" width="36" height="28" rx="3"/><path d="M62 56l9-9 7 7 6-6 14 14"/><circle cx="74" cy="45" r="2.5"/></g></svg>'
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100"><rect width="160" height="100" fill="#121316"/><g stroke="#686a70" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="62" y="36" width="36" height="28" rx="3"/><path d="M62 56l9-9 7 7 6-6 14 14"/><circle cx="74" cy="45" r="2.5"/></g></svg>'
   );
 
 export default function ListingDetail() {
@@ -79,9 +79,9 @@ export default function ListingDetail() {
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-white"><LoadingSpinner /></div>;
+  if (loading) return <div className="min-h-screen bg-canvas"><LoadingSpinner /></div>;
   if (!listing) return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-canvas flex items-center justify-center px-4 pt-24">
       <div className="text-center">
         <p className="text-muted text-lg mb-4">Listing not found.</p>
         <Link to="/listings" className="text-brand hover:text-brand text-sm transition-colors">Back to listings</Link>
@@ -92,7 +92,7 @@ export default function ListingDetail() {
   const images = listing.images.length > 0 ? listing.images : [];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-canvas">
       <div className="container-main py-8">
         {/* Back */}
         <Link to="/listings" className="inline-flex items-center gap-1 text-sm text-muted hover:text-ink mb-6 transition-colors">
@@ -104,7 +104,7 @@ export default function ListingDetail() {
             {/* Image gallery */}
             {images.length > 0 ? (
               <div className="mb-6">
-                <div className="aspect-video rounded-xl overflow-hidden bg-surface relative mb-2">
+                <div className="aspect-video rounded-sm overflow-hidden bg-surface relative mb-2">
                   <img
                     src={images[imageIdx]}
                     alt={listing.title}
@@ -139,7 +139,7 @@ export default function ListingDetail() {
                       <button key={i} onClick={() => setImageIdx(i)}
                         aria-label={`View photo ${i + 1}`}
                         aria-current={i === imageIdx}
-                        className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${i === imageIdx ? 'border-brand' : 'border-line hover:border-brand/30'}`}>
+                        className={`flex-shrink-0 w-16 h-12 rounded-sm overflow-hidden border-2 transition-colors ${i === imageIdx ? 'border-brand' : 'border-line hover:border-brand/30'}`}>
                         <img src={img} alt="" className="w-full h-full object-cover" onError={e => { (e.target as HTMLImageElement).src = IMG_FALLBACK; }} />
                       </button>
                     ))}
@@ -147,7 +147,7 @@ export default function ListingDetail() {
                 )}
               </div>
             ) : (
-              <div className="aspect-video rounded-xl bg-surface flex items-center justify-center mb-6">
+              <div className="aspect-video rounded-sm bg-surface flex items-center justify-center mb-6">
                 <Bed className="w-16 h-16 text-faint" />
               </div>
             )}
@@ -164,19 +164,19 @@ export default function ListingDetail() {
                 <MapPin className="w-4 h-4" /> {listing.address}
               </p>
               <div className="flex flex-wrap gap-3 text-sm">
-                <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-lg text-muted">
+                <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-sm text-muted">
                   <Bed className="w-4 h-4 text-muted" /> {listing.bedrooms} Bed{listing.bedrooms !== 1 ? 's' : ''}
                 </span>
-                <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-lg text-muted">
+                <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-sm text-muted">
                   <Bath className="w-4 h-4 text-muted" /> {listing.bathrooms} Bath{listing.bathrooms !== 1 ? 's' : ''}
                 </span>
                 {listing.distanceToUSC && (
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-lg text-muted">
+                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-sm text-muted">
                     <Ruler className="w-4 h-4 text-muted" /> {listing.distanceToUSC} from USC
                   </span>
                 )}
                 {listing.availableDate && (
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-lg text-muted">
+                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-line rounded-sm text-muted">
                     <Calendar className="w-4 h-4 text-muted" /> Available {new Date(listing.availableDate).toLocaleDateString()}
                   </span>
                 )}
@@ -195,7 +195,7 @@ export default function ListingDetail() {
                 <h2 className="text-lg font-semibold text-ink mb-3">Amenities</h2>
                 <div className="flex flex-wrap gap-2">
                   {listing.amenities.map(a => (
-                    <span key={a} className="px-3 py-1.5 bg-surface border border-line text-muted text-sm rounded-lg">{a}</span>
+                    <span key={a} className="px-3 py-1.5 bg-surface border border-line text-muted text-sm rounded-sm">{a}</span>
                   ))}
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function ListingDetail() {
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Price card */}
-            <div className="bg-white border border-line rounded-xl p-5">
+            <div className="bg-panel border border-line rounded-sm p-5">
               <div className="text-3xl font-semibold text-ink mb-1">
                 ${listing.price.toLocaleString()}<span className="text-base font-normal text-muted">/mo</span>
               </div>
@@ -218,9 +218,9 @@ export default function ListingDetail() {
                 <button
                   onClick={handleFavorite}
                   disabled={favoriteLoading}
-                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-sm border text-sm font-medium transition-colors ${
                     favorited
-                      ? 'bg-red-500/10 border-red-500/30 text-red-400'
+                      ? 'bg-danger/100/10 border-red-500/30 text-red-400'
                       : 'bg-surface border-line text-muted hover:text-ink hover:border-brand/30'
                   }`}
                 >
@@ -229,13 +229,13 @@ export default function ListingDetail() {
                 </button>
                 {canEdit && (
                   <Link to={`/listings/${listing._id}/edit`}
-                    className="flex items-center justify-center gap-1 px-3 py-2.5 bg-surface border border-line rounded-lg text-sm font-medium text-muted hover:text-ink hover:border-brand/30 transition-colors">
+                    className="flex items-center justify-center gap-1 px-3 py-2.5 bg-surface border border-line rounded-sm text-sm font-medium text-muted hover:text-ink hover:border-brand/30 transition-colors">
                     <Edit2 className="w-4 h-4" /> Edit
                   </Link>
                 )}
                 {canEdit && (
                   <button onClick={() => setConfirmDelete(true)}
-                    className="flex items-center justify-center gap-1 px-3 py-2.5 bg-red-50 border border-red-400/30 rounded-lg text-sm font-medium text-danger hover:bg-red-400/20 transition-colors">
+                    className="flex items-center justify-center gap-1 px-3 py-2.5 bg-danger/10 border border-red-400/30 rounded-sm text-sm font-medium text-danger hover:bg-red-400/20 transition-colors">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 )}
@@ -243,7 +243,7 @@ export default function ListingDetail() {
             </div>
 
             {/* Contact card */}
-            <div className="bg-white border border-line rounded-xl p-5">
+            <div className="bg-panel border border-line rounded-sm p-5">
               <h3 className="font-semibold text-ink mb-3">Contact</h3>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-9 h-9 bg-surface rounded-full flex items-center justify-center">
@@ -268,7 +268,7 @@ export default function ListingDetail() {
                 ) : (
                   <button
                     onClick={() => setShowContact(true)}
-                    className="w-full py-2 bg-brand hover:bg-brand/90 text-white text-sm font-medium rounded-lg transition-colors"
+                    className="w-full py-2 bg-brand hover:bg-brand/90 text-white text-sm font-medium rounded-sm transition-colors"
                   >
                     Show Contact Info
                   </button>
@@ -276,7 +276,7 @@ export default function ListingDetail() {
               ) : (
                 <Link
                   to="/login"
-                  className="block text-center w-full py-2 bg-brand hover:bg-brand/90 text-white text-sm font-medium rounded-lg transition-colors"
+                  className="block text-center w-full py-2 bg-brand hover:bg-brand/90 text-white text-sm font-medium rounded-sm transition-colors"
                 >
                   Sign in to view contact
                 </Link>
@@ -285,7 +285,7 @@ export default function ListingDetail() {
 
             {/* Landlord card */}
             {listing.landlord && typeof listing.landlord !== 'string' && (
-              <div className="bg-white border border-line rounded-xl p-4">
+              <div className="bg-panel border border-line rounded-sm p-4">
                 <p className="text-xs text-muted mb-1">Listed by</p>
                 <p className="text-sm font-medium text-ink">{listing.landlord.name}</p>
               </div>

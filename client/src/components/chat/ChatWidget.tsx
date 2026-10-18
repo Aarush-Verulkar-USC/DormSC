@@ -117,11 +117,11 @@ export default function ChatWidget() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       {/* Chat panel */}
       {open && (
-        <div className="w-[350px] h-[500px] bg-white rounded-2xl shadow-2xl border border-line flex flex-col overflow-hidden">
+        <div className="w-[350px] h-[500px] bg-panel rounded-md shadow-2xl border border-line flex flex-col overflow-hidden">
           {/* Header */}
           <div className="bg-brand px-4 py-3 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-full bg-panel/20 flex items-center justify-center">
                 <MessageCircle className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -139,7 +139,7 @@ export default function ChatWidget() {
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[80%] rounded-md px-3.5 py-2.5 text-sm leading-relaxed ${
                     msg.role === 'user'
                       ? 'bg-brand text-white rounded-br-sm'
                       : 'bg-surface text-ink rounded-bl-sm border border-line'
@@ -159,7 +159,7 @@ export default function ChatWidget() {
 
           {/* Input */}
           <div className="px-3 py-3 border-t border-line flex-shrink-0">
-            <div className="flex items-center gap-2 bg-surface rounded-xl px-3 py-2 border border-line focus-within:border-brand/40 focus-within:ring-2 focus-within:ring-brand/10 transition-all">
+            <div className="flex items-center gap-2 bg-surface rounded-sm px-3 py-2 border border-line focus-within:border-brand/40 focus-within:ring-2 focus-within:ring-brand/10 transition-all">
               <input
                 ref={inputRef}
                 value={input}
@@ -172,7 +172,7 @@ export default function ChatWidget() {
               <button
                 onClick={send}
                 disabled={!input.trim() || streaming}
-                className="w-7 h-7 bg-brand hover:bg-brand/90 disabled:opacity-40 rounded-lg flex items-center justify-center transition-colors"
+                className="w-7 h-7 bg-brand hover:bg-brand/90 disabled:opacity-40 rounded-sm flex items-center justify-center transition-colors"
               >
                 <Send className="w-3.5 h-3.5 text-white" />
               </button>

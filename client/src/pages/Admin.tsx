@@ -10,8 +10,8 @@ type Tab = 'users' | 'listings';
 
 function StatCard({ icon, label, value, accent = false }: { icon: React.ReactNode; label: string; value: number; accent?: boolean }) {
   return (
-    <div className={`bg-white border rounded-xl p-5 ${accent ? 'border-red-200' : 'border-line'}`}>
-      <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${accent ? 'bg-red-50' : 'bg-brand/10'}`}>
+    <div className={`bg-panel border rounded-sm p-5 ${accent ? 'border-red-200' : 'border-line'}`}>
+      <div className={`w-10 h-10 rounded-sm flex items-center justify-center mb-3 ${accent ? 'bg-danger/10' : 'bg-brand/10'}`}>
         {icon}
       </div>
       <p className="text-2xl font-semibold text-ink">{value.toLocaleString()}</p>
@@ -71,10 +71,10 @@ export default function Admin() {
     !search || u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (loading) return <div className="min-h-screen bg-white"><LoadingSpinner /></div>;
+  if (loading) return <div className="min-h-screen bg-canvas"><LoadingSpinner /></div>;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-canvas">
       <div className="container-main pt-24 pb-12">
         <h1 className="text-2xl font-semibold text-ink mb-8">Admin Dashboard</h1>
 
@@ -90,7 +90,7 @@ export default function Admin() {
         )}
 
         {/* Tabs */}
-        <div className="flex rounded-lg bg-white border border-line p-1 mb-6 w-fit gap-1">
+        <div className="flex rounded-sm bg-panel border border-line p-1 mb-6 w-fit gap-1">
           {(['users', 'listings'] as Tab[]).map(t => (
             <button
               key={t}
@@ -113,9 +113,9 @@ export default function Admin() {
               placeholder="Search users..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="mb-4 w-full max-w-sm bg-surface border border-line rounded-lg text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors"
+              className="mb-4 w-full max-w-sm bg-surface border border-line rounded-sm text-ink text-sm px-3 py-2.5 outline-none focus:ring-2 focus:ring-brand/20 transition-colors"
             />
-            <div className="bg-white rounded-xl border border-line overflow-hidden">
+            <div className="bg-panel rounded-sm border border-line overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-surface border-b border-line">
                   <tr>
@@ -135,7 +135,7 @@ export default function Admin() {
                       <td className="px-4 py-3">
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                           u.isBlocked
-                            ? 'bg-red-50 text-danger'
+                            ? 'bg-danger/10 text-danger'
                             : 'bg-green-50 text-green-700'
                         }`}>
                           {u.isBlocked ? 'Blocked' : 'Active'}
@@ -145,10 +145,10 @@ export default function Admin() {
                         {u.role !== 'admin' && (
                           <button
                             onClick={() => setBlockingId(u._id)}
-                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
+                            className={`px-3 py-1 text-xs font-medium rounded-sm transition-colors ${
                               u.isBlocked
                                 ? 'bg-green-50 text-green-700 hover:bg-green-100'
-                                : 'bg-red-50 text-danger hover:bg-red-100'
+                                : 'bg-danger/10 text-danger hover:bg-red-100'
                             }`}
                           >
                             {u.isBlocked ? 'Unblock' : 'Block'}
@@ -167,7 +167,7 @@ export default function Admin() {
         )}
 
         {tab === 'listings' && (
-          <div className="bg-white rounded-xl border border-line overflow-hidden">
+          <div className="bg-panel rounded-sm border border-line overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-surface border-b border-line">
                 <tr>
@@ -198,7 +198,7 @@ export default function Admin() {
                       <td className="px-4 py-3 text-right">
                         <button
                           onClick={() => setDeletingId(l._id)}
-                          className="px-3 py-1 text-xs font-medium rounded-lg bg-red-50 text-danger hover:bg-red-100 transition-colors"
+                          className="px-3 py-1 text-xs font-medium rounded-sm bg-danger/10 text-danger hover:bg-red-100 transition-colors"
                         >
                           Delete
                         </button>

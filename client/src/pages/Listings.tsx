@@ -62,7 +62,7 @@ export default function Listings() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-canvas">
       <div className="container-main pt-24 pb-12 animate-fade-in">
         <div className="mb-6">
           <h1 className="text-2xl font-semibold text-ink">Browse Listings</h1>
@@ -85,7 +85,7 @@ export default function Listings() {
             {searchParams.toString().length > 0 && (
               <button
                 onClick={() => setSearchParams(new URLSearchParams())}
-                className="bg-brand hover:bg-brand/90 text-white rounded-lg px-5 py-2.5 text-sm font-medium transition-colors">
+                className="bg-brand hover:bg-brand/90 text-white rounded-sm px-5 py-2.5 text-sm font-medium transition-colors">
                 Clear all filters
               </button>
             )}
@@ -99,14 +99,14 @@ export default function Listings() {
             {pages > 1 && (
               <div className="flex items-center justify-center gap-3 mt-12">
                 <button onClick={() => fetchListings(currentPage - 1)} disabled={currentPage === 1}
-                  className="p-2 rounded-lg bg-white border border-line text-muted hover:text-ink hover:border-brand/30 transition-colors disabled:opacity-30">
+                  className="p-2 rounded-sm bg-panel border border-line text-muted hover:text-ink hover:border-brand/30 transition-colors disabled:opacity-30">
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <span className="text-sm text-muted">
                   Page {currentPage} of {pages}
                 </span>
                 <button onClick={() => fetchListings(currentPage + 1)} disabled={currentPage === pages}
-                  className="p-2 rounded-lg bg-white border border-line text-muted hover:text-ink hover:border-brand/30 transition-colors disabled:opacity-30">
+                  className="p-2 rounded-sm bg-panel border border-line text-muted hover:text-ink hover:border-brand/30 transition-colors disabled:opacity-30">
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>

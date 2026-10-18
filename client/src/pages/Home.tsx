@@ -11,8 +11,8 @@ import { ListingCardSkeleton, Skeleton } from '../components/ui/Skeleton';
 /* ── Why DormSC tile ── */
 function WhyCard({ title, desc, animation }: { title: string; desc: string; animation: React.ReactNode }) {
   return (
-    <div className="bg-white border border-line rounded-xl overflow-hidden group">
-      <div className="h-36 bg-white border-b border-line flex items-center justify-center overflow-hidden">
+    <div className="bg-panel border border-line rounded-sm overflow-hidden group">
+      <div className="h-36 bg-panel border-b border-line flex items-center justify-center overflow-hidden">
         {animation}
       </div>
       <div className="p-6">
@@ -39,7 +39,7 @@ function FilterAnimation() {
         @keyframes fl-chip  { 0%,4% { opacity:0; transform:translateY(-7px); } 12%,100% { opacity:1; transform:translateY(0); } }
         @keyframes fl-dim   { 0%,26% { opacity:1; transform:scale(1); } 38%,100% { opacity:0.3; transform:scale(0.94); } }
         @keyframes fl-pick  { 0%,30% { box-shadow:0 0 0 0 rgba(147,34,16,0); transform:scale(1); }
-                              44%,100% { box-shadow:0 0 0 2px #932210; transform:scale(1.06); } }
+                              44%,100% { box-shadow:0 0 0 2px #ff654f; transform:scale(1.06); } }
         @keyframes fl-check { 0%,42% { opacity:0; transform:scale(0.4); } 56%,100% { opacity:1; transform:scale(1); } }
         .fl-scene { animation: fl-scene 5.4s linear infinite; }
         .fl-chip  { animation: fl-chip  5.4s ${ease} infinite; }
@@ -63,7 +63,7 @@ function FilterAnimation() {
         <div className="flex gap-2 items-center">
           {cards.map(c => (
             <div key={c.price}
-              className={`${c.match ? 'fl-pick' : c.cls} relative w-14 rounded-md bg-white border border-line p-1.5 shadow-sm`}>
+              className={`${c.match ? 'fl-pick' : c.cls} relative w-14 rounded-md bg-panel border border-line p-1.5 shadow-sm`}>
               <div className="h-7 rounded bg-surface mb-1" />
               <div className="text-[9px] font-bold text-ink leading-none">{c.price}</div>
               {c.match && (
@@ -113,7 +113,7 @@ function FocusedAnimation() {
           <path
             className="fo-route"
             d="M48 44 C 76 88, 118 92, 148 72"
-            stroke="#932210" strokeWidth="2" strokeLinecap="round"
+            stroke="#ff654f" strokeWidth="2" strokeLinecap="round"
             strokeDasharray="6 5" pathLength={100}
           />
         </svg>
@@ -136,7 +136,7 @@ function FocusedAnimation() {
         </div>
 
         {/* Distance label */}
-        <div className="fo-label absolute left-[98px] top-[42px] px-2 py-0.5 rounded-full bg-white border border-line shadow-sm text-[9px] font-bold text-ink whitespace-nowrap">
+        <div className="fo-label absolute left-[98px] top-[42px] px-2 py-0.5 rounded-full bg-panel border border-line shadow-sm text-[9px] font-bold text-ink whitespace-nowrap">
           0.6 mi to campus
         </div>
       </div>
@@ -172,21 +172,21 @@ function FastAnimation() {
 
       <div className="ft-scene w-full max-w-[180px] flex flex-col gap-2">
         {/* Student message */}
-        <div className="ft-left self-start bg-white border border-line rounded-2xl rounded-bl-md px-3 py-2 shadow-sm">
+        <div className="ft-left self-start bg-panel border border-line rounded-md rounded-bl-md px-3 py-2 shadow-sm">
           <div className="h-1.5 w-20 rounded-full bg-line mb-1.5" />
           <div className="h-1.5 w-12 rounded-full bg-line" />
         </div>
 
         {/* Landlord: typing indicator swaps to reply */}
         <div className="relative self-end">
-          <div className="ft-reply bg-brand rounded-2xl rounded-br-md px-3 py-2 shadow-sm">
-            <div className="h-1.5 w-16 rounded-full bg-white/60 mb-1.5" />
-            <div className="h-1.5 w-10 rounded-full bg-white/60" />
+          <div className="ft-reply bg-brand rounded-md rounded-br-md px-3 py-2 shadow-sm">
+            <div className="h-1.5 w-16 rounded-full bg-panel/60 mb-1.5" />
+            <div className="h-1.5 w-10 rounded-full bg-panel/60" />
           </div>
-          <div className="ft-typing absolute top-0 right-0 bg-brand rounded-2xl rounded-br-md px-3 py-2.5 flex items-center gap-1 shadow-sm">
-            <span className="ft-d1 w-1.5 h-1.5 rounded-full bg-white/80" />
-            <span className="ft-d2 w-1.5 h-1.5 rounded-full bg-white/80" />
-            <span className="ft-d3 w-1.5 h-1.5 rounded-full bg-white/80" />
+          <div className="ft-typing absolute top-0 right-0 bg-brand rounded-md rounded-br-md px-3 py-2.5 flex items-center gap-1 shadow-sm">
+            <span className="ft-d1 w-1.5 h-1.5 rounded-full bg-panel/80" />
+            <span className="ft-d2 w-1.5 h-1.5 rounded-full bg-panel/80" />
+            <span className="ft-d3 w-1.5 h-1.5 rounded-full bg-panel/80" />
           </div>
         </div>
 
@@ -232,45 +232,46 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-ink selection:bg-brand/20">
-      <div className="pt-20">
+    <div className="min-h-screen bg-canvas text-ink selection:bg-brand/20">
+      <div className="pt-24 technical-grid border-b border-line">
         <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start pt-10 lg:pt-20 pb-14">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start pt-10 lg:pt-16 pb-14 lg:pb-20">
 
             {/* Left: hero + search */}
-            <div className="pt-2 lg:pt-6">
+            <div className="min-w-0 pt-2 lg:pt-5">
+              <p className="text-[10px] text-brand uppercase tracking-[0.2em] mb-5">Housing infrastructure / USC</p>
               {loading ? (
                 <Skeleton className="h-6 w-52 rounded-full mb-8" />
               ) : total > 0 ? (
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/40 bg-cream text-xs text-muted mb-8">
-                  <span className="flex h-1.5 w-1.5 rounded-full bg-gold" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 border border-line bg-panel text-[10px] font-mono uppercase tracking-wider text-muted mb-8">
+                  <span className="flex h-1.5 w-1.5 bg-gold" />
                   <span>{total} listing{total !== 1 ? 's' : ''} available near USC</span>
                 </div>
               ) : null}
 
-              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-normal leading-[1.15] tracking-tight text-ink mb-5">
+              <h1 className="text-5xl md:text-6xl lg:text-[4rem] font-medium leading-[1.03] tracking-[-0.045em] text-ink mb-6">
                 Find a home.
                 <br />
-                <span className="text-brand italic">Not just a house.</span>
+                <span className="text-brand">Not just a house.</span>
               </h1>
 
-              <p className="text-base text-muted mb-8 leading-relaxed max-w-lg">
+              <p className="text-sm text-muted mb-9 leading-[1.8] max-w-lg">
                 A housing marketplace built for USC students. Browse places near campus and talk to landlords directly — no middlemen, no fees.
               </p>
 
-              <form onSubmit={handleSearch} className="flex gap-2 max-w-lg mb-8">
-                <div className="flex-1 relative">
+              <form onSubmit={handleSearch} className="flex max-w-lg mb-7">
+                <div className="flex-1 min-w-0 relative">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-faint" />
                   <input
                     type="text"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Search by area or keyword..."
-                    className="w-full pl-10 pr-4 py-3 rounded-lg text-sm bg-white border border-line text-ink placeholder-faint outline-none focus:ring-2 focus:ring-brand/20 transition-all"
+                    className="w-full pl-10 pr-4 py-3.5 rounded-none text-xs bg-panel border border-line text-ink placeholder-faint outline-none focus:border-brand transition-colors"
                   />
                 </div>
                 <button type="submit"
-                  className="bg-brand hover:bg-brand/90 text-white rounded-lg px-5 py-3 text-sm font-medium transition-colors">
+                  className="shrink-0 bg-brand hover:bg-brand/85 text-[#0b0c0e] border border-brand px-4 sm:px-6 py-3.5 text-xs font-semibold uppercase tracking-wider transition-colors">
                   Search
                 </button>
               </form>
@@ -283,7 +284,7 @@ export default function Home() {
                   { label: 'Near Campus', href: '/listings?sort=newest' },
                 ].map(f => (
                   <Link key={f.label} to={f.href}
-                    className="px-3 py-1.5 bg-white border border-line rounded-lg text-sm text-muted hover:border-brand/40 hover:text-ink transition-colors">
+                    className="px-3 py-1.5 bg-panel border border-line rounded-none text-[10px] font-mono uppercase tracking-wider text-muted hover:border-brand hover:text-ink transition-colors">
                     {f.label}
                   </Link>
                 ))}
@@ -291,22 +292,22 @@ export default function Home() {
             </div>
 
             {/* Right: live map */}
-            <div className="relative">
+            <div className="relative min-w-0 overflow-hidden">
               <Suspense
-                fallback={<div className="h-[400px] lg:h-[520px] rounded-xl border border-line bg-surface animate-pulse" />}
+                fallback={<div className="h-[400px] lg:h-[520px] rounded-sm border border-line bg-surface animate-pulse" />}
               >
                 <HomeMap
                   listings={listings}
-                  className="h-[400px] lg:h-[520px] rounded-xl overflow-hidden border border-line z-0"
+                  className="h-[400px] lg:h-[520px] rounded-none overflow-hidden border border-line z-0"
                 />
               </Suspense>
-              <div className="absolute bottom-3 left-3 z-[500] bg-white/95 backdrop-blur-sm border border-line rounded-lg px-3 py-1.5 flex items-center gap-4 text-xs text-muted shadow-sm pointer-events-none">
+              <div className="absolute bottom-3 left-3 z-[500] bg-panel/95 backdrop-blur-sm border border-line rounded-sm px-3 py-1.5 flex items-center gap-4 text-xs text-muted shadow-sm pointer-events-none">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-gold ring-1 ring-brand" />
                   <span>USC Campus</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-white ring-1 ring-ink/40" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-panel ring-1 ring-ink/40" />
                   <span>Listings</span>
                 </div>
               </div>
@@ -317,7 +318,7 @@ export default function Home() {
 
       {/* Stats strip */}
       {stats && (
-        <div className="border-t border-line bg-surface/30">
+        <div className="bg-panel">
           <div className="container-main">
             <dl className="grid grid-cols-3 divide-x divide-line">
               {[
@@ -325,7 +326,7 @@ export default function Home() {
                 { label: 'Starting at', value: `$${stats.min.toLocaleString()}/mo` },
                 { label: 'Average rent', value: `$${stats.avg.toLocaleString()}/mo` },
               ].map(s => (
-                <div key={s.label} className="py-6 text-center">
+                <div key={s.label} className="py-7 text-center">
                   <dt className="text-xs text-muted uppercase tracking-widest mb-1">{s.label}</dt>
                   <dd className="text-xl md:text-2xl font-semibold text-ink">{s.value}</dd>
                 </div>
@@ -337,11 +338,11 @@ export default function Home() {
 
       {/* Featured listings */}
       {(loading || featured.length > 0) && (
-        <section className="py-16 border-t border-line bg-white">
+        <section className="py-20 border-t border-line bg-panel">
           <div className="container-main">
-            <div className="flex items-end justify-between mb-10">
+            <div className="flex items-end justify-between mb-10 border-b border-line pb-4">
               <div>
-                <p className="text-xs text-muted uppercase tracking-widest mb-2">Browse</p>
+                <p className="text-[10px] text-brand uppercase tracking-[0.2em] mb-2">Browse / 01</p>
                 <h2 className="text-2xl md:text-3xl font-semibold text-ink">Latest Listings</h2>
                 <p className="text-muted text-sm mt-1">Recently posted near USC</p>
               </div>
@@ -368,10 +369,10 @@ export default function Home() {
       )}
 
       {/* Why DormSC */}
-      <section className="py-16 border-t border-line">
+      <section className="py-20 border-t border-line bg-canvas">
         <div className="container-main max-w-4xl">
           <div className="text-center mb-12">
-            <p className="text-xs text-muted uppercase tracking-widest mb-2">Why DormSC</p>
+            <p className="text-[10px] text-brand uppercase tracking-[0.2em] mb-2">Why DormSC / 02</p>
             <h2 className="text-2xl md:text-3xl font-semibold text-ink mb-2">Built for finding housing near campus</h2>
             <p className="text-muted text-sm">Everything is designed around one thing: USC students finding a place to live</p>
           </div>
@@ -396,19 +397,20 @@ export default function Home() {
       </section>
 
       {/* Landlord CTA */}
-      <section className="py-16 border-t border-line bg-white">
+      <section className="py-16 border-t border-line bg-panel">
         <div className="container-main">
-          <div className="relative overflow-hidden rounded-2xl bg-brand px-6 py-12 md:px-12 md:py-14 text-center">
+          <div className="relative overflow-hidden rounded-none bg-surface border border-line px-6 py-12 md:px-12 md:py-14 text-center">
             {/* subtle dot texture */}
             <div className="absolute inset-0 opacity-[0.07]"
               style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '22px 22px' }} />
             <div className="relative">
-              <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">Have a place near USC?</h2>
-              <p className="text-white/75 mb-7 text-sm max-w-md mx-auto leading-relaxed">
+              <p className="text-[10px] text-brand uppercase tracking-[0.2em] mb-4">For landlords / 03</p>
+              <h2 className="text-2xl md:text-3xl font-semibold text-ink mb-3">Have a place near USC?</h2>
+              <p className="text-muted mb-7 text-sm max-w-md mx-auto leading-relaxed">
                 Post your property in minutes and hear directly from students looking for housing. Free to list.
               </p>
               <Link to="/listings/new"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-white text-brand text-sm font-semibold hover:bg-cream transition-colors">
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-brand text-[#0b0c0e] text-xs uppercase tracking-wider font-semibold hover:bg-brand/85 transition-colors">
                 List Your Property <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

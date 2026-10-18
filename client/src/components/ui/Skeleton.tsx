@@ -4,7 +4,7 @@ export function Skeleton({ className = '' }: { className?: string }) {
 
 export function ListingCardSkeleton() {
   return (
-    <div className="rounded-xl bg-white border border-line overflow-hidden">
+    <div className="rounded-sm bg-panel border border-line overflow-hidden">
       <Skeleton className="aspect-[16/10] rounded-none" />
       <div className="p-5">
         <div className="flex items-start justify-between mb-3">

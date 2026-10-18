@@ -24,7 +24,7 @@ export default function Favorites() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-canvas">
         <div className="container-main pt-24 pb-12">
           <h1 className="text-2xl font-semibold mb-7 text-ink">Saved Listings</h1>
           <ListingGridSkeleton count={3} />
@@ -34,7 +34,7 @@ export default function Favorites() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-canvas">
       <div className="container-main pt-24 pb-12 animate-fade-in">
         <h1 className="text-2xl font-semibold mb-7 text-ink">Saved Listings</h1>
 
@@ -46,7 +46,7 @@ export default function Favorites() {
             <p className="text-xl font-semibold mb-2 text-muted">No saved listings yet</p>
             <p className="text-sm mb-7 text-muted">Browse listings and save the ones you like</p>
             <Link to="/listings"
-              className="bg-brand hover:bg-brand/90 text-white rounded-xl px-5 py-2.5 text-sm font-medium transition-colors">
+              className="bg-brand hover:bg-brand/90 text-white rounded-sm px-5 py-2.5 text-sm font-medium transition-colors">
               Browse Listings
             </Link>
           </div>
